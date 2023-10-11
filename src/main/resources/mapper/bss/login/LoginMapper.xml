@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="login">
+    <resultMap id="hashMapVO" type="com.sjinc.bss.framework.data.HashMapVO"/>
+    <resultMap id="hashMapResultVO" type="com.sjinc.bss.framework.data.HashMapResultVO"/>
+
+<!--    사용자 검색 쿼리-->
+    <select id="selectByIdAndPw" parameterType="java.util.Map" resultMap="hashMapResultVO">
+        select user_id, user_nm, user_email
+        from map_user
+        where user_id = #{userId,jdbcType=VARCHAR} AND user_pw = #{userPw,jdbcType=VARCHAR}
+    </select>
+</mapper>

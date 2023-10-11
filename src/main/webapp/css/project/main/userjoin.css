@@ -1,0 +1,157 @@
+@CHARSET "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none
+}
+
+.topLine {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-width: 1050px;
+    color: black;
+    text-align: center;
+    justify-content: center;
+    height: 6.2rem;
+    border-bottom: 2px solid #000;
+    background-color: white;
+    z-index: 999;
+}
+
+.topTitleIcon {
+    margin-top: 10px;
+    width: 80px;
+}
+
+.topTitle {
+    margin-top: 28px;
+    margin-left: 10px;
+    padding-right: 14px;
+}
+
+.joinLayout {
+    min-width: 1050px;
+    margin-top: 65px;
+    margin-bottom: 7px;
+    background-color: #fff;
+}
+
+.joinTitle {
+    margin-bottom: 30px;
+    font-size: 28px;
+    line-height: 35px;
+    font-weight: 550;
+    text-align: center;
+    letter-spacing: -1px;
+}
+
+.joinForm {
+    width: 680px;
+    margin: 0 auto;
+    border-top: 2px solid #000;
+}
+
+.inputArea {
+    display: inline-flex;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+.labelLayout {
+    width: 150px;
+    padding-top: 30px;
+    padding-left: 5px;
+}
+
+.labelInfo {
+    font-weight: 600;
+    line-height: 20px;
+    font-size: 18px;
+}
+
+.inputLayout {
+    flex: 1 1 0%;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.inputCenter {
+    padding-top: 16px;
+    position: relative;
+    height: 48px;
+}
+
+.inputText {
+    width: 350px;
+    height: 46px;
+    padding: 2px 11px 1px 15px;
+    border-radius: 4px;
+    border: 1px solid #8c8c8c;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: rgb(51, 51, 51);
+    outline: none;
+    box-sizing: border-box;
+}
+
+.inputText:disabled {
+    color: rgb(205, 205, 205);
+}
+
+.inputCheckButton {
+    height: 45px;
+    border-radius: 3px;
+    display: block;
+    margin-right: 22px;
+    margin-top: 16px;
+    padding: 0px 10px;
+    text-align: center;
+    overflow: hidden;
+    width: 120px;
+    color: rgb(95, 0, 128);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(95, 0, 128);
+    margin-left: 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.inputCheckButton:disabled {
+    border-color: rgb(221, 221, 221);
+    color: rgb(221, 221, 221);
+}
+
+.joinButtonArea {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border-top: 1px solid rgb(0, 0, 0);
+    margin-top: 40px;
+    padding: 42px 0px;
+    margin-left: 20px;
+}
+
+.joinButton {
+    display: block;
+    font-size: 18px;
+    padding: 0px 10px;
+    text-align: center;
+    overflow: hidden;
+    width: 330px;
+    height: 56px;
+    border-radius: 3px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(95, 0, 128);
+    border: 0px none;
+    cursor: pointer;
+}
