@@ -39,7 +39,7 @@ $(document).ready(function() {
 
     //이거를 어찌 잘쓰면 초기 메뉴를 따올꺼 같은데..
     // 제일 위에놈 한번만 클릭하게 만들면.
-    // $('.sidebar-top-level-item').click();
+    $('.sidebar-top-level-item').click();
 
 
     $('.sidebar-top-level-item-header').on("mouseover",function (e){
@@ -81,9 +81,7 @@ function setMenuEvent() {
         event.preventDefault();
         event.stopPropagation();
 
-        console.log(event)
-        console.log(programPath);
-        console.log('돈다')
+
 
         $this = $(this);
 
@@ -92,6 +90,15 @@ function setMenuEvent() {
         var programObj = new Object();
         var programPath = $this.data("program-path");
 
+
+
+        console.log(programObj)
+
+        // 처음 렌더링 전용 click을 하나 만들면 안되려나 싶음
+        // 어찌 count를 먹일 방법 찾아보기
+        if (programPath !== 'groupinsert') {
+            return;
+        }
 
 
         if(isEmpty(programPath)) {
