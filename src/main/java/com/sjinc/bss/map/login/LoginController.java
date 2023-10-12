@@ -32,7 +32,7 @@ public class LoginController {
     }
     
     // 로그인 요청 컨트롤러
-    @PostMapping("/login/Request")
+    @PostMapping("/login/loginRequest")
     public ResponseEntity<Void> loginRequest(HttpServletRequest httpServletRequest, @RequestBody Map<String, String> requestMap) {
         // 사용자 정보 검색
         HashMapResultVO userInfo = loginService.loginProcess(requestMap);
@@ -55,12 +55,7 @@ public class LoginController {
 
     // 로그아웃 요청 컨트롤러
     @PostMapping("/logout")
-    public String logout(HttpServletRequest request) {
-
-
-        System.out.println("여기돈다.");
-        // 로그인 버튼 disabled 되는거 구현하기 나중에 집가서
-        
+    public ResponseEntity<Void> logout(HttpServletRequest request, @RequestBody Map<String, String> requestMap) {
         try {
             HttpSession session = request.getSession();
             if (session != null) {
@@ -70,6 +65,6 @@ public class LoginController {
         } catch (Exception e) {
             log.error(FrameConstants.ERROR_SERVICE, e);
         }
-        return "123123123";
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

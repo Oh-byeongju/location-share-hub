@@ -17,23 +17,15 @@ public class FrameHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 로그인 정보를 확인하고 존재하면 Controller로 넘김
         HttpSession session = request.getSession(false);
-
-
-        System.out.println(session.getAttribute(FrameConstants.LOGIN_USER_ATTR));
-
         if (session != null) {
             Object obj = session.getAttribute(FrameConstants.LOGIN_USER_ATTR);
             if (obj != null) {
-                System.out.println("세션을 받음");
-                
                 return true;
             }
         }
 
         // 로그인 정보가 없으면 리다이렉션
         response.sendRedirect(request.getContextPath() + "/login");
-
         return true;
     }
-
 }

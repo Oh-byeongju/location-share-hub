@@ -26,7 +26,7 @@
         <span style="font-size: 26px; font-weight: bold;cursor: pointer" onclick="window.location.reload();">CCMS v1.0</span>
     </div>--%>
     <div class="topDivL" style="cursor : pointer;display: flex;align-items: center" onclick="window.location.reload();">
-        <img alt="로고" src="${myContextPath}/img/project/logo/img-head-logo.png" class="logoImg" />
+        <img alt="로고" src="${myContextPath}/img/project/logo/map_logo.png" class="logoImg" />
         <div style="font-size: 20px;font-weight: bold;letter-spacing: -0.1px;padding-left: 10px;">위치정보 공유 플랫폼</div>
     </div>
     <div class="topDivR">
@@ -34,14 +34,8 @@
             <div class="icoLogout"></div>로그아웃
         </div>
     </div>
-
     <div class="topDivR">
-        <div id="userInfo" class="btn">
-            <div class="icoUser"></div>내정보
-        </div>
-    </div>
-    <div class="topDivR">
-<%--        <span class="clsUserNm">[<%=FrameStringUtil.isNullDefaultValue(USER_NM, "Guest") %>]</span><span class="clsUserTxt">님이 로그인 하였습니다.</span>--%>
+        <span class="clsUserNm">[<%=FrameStringUtil.isNullDefaultValue(USER_NM, "Guest") %>]</span><span class="clsUserTxt">님 환영합니다.</span>
     </div>
 </div>
 
@@ -63,6 +57,49 @@
                         <span class="clsTopSubMenuTxt" style="position: relative; top: 6px; display: inline;">메뉴</span>
                     </div>
                 </li>
+
+
+<%--                이쪽에서 링크로 넘김--%>
+<%--                그룹의 정보나 가입 페이지 같은걸 path로 던져주기--%>
+<%--                아래쪽에 path 기준으로 iframe이 생성됨--%>
+                <li class="sidebar-top-level-item" title="그룹 가입 / 생성"
+                    data-program-id="groupinsert"
+                    data-program-name="groupinsert"
+                    data-program-path="groupinsert"
+                    data-program-path-name="groupinsert"
+                    data-program-rmrk="groupinsert" >
+                    <a class="sidebar-top-level-item-header">
+                        <div class="menuIco">
+                            <img class="menu-image" src="/img/project/menuicon/ico-menu-06.png">
+                        </div>
+                        <%--<img alt="메뉴" title="${menuVo.menuNm}" class = "menuIco" style="display:flex" src="${myContextPath}${menuVo.menuImg}"/>--%>
+                        <span class = "nav-item-name" >
+                            그룹 가입 / 생성
+                        </span>
+                    </a>
+                </li>
+
+
+
+
+                <li class="sidebar-top-level-item" title="그룹 관리"
+                    data-program-id="sy101"
+                    data-program-name="sy101"
+                    data-program-path="sy101"
+                    data-program-path-name="sy101"
+                    data-program-rmrk="sy101">
+                    <a class="sidebar-top-level-item-header">
+                        <div class="menuIco">
+                            <img class="menu-image" src="/img/project/menuicon/ico-menu-02.png">
+                        </div>
+                        <%--<img alt="메뉴" title="${menuVo.menuNm}" class = "menuIco" style="display:flex" src="${myContextPath}${menuVo.menuImg}"/>--%>
+                        <span class = "nav-item-name" >
+                            그룹 관리
+                        </span>
+                    </a>
+
+                </li>
+
 
                 <c:forEach var="menuVo" items="${MENU_LIST}" varStatus="status">
                     <li class="sidebar-top-level-item" >
@@ -110,7 +147,7 @@
                         <ul class="sidebar-sub-level-items">
                             <c:forEach var="pgmVo" items="${menuVo.pgmDtoArrayList}" varStatus="status2">
                                 <c:if test="${status.index eq 0 and status2.index eq 0}">
-                                    <span style="display: none" id="firstPgmId">${pgmVo.pgmId}</span>
+<%--                                    <span style="display: none" id="firstPgmId">${pgmVo.pgmId}</span>--%>
                                 </c:if>
                             <li class="btnProgram"
                                 title="${pgmVo.pgmNm}"
@@ -138,6 +175,9 @@
 		<span></span>
 	</span>
 </div>
+
+
+<%--여기에 밀어넣기--%>
 <div id="programArea">
     <iframe id="programFrame" name="programFrame" src="" frameborder="0" scrolling="no" ></iframe>
 </div>

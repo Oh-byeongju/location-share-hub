@@ -26,19 +26,19 @@
             <div class="inputArea">
                 <div class="inputLayout">
                     <div class="inputCenter">
-                        <input class="inputText" placeholder="아이디를 입력해주세요." maxlength="15" id="id_text" type="text">
+                        <input class="inputText" placeholder="아이디를 입력해주세요." maxlength="15" id="idText" type="text" autocomplete="off">
                     </div>
                 </div>
             </div>
             <div class="inputArea">
                 <div class="inputLayout">
                     <div class="inputCenter">
-                        <input class="inputText" placeholder="비밀번호를 입력해주세요." maxlength="20" id="pw_text" type="password">
+                        <input class="inputText" placeholder="비밀번호를 입력해주세요." maxlength="20" id="pwText" type="password">
                     </div>
                 </div>
             </div>
             <div class="loginButtonArea">
-                <button id="loginButton" type="button">
+                <button id="loginButton" type="button" disabled="true">
                     로그인
                 </button>
             </div>

@@ -4,7 +4,6 @@ $(document).ready(function() {
 
     setMenuEvent();
 
-
     $('.toggle-sidebar-button').click();
 
     $(".LogOutImg").click(function() {
@@ -26,7 +25,9 @@ $(document).ready(function() {
 
     //getMessageBox();
 
-    //개발 초기화면 선택
+
+
+
 /*
     if($('.btnProgram[data-program-id="CM103"]').length){
         $('.btnProgram[data-program-id="CM103"]').click();
@@ -35,6 +36,10 @@ $(document).ready(function() {
     }
 */
     $('.btnProgram[data-program-id="'+$("#firstPgmId").text()+'"]').click();
+
+    //이거를 어찌 잘쓰면 초기 메뉴를 따올꺼 같은데..
+    // 제일 위에놈 한번만 클릭하게 만들면.
+    // $('.sidebar-top-level-item').click();
 
 
     $('.sidebar-top-level-item-header').on("mouseover",function (e){
@@ -73,9 +78,48 @@ function setMenuEvent() {
 
     //menu toggle
     $('.sidebar-top-level-item').click(function(event){
+        event.preventDefault();
+        event.stopPropagation();
+
+        console.log(event)
+        console.log(programPath);
+        console.log('돈다')
+
+        $this = $(this);
+
+        var form = $("form#subMenuArea")[0];
+
+        var programObj = new Object();
+        var programPath = $this.data("program-path");
+
+
+
+        if(isEmpty(programPath)) {
+            popup.alert.show("프로그램 Path정보가 없어서 실행할 수 없습니다.");
+            return;
+        }
+
+        $("#programId").val($this.data("program-id"));
+        $("#programName").val($this.data("program-name"));
+        $("#programPathName").val($this.data("program-path-name"));
+        $("#bizGb").val($(".menuBtn.selected").html());
+
+        var queryString = toQueryString(programObj);
+
+        form.action = commonContextPath + programPath;
+        form.submit();
+
+        $("body").removeClass("mainBg");
+        $(".clsSubMenu dl[data-selected='Y']").attr("data-selected", "N");
+        $(".clsSubMenu li[data-selected='Y']").attr("data-selected", "N");
+
+        $this.parent().closest("div").attr("data-selected", "Y");
+        $this.attr("data-selected", "Y");
+
+
         if($('#subMenuArea').hasClass('open')){
 
-            $(this).toggleClass('active');
+            // $(this).toggleClass('active');
 
             if($(this).hasClass('active')){
                 $(this).find('.sidebar-sub-level-items').css({
@@ -117,103 +161,23 @@ function setMenuEvent() {
             'margin-top' : '0px',
         });
     });
-
-    $(".btnProgram").click(function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        $this = $(this);
-
-        var form = $("form#subMenuArea")[0];
-
-        var programObj = new Object();
-        var programPath = $this.data("program-path");
-
-        if(isEmpty(programPath)) {
-            popup.alert.show("프로그램 Path정보가 없어서 실행할 수 없습니다.");
-            return;
-        }
-
-        $("#programId").val($this.data("program-id"));
-        $("#programName").val($this.data("program-name"));
-        $("#programPathName").val($this.data("program-path-name"));
-        $("#bizGb").val($(".menuBtn.selected").html());
-
-        var queryString = toQueryString(programObj);
-
-        form.action = commonContextPath + programPath;
-        form.submit();
-
-        $("body").removeClass("mainBg");
-        $(".clsSubMenu dl[data-selected='Y']").attr("data-selected", "N");
-        $(".clsSubMenu li[data-selected='Y']").attr("data-selected", "N");
-
-        $this.parent().closest("div").attr("data-selected", "Y");
-        $this.attr("data-selected", "Y");
-
-    });
 }
 
 function btnLogoutClick() {
     popup.confirm.show("로그아웃 하시겠습니까?", function(bool) {
         if(bool) {
             try {
-                console.log('f')
-                console.log('fsaaa')
                 var param = {"COMP_CD":USER_INFO.COMP_CD, "USER_ID":USER_INFO.USER_ID, "USER_IP":USER_INFO.USER_IP};
-
-                console.log(param);
                 var callback = new Callback(function(result) {
                     document.location = commonContextPath + '/login';
                 });
                 callback.setShowLoading(false);
-                platform.postService("/logout", "1", callback);
+                platform.postService("/logout", param, callback);
             } catch (e) {}
         }
     });
 }
 
-function btnMenu(bObj){
-    var param = {"PGM_ID":checkEmpty($("#programId").val(), "NONE"), "ACTION":$(bObj).prop("id"), "COMP_CD":USER_INFO.COMP_CD, "USER_ID":USER_INFO.USER_ID, "USER_IP":USER_INFO.USER_IP};
-    var callback = new Callback(function(result) {});
-    callback.setShowLoading(false);
-    //platform.postService("/mngr/saveMenuLog", param, callback, false);
-}
-
-function fnGoMenu(pgmId, param){
-    var menuInfo = getMenuInfo(USER_INFO.USER_GB_CD, pgmId, false);
-
-    if(menuInfo.MENU_ID){
-        $("#menuIco").click();
-
-        var form = $("form#subMenuArea")[0];
-
-        $("#programId").val(menuInfo.MENU_ID);
-        $("#programName").val(menuInfo.MENU_NM);
-        $("#programPathName").val(menuInfo.DEPTH_FULL_NAME);
-
-        for (var key in param) {
-            if (param.hasOwnProperty(key)) {
-                var hiddenField = document.createElement("input");
-                hiddenField.setAttribute("class", "custom");
-                hiddenField.setAttribute("type", "hidden");
-                hiddenField.setAttribute("name", key);
-                hiddenField.setAttribute("value", param[key]);
-                form.appendChild(hiddenField);
-            }
-        }
-        form.action = "/rdsbody" + menuInfo.PATH;
-        form.submit();
-
-        for (var key in param) {
-            if (param.hasOwnProperty(key)) {
-                if($("input[name='"+key+"']").length>0){
-                    $("input[name='"+key+"']").remove();
-                }
-            }
-        }
-    }
-}
 
 function btnAtteClick(){
     popup.confirm.show("출근 처리 하시겠습니까?", function(bool) {

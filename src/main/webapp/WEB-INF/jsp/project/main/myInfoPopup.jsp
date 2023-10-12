@@ -20,47 +20,32 @@
     .buttonArea {
         float: none !important;
         width: 100% !important;
-        line-height: 55px !important;
         text-align: right !important;
+        line-height: 80px;
     }
     #titleArea {
         width: calc(100% - 20px) !important;
         margin-left: 10px !important;
     }
 </style>
-<form id="postForm" name="postForm" class="formArea" style="left:20px; width: calc(100% - 20px);border:1px solid #eee;top:80px"  onsubmit="return false;">
-
-    <div class="formRow c2">
-        <label for="userId">아이디</label>
-        <input id="userId" name="userId" type="text" maxlength="20" style="width:calc(100% - 160px);"
-               data-field="userId"
-               data-format="upper"
-               value="<%=USER_ID%>"
-            disabled />
-    </div>
-
-    <div class="formRow c2">
-        <label for="userNm">이름</label>
-        <input id="userNm" name="userNm" type="text" maxlength="20" style="width:calc(100% - 160px);"
-               data-field="userNm"
-               data-required="true"
-               value="<%=USER_NM%>"
-        />
-    </div>
+<form id="postForm" name="postForm" class="formArea" style="left:20px; top:40px" width: calc(100% - 60px); border:1px solid #eee;  onsubmit="return false;">
 
     <div class="formRow c2">
         <label for="pwd">비밀번호</label>
-        <input id="pwd" name="pwd" type="password" maxlength="20" style="width:calc(100% - 160px);"
+        <input id="pwd" name="pwd" type="password" maxlength="30" style="width:calc(100% + 40px);"
                data-field="pwd"/>
         <span id="spanmsg1"></span>
     </div>
 
-    <div class="formRow c2">
-        <label for="pwdChk">비밀번호 확인</label>
-        <input id="pwdChk" name="pwdChk" type="password" maxlength="20" style="width:calc(100% - 160px);"
-               data-field="pwdChk"/>
+</form>
+    <div class="buttonArea">
+        <button style="margin-right: 5px">
+            확인
+        </button>
+        <button style="margin-right: 20px">
+            취소
+        </button>
     </div>
 
-</form>
 </body>
 </html>

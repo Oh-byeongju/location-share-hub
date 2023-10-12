@@ -45,9 +45,7 @@
 //        //로그인 사용자 정보
 //        LoginUserVo loginUserVo = getLoginUserDetails(request);
 //
-//        //menu/pgm 목록을 불러 온다.
-//        ArrayList<MenuPgmVo> menuList = menuPgmDetails.getMenulistByUserGroup(loginUserVo.getCompCd(), loginUserVo.getUserGbCd());
-//        log.info(menuList.toString());
+//
 //
 //        ModelAndView modelAndView = new ModelAndView("/project/main/main");
 //        modelAndView.addObject("MENU_LIST", menuList);

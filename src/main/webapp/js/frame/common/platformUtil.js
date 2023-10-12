@@ -39,12 +39,6 @@ platform.postService = function(url, data, callbackFunc, async) {
 	if (typeof async !== "boolean") {
 		async = true;
 	}
-	
-	//url = "${pageContext.request.contextPath}" + url;
-
-	console.log(platformContext + url);
-
-
 	$.ajax({
 		type: "post",
 		url: platformContext + url,
@@ -53,8 +47,6 @@ platform.postService = function(url, data, callbackFunc, async) {
 		async: async,
 		withCredentials: true,
 		success: function(data, jqXHR) {
-			console.log(data);
-			console.log(jqXHR);
 			var result = data;
 			callbackFunc.callback(data);
 		},

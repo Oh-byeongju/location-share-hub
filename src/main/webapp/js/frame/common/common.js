@@ -157,6 +157,7 @@ var listener = {
 		"news" : {click : function() {console.log("button.news.click default", arguments);}},
 		"search" : {click : function() {console.log("button.search.click default", arguments);}},
 		"save" : {click : function() {console.log("button.save.click default", arguments);}},
+		"join" : {click : function() {console.log("button.join.click default", arguments);}},
 		"edit" : {click : function() {console.log("button.edit.click default", arguments);}},
 		"del" : {click : function() {console.log("button.del.click default", arguments);}},
 

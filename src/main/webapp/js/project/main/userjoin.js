@@ -83,31 +83,33 @@ $(document).ready(function() {
         else if ($("#emailCheckButton").attr('disabled') === undefined) {
             alert("이메일 중복확인을 해주세요!");
         }
-
-
-
-
-        // // email 빈칸 예외처리
-        // if (emailInput === null || emailInput.trim() === '') {
-        //     alert("이메일을 입력해주세요!");
-        // } else {
-        //     $.ajax({
-        //         type : "GET",
-        //         async: true,
-        //         url : "http://localhost:8080/userjoin/emailCheck", // 이메일 중복확인 URL
-        //         data : {email: emailInput}, // RequestParam 값
-        //         contentType: "application/json",									// 무슨형의 데이터를 보낼것인지
-        //         dataType : "json",													// 무슨형으로 데이터를 받을것인지
-        //         success : function(data, jqXHR) {
-        //             alert('사용 가능한 이메일입니다.');
-        //             $("#emailText").attr('disabled', true);
-        //             $("#emailCheckButton").attr('disabled', true);
-        //         },
-        //         error : function(data) {
-        //             alert('이미 사용중인 이메일입니다.');
-        //         }
-        //     });
-        // }
+        else {
+            $.ajax({
+                type: "POST",
+                async: true,
+                url: "http://localhost:8080/userjoin/joinRequest", // 회원가입 요청 URL
+                data: JSON.stringify({
+                    id: idInput,
+                    pw: pwInput,
+                    pwConfirm: pwConfirmInput,
+                    name: nameInput,
+                    email: emailInput
+                }), // body에 넣을 값
+                contentType: "application/json",									// 무슨형의 데이터를 보낼것인지
+                dataType: "json",													// 무슨형으로 데이터를 받을것인지
+                withCredentials: true,          // 세션 쿠키 날리는 설정
+                success: function (data, jqXHR) {
+                    // 요청이 정상적으로 되었을때 실행
+                    if (jqXHR === 'nocontent') {
+                        alert('회원가입에 성공했습니다.');
+                        $(location).attr('href', "http://localhost:8080/login");
+                    }
+                },
+                error: function (data) {
+                    alert('회원가입에 실패하였습니다. (오류 발생)');
+                    $(location).attr('href', "http://localhost:8080/userjoin");
+                }
+            });
+        }
     });
-
 });

@@ -113,6 +113,11 @@ a {
     cursor: pointer;
 }
 
+#loginButton:disabled {
+    background-color: #dddfe4 !important;
+    cursor: default !important;
+}
+
 .joinButtonArea {
     display: flex;
     -webkit-box-pack: center;

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="groupInsert">
+    <resultMap id="hashMapVO" type="com.sjinc.bss.framework.data.HashMapVO"/>
+    <resultMap id="hashMapResultVO" type="com.sjinc.bss.framework.data.HashMapResultVO"/>
+
+<!--    그룹 검색 쿼리-->
+    <select id="selectByLikeId" parameterType="String" resultMap="hashMapResultVO">
+        SELECT mg.group_id, mg.user_id, mg.group_nm, mu.user_email, mg.insert_dt
+        FROM map_group mg LEFT OUTER JOIN map_user mu ON mg.user_id = mu.user_id
+        WHERE mg.group_nm LIKE '%' || #{groupId, jdbcType=VARCHAR} || '%'
+        ORDER BY insert_dt;
+    </select>
+</mapper>

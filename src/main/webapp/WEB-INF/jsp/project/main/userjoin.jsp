@@ -31,7 +31,7 @@
                 </div>
                 <div class="inputLayout">
                     <div class="inputCenter">
-                        <input id="idText" class="inputText" placeholder="아이디를 입력해주세요." maxlength="15">
+                        <input id="idText" class="inputText" placeholder="아이디를 입력해주세요." maxlength="15" autocomplete="off">
                     </div>
                 </div>
                 <button id="idCheckButton" class="inputCheckButton" type="button">
@@ -70,7 +70,7 @@
                 </div>
                 <div class="inputLayout">
                     <div class="inputCenter">
-                        <input id="nameText" class="inputText" placeholder="이름을 입력해주세요." maxlength="8">
+                        <input id="nameText" class="inputText" placeholder="이름을 입력해주세요." maxlength="8" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="inputLayout">
                     <div class="inputCenter">
-                        <input id="emailText" class="inputText" placeholder="이메일을 입력해주세요." maxlength="49">
+                        <input id="emailText" class="inputText" placeholder="이메일을 입력해주세요." maxlength="49" autocomplete="off">
                     </div>
                 </div>
                 <button id="emailCheckButton" class="inputCheckButton" type="button">

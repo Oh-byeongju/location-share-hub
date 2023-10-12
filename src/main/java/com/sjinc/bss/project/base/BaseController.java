@@ -41,6 +41,24 @@ public class BaseController {
         return modelAndView;
     }
 
+    // LSH 전용 메소드
+    protected ModelAndView makeDefaultModelAndViewMap(HttpServletRequest request, String programId) {
+        ModelAndView modelAndView = new ModelAndView("/project/map/" + programId + "/" + programId);  // -> /project/map/groupinsert/groupinsert
+        try {
+            //1. 로그인 사용자 정보를 받아 온다.
+            LoginUserVo loginUserVo = getLoginUserDetails(request);
+
+            //2. 프로그램의 메뉴정보를 검색한다.
+            PageTitleVo pageTitleVo = menuPgmDetails.getPgmTitleAndAuthInfo(loginUserVo.getCompCd(), loginUserVo.getUserGbCd(), programId);
+            modelAndView.addObject(FrameConstants.PAGE_TITLE_ATTR, pageTitleVo); //호출된 페이지의 메뉴 정보 (ProgramId, ProgramName 등)
+        } catch (Exception e) {
+            log.error(FrameConstants.ERROR_CONTROLLER, e);
+        }
+        return modelAndView;
+    }
+
+
+
     /**
      * programId를 통해서 view path를 구한다. ( sy204 -> /project/sy/sy204/sy204 )
      *

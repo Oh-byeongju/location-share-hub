@@ -7,6 +7,7 @@ body {
 #titleArea .buttonArea button {
 	padding-left: 15px;
 	padding-right: 15px;
+	margin-left: 10px;
 	height: 32px;
 	line-height: 32px;
 	min-width: 80px;
@@ -358,7 +359,7 @@ body {
 }
 
 .formRow.c2 {
-	width: calc(50% - 2px);
+	width: 140px;
 	display:inline-block;
 }
 
