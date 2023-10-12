@@ -23,24 +23,23 @@ $(document).ready(function() {
         btnLeavClick();
     })
 
-    //getMessageBox();
+    // 제일 첫번째 태그의 path
+    // 처음에 렌더링 되면 처음 화면을 밀어넣어줌
+    const firstLiElement = $(".sidebar-top-level-item").first();
+    const programPath = firstLiElement.data("program-path");
 
+    $("#programId").val(firstLiElement.data("program-id"));
+    $("#programName").val(firstLiElement.data("program-name"));
+    $("#programPathName").val(firstLiElement.data("program-path-name"));
 
+    var form = $("form#subMenuArea")[0];
 
+    form.action = commonContextPath + programPath;
+    form.submit();
 
-/*
-    if($('.btnProgram[data-program-id="CM103"]').length){
-        $('.btnProgram[data-program-id="CM103"]').click();
-    }else{
-        $('.btnProgram[data-program-id="BD101"]').click();
-    }
-*/
-    $('.btnProgram[data-program-id="'+$("#firstPgmId").text()+'"]').click();
-
-    //이거를 어찌 잘쓰면 초기 메뉴를 따올꺼 같은데..
-    // 제일 위에놈 한번만 클릭하게 만들면.
-    $('.sidebar-top-level-item').click();
-
+    $("body").removeClass("mainBg");
+    $(".clsSubMenu dl[data-selected='Y']").attr("data-selected", "N");
+    $(".clsSubMenu li[data-selected='Y']").attr("data-selected", "N");
 
     $('.sidebar-top-level-item-header').on("mouseover",function (e){
         const imgSrc = $(this).children().get(0).children[0].src;
@@ -81,25 +80,11 @@ function setMenuEvent() {
         event.preventDefault();
         event.stopPropagation();
 
-
-
         $this = $(this);
 
         var form = $("form#subMenuArea")[0];
-
         var programObj = new Object();
         var programPath = $this.data("program-path");
-
-
-
-        console.log(programObj)
-
-        // 처음 렌더링 전용 click을 하나 만들면 안되려나 싶음
-        // 어찌 count를 먹일 방법 찾아보기
-        if (programPath !== 'groupinsert') {
-            return;
-        }
-
 
         if(isEmpty(programPath)) {
             popup.alert.show("프로그램 Path정보가 없어서 실행할 수 없습니다.");

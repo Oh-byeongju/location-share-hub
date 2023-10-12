@@ -49,15 +49,6 @@
             <input type="hidden" id="openParm" name="openParm">
 
 			<ul class="sidebar-top-level-items">
-                <li style="display: none">
-                    <div class="clsTopSubMenu">
-                        <span class="clsTopSubMenuImg">
-                            <img id="menuIco" style="cursor: pointer; position:relative;" alt="메뉴" src="${myContextPath}/img/project/main/ico_list.png"/>
-                        </span>
-                        <span class="clsTopSubMenuTxt" style="position: relative; top: 6px; display: inline;">메뉴</span>
-                    </div>
-                </li>
-
 
 <%--                이쪽에서 링크로 넘김--%>
 <%--                그룹의 정보나 가입 페이지 같은걸 path로 던져주기--%>
