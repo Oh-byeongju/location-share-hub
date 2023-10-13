@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sjinc.bss.project.main.entity.MainMapper">
+    <resultMap id="hashMapVO" type="com.sjinc.bss.framework.data.HashMapVO"/>
+    <resultMap id="hashMapResultVO" type="com.sjinc.bss.framework.data.HashMapResultVO"/>
+
+<!--    사용자가 가입된 그룹 조회 (차단된 것 제외)-->
+    <select id="selectGroupsByUserId" parameterType="String" resultMap="hashMapResultVO">
+        SELECT group_id, group_nm
+        FROM map_group
+        WHERE group_id IN (
+            SELECT group_id
+            FROM map_group_user
+            WHERE user_id = #{userId} AND group_user_rank_cd != '차단'
+            );
+    </select>
+
+
+
+
+
 
     <select id="selectMessage" resultType="com.sjinc.bss.project.main.entity.MainMessageDto">
 

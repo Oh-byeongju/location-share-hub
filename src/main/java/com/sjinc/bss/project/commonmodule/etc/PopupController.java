@@ -53,7 +53,7 @@ public class PopupController extends BaseController {
     @RequestMapping(value = "/myInfo")
     public ModelAndView myInfoDefaultPage(HttpServletRequest request, HttpServletResponse response, @RequestParam String programId) {
         ModelAndView mv = makeDefaultModelAndView(request, programId); // 내정보 programId : SY000P1
-        mv.setViewName("/project/main/myInfoPopup");
+        mv.setViewName("groupjoinPopup");
         return mv;
     }
 

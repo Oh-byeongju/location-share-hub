@@ -10,10 +10,10 @@ $(document).ready(function() {
         btnLogoutClick();
     });
 
-    $("#userInfo").click(function() {
-        let callback = new Callback(function () { });
-        customPopup.show("/myInfo?programId=SY000P1", "내정보", 750, 250, callback, { });
-    });
+    // $("#userInfo").click(function() {
+    //     let callback = new Callback(function () { });
+    //     customPopup.show("/myInfo?programId=SY000P1", "내정보", 750, 250, callback, { });
+    // });
 
     $('#btnAtte').click(function () {
         btnAtteClick();
@@ -54,33 +54,13 @@ $(document).ready(function() {
             $(this).children().get(0).children[0].src = imgSrc.replace("-ov.png",".png")
         }
     })
-});
 
-function setMenuEvent() {
-
-    //sidebar toggle
-    $('.toggle-sidebar-button').click(function(){
-        $('.sidebar-top-level-item').removeClass('active');
-        $('#subMenuArea').toggleClass('open');
-        if($('#subMenuArea').hasClass('open')){
-            $('#programArea').css({
-                'width':'calc(100% - 227px)',
-                'transition' : 'width 0.3s'
-            });
-        }else{
-            $('#programArea').css({
-                'width':'calc(100% - 62px)',
-                'transition' : 'width 0.3s'
-            });
-        }
-    });
-
-    //menu toggle
-    $('.sidebar-top-level-item').click(function(event){
+    // 동적으로 삽입된 li 태그 이벤트 추가
+    $('.sidebar-top-level-items').on('click', 'li', function(event) {
         event.preventDefault();
         event.stopPropagation();
 
-        $this = $(this);
+        var $this = $(this);
 
         var form = $("form#subMenuArea")[0];
         var programObj = new Object();
@@ -107,52 +87,85 @@ function setMenuEvent() {
 
         $this.parent().closest("div").attr("data-selected", "Y");
         $this.attr("data-selected", "Y");
-
-
-        if($('#subMenuArea').hasClass('open')){
-
-            // $(this).toggleClass('active');
-
-            if($(this).hasClass('active')){
-                $(this).find('.sidebar-sub-level-items').css({
-                    'margin-top' : '0px',
-                });
-            }
-            else{
-                let y = $('#subMenuArea').scrollTop();
-
-                $(this).find('.sidebar-sub-level-items').css({
-                    'margin-top' : (-54 - y) +'px',
-                });
-            }
-
-        }
     });
+});
 
-    //menu toggle css
-    $('.sidebar-top-level-item').mouseover(function(){
-
-        let items = $(this).find('.sidebar-sub-level-items');
-        if($(this).hasClass('active')){
-            $(items).css({
-                'margin-top' : '0px',
+function setMenuEvent() {
+    //sidebar toggle
+    $('.toggle-sidebar-button').click(function(){
+        $('.sidebar-top-level-item').removeClass('active');
+        $('#subMenuArea').toggleClass('open');
+        if($('#subMenuArea').hasClass('open')){
+            $('#programArea').css({
+                'width':'calc(100% - 227px)',
+                'transition' : 'width 0.3s'
             });
         }else{
-            let y = $('#subMenuArea').scrollTop();
-
-            $(items).css({
-                'margin-top' : (-y -54) +'px',
+            $('#programArea').css({
+                'width':'calc(100% - 62px)',
+                'transition' : 'width 0.3s'
             });
         }
     });
 
-    //menu toggle css
-    $('.sidebar-top-level-item').mouseleave(function(){
-        let items = $(this).find('.sidebar-sub-level-items');
-        $(items).css({
-            'margin-top' : '0px',
-        });
-    });
+    // // menu toggle 함수
+    // $('.sidebar-top-level-item').click(function(event){
+    //     event.preventDefault();
+    //     event.stopPropagation();
+    //
+    //     $this = $(this);
+    //
+    //     var form = $("form#subMenuArea")[0];
+    //     var programObj = new Object();
+    //     var programPath = $this.data("program-path");
+    //
+    //     if(isEmpty(programPath)) {
+    //         popup.alert.show("프로그램 Path정보가 없어서 실행할 수 없습니다.");
+    //         return;
+    //     }
+    //
+    //     $("#programId").val($this.data("program-id"));
+    //     $("#programName").val($this.data("program-name"));
+    //     $("#programPathName").val($this.data("program-path-name"));
+    //     $("#bizGb").val($(".menuBtn.selected").html());
+    //
+    //     var queryString = toQueryString(programObj);
+    //
+    //     form.action = commonContextPath + programPath;
+    //     form.submit();
+    //
+    //     $("body").removeClass("mainBg");
+    //     $(".clsSubMenu dl[data-selected='Y']").attr("data-selected", "N");
+    //     $(".clsSubMenu li[data-selected='Y']").attr("data-selected", "N");
+    //
+    //     $this.parent().closest("div").attr("data-selected", "Y");
+    //     $this.attr("data-selected", "Y");
+    // });
+
+    // //menu toggle css
+    // $('.sidebar-top-level-item').mouseover(function(){
+    //
+    //     let items = $(this).find('.sidebar-sub-level-items');
+    //     if($(this).hasClass('active')){
+    //         $(items).css({
+    //             'margin-top' : '0px',
+    //         });
+    //     }else{
+    //         let y = $('#subMenuArea').scrollTop();
+    //
+    //         $(items).css({
+    //             'margin-top' : (-y -54) +'px',
+    //         });
+    //     }
+    // });
+    //
+    // //menu toggle css
+    // $('.sidebar-top-level-item').mouseleave(function(){
+    //     let items = $(this).find('.sidebar-sub-level-items');
+    //     $(items).css({
+    //         'margin-top' : '0px',
+    //     });
+    // });
 }
 
 function btnLogoutClick() {

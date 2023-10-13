@@ -1,6 +1,8 @@
 package com.sjinc.bss.project.base;
 
 import com.sjinc.bss.framework.FrameConstants;
+import com.sjinc.bss.framework.data.HashMapResultVO;
+import com.sjinc.bss.framework.data.HashMapStringVO;
 import com.sjinc.bss.framework.model.LoginUserVo;
 import com.sjinc.bss.project.commonmodule.menuprogram.MenuPgmDetails;
 import com.sjinc.bss.project.commonmodule.menuprogram.PageTitleVo;
@@ -93,4 +95,19 @@ public class BaseController {
         return result;
     }
 
+    // 로그인 id 뽑는 메소드(LSH)
+    protected static String getLoginId(HttpServletRequest request) {
+        String result = "";
+
+        HttpSession httpSession = request.getSession();
+        if (httpSession != null) {
+            Object obj = httpSession.getAttribute(FrameConstants.LOGIN_USER_ATTR);
+            if (obj != null) {
+                HashMapResultVO map = (HashMapResultVO) obj;
+                result = (String) map.get("userId");
+            }
+        }
+
+        return result;
+    }
 }

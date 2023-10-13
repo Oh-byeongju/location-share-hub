@@ -49,10 +49,24 @@
             <input type="hidden" id="openParm" name="openParm">
 
 			<ul class="sidebar-top-level-items">
+                <c:forEach var="groupVO" items="${GROUP_LIST}" varStatus="status">
+                    <li class="sidebar-top-level-item" title="${groupVO.groupNm} 그룹"
+                        data-program-id="${groupVO.groupId}"
+                        data-program-name="${groupVO.groupId}"
+                        data-program-path="${groupVO.groupId}"
+                        data-program-path-name="${groupVO.groupId}"
+                        data-program-rmrk="${groupVO.groupId}">
+                        <a class="sidebar-top-level-item-header">
+                            <div class="menuIco">
+                                <img class="menu-image" src="/img/project/menuicon/ico-menu-03.png">
+                            </div>
+                            <span class="nav-item-name">
+                                ${groupVO.groupNm} 그룹
+                            </span>
+                        </a>
+                    </li>
+                </c:forEach>
 
-<%--                이쪽에서 링크로 넘김--%>
-<%--                그룹의 정보나 가입 페이지 같은걸 path로 던져주기--%>
-<%--                아래쪽에 path 기준으로 iframe이 생성됨--%>
                 <li class="sidebar-top-level-item" title="그룹 가입 / 생성"
                     data-program-id="groupinsert"
                     data-program-name="groupinsert"
@@ -70,9 +84,6 @@
                     </a>
                 </li>
 
-
-
-
                 <li class="sidebar-top-level-item" title="그룹 관리"
                     data-program-id="sy101"
                     data-program-name="sy101"
@@ -88,71 +99,7 @@
                             그룹 관리
                         </span>
                     </a>
-
                 </li>
-
-
-                <c:forEach var="menuVo" items="${MENU_LIST}" varStatus="status">
-                    <li class="sidebar-top-level-item" >
-                        <a class="sidebar-top-level-item-header">
-                            <div class="menuIco">
-                            <c:choose>
-                                <%-- 업무함 --%>
-                                <c:when test="${menuVo.menuId eq 'BB000'}">
-                                    <img class="menu-image" src="/img/project/menuicon/ico-menu-01.png">
-                                </c:when>
-                                <%-- 관리 --%>
-                                <c:when test="${menuVo.menuId eq 'SY000'}">
-                                    <img class="menu-image" src="/img/project/menuicon/ico-menu-02.png">
-                                </c:when>
-                                <%-- 사내정보 --%>
-                                <c:when test="${menuVo.menuId eq 'OI000'}">
-                                    <img class="menu-image" src="/img/project/menuicon/ico-menu-03.png">
-                                </c:when>
-                                <%--분석시스템--%>
-                                <c:when test="${menuVo.menuId eq 'AN000'}">
-                                    <img class="menu-image" src="/img/project/menuicon/ico-menu-04.png">
-                                </c:when>
-                                <%--매장--%>
-                                <c:when test="${menuVo.menuId eq 'SP000'}">
-                                    <img class="menu-image" src="/img/project/menuicon/ico-menu-05.png">
-                                </c:when>
-                                <%--당직--%>
-                                <c:when test="${menuVo.menuId eq 'DW000'}">
-                                    <img class="menu-image" src="/img/project/menuicon/ico-menu-06.png">
-                                </c:when>
-                                <%--IP 전화--%>
-                                <c:when test="${menuVo.menuId eq 'IP000'}">
-                                    <img class="menu-image" src="/img/project/menuicon/ico-menu-07.png">
-                                </c:when>
-                                <%-- RPA --%>
-                                <c:when test="${menuVo.menuId eq 'RP000'}">
-                                    <img class="menu-image" src="/img/project/menuicon/ico-menu-08.png">
-                                </c:when>
-                            </c:choose>
-                            </div>
-                            <%--<img alt="메뉴" title="${menuVo.menuNm}" class = "menuIco" style="display:flex" src="${myContextPath}${menuVo.menuImg}"/>--%>
-                            <span class = "nav-item-name" ><c:out value="${menuVo.menuNm}"/></span>
-                        </a>
-
-                        <ul class="sidebar-sub-level-items">
-                            <c:forEach var="pgmVo" items="${menuVo.pgmDtoArrayList}" varStatus="status2">
-                                <c:if test="${status.index eq 0 and status2.index eq 0}">
-<%--                                    <span style="display: none" id="firstPgmId">${pgmVo.pgmId}</span>--%>
-                                </c:if>
-                            <li class="btnProgram"
-                                title="${pgmVo.pgmNm}"
-                                data-program-id="${pgmVo.pgmId}"
-                                data-program-name="${pgmVo.pgmNm}"
-                                data-program-path="${pgmVo.pgmPath}"
-                                data-program-path-name="${pgmVo.depthFullName}"
-                                data-program-rmrk="${pgmVo.bigo}"
-                            >${pgmVo.pgmNm}</li>
-                            </c:forEach>
-                        </ul>
-                    </li>
-                </c:forEach>
-
                 <a class="toggle-sidebar-button js-toggle-sidebar" type="button">
                     <span class="collapse-text">&lt;&lt;</span>
                 </a>

@@ -44,13 +44,6 @@ listener.select.change = function($el) {
 listener.editor.keydown = function($el) {
 }
 
-// //초기화버튼
-// listener.button.init.click = function () {
-//     $$("grid1").clearData();
-//     $("#searchArea").reset();
-// }
-
-
 // 조회버튼
 listener.button.search.click = function () {
     const param = $("#searchArea").getData();
@@ -66,74 +59,41 @@ listener.button.search.click = function () {
     platform.postService("/groupinsert/groupSearch", param, callback);
 }
 
-
 // 가입버튼
 listener.button.join.click = function () {
     var grid = $$("grid1");
 
-
-    // 이거를 지금 커스텀 해서 써야할듯
-    customPopup.show("/myInfo?programId=SY000P1", "그룹 가입", 400, 190, callback, { });
-
-    return;
-
-    console.log(grid.getSelectedItem());
-
-    popup.alert.show("프로그램ID가 중복되었습니다.");
-
-    popup.confirm.show("fdfd");
-
-    if (!grid.checkValidation()) {
+    if (grid.getSelectedItem() === undefined) {
+        popup.alert.show('그룹을 선택해주세요.');
         return;
     }
-    var selId = grid.getSelectedId(true, true)[0];
 
-    var masterParam = grid.getSelectedItem();
-    var records = grid.getData();
-    var isPass = true;
-
-    if(grid.getSelectedItem()){
-        for(var i = 0, iLen = records.length; i<iLen; i++){
-            var dupRecord = records[i];
-            if(dupRecord["pgmId"] == masterParam["pgmId"] && selId != dupRecord.id){
-                isPass = false;
-            }
-        }
-    }
-
-    if(!isPass){
-        popup.alert.show("프로그램ID가 중복되었습니다.");
-        return;
-    }
-    var param = new Array();
-	
-    grid.eachRow(function(row,b,c,d) {
-        var record = grid.getItem(row);
-
-        record["userId"] = USER_INFO.USER_ID;
-        record["userIp"] = USER_INFO.USER_IP;
-        record["compCd"] = USER_INFO.COMP_CD;
-        if(record["gstat"] == "I" || record["gstat"] == "U"){
-            param.push(record);
-        }
-    });
-
-    if ( param.length < 1 ) return;
-
-    //저장 후 실행할 내용
-    var callback = new Callback(function(result) {
-        if(result.resultCode == POST_RESULT.SUCCESS){
-            popup.alert.show("저장되었습니다", function() {
-                listener.button.search.click();
-            });
-        }else{
-            popup.alert.show("저장 중 문제가 발생되었습니다.\r\n관리자에게 문의하세요.", function() {
-            });
-        }
-    });
-
-    platform.postService("/sy201/save", param, callback);
+    var callback = new Callback(function(result) {});
+    // 가입 팝업창 여는 함수
+    // 파라미터로 groupId 던져줌
+    customPopup.show("/groupinsert/popup", "그룹 가입", 400, 190, callback, {groupId: grid.getSelectedItem().groupId});
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //삭제버튼
 listener.button.del.click = function () {

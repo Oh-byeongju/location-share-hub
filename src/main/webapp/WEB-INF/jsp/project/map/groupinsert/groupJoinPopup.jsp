@@ -7,12 +7,10 @@
 <html>
 <head>
     <%@include file="/WEB-INF/jsp/frame/common/programInclude.jsp"%>
-    <script type="text/javascript" src="${myContextPath}/js/project/main/myInfoPopup<spring:message key="js.addext"/>.js?ver=<spring:message key="js.version"/>"></script>
+    <script type="text/javascript" src="${myContextPath}/js/project/map/groupJoinPopup<spring:message key="js.addext"/>.js?ver=<spring:message key="js.version"/>"></script>
 </head>
 <body>
-
     <%@include file="/WEB-INF/jsp/frame/common/title.jsp" %>
-
 <style>
     .formRow>label:not(.radio) {
         min-width: 140px;
@@ -39,10 +37,10 @@
 
 </form>
     <div class="buttonArea">
-        <button style="margin-right: 5px">
+        <button id="submitButton" style="margin-right: 5px">
             확인
         </button>
-        <button style="margin-right: 20px">
+        <button style="margin-right: 20px" onclick="customPopup.hide();">
             취소
         </button>
     </div>

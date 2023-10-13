@@ -11,4 +11,17 @@
         WHERE mg.group_nm LIKE '%' || #{groupId, jdbcType=VARCHAR} || '%'
         ORDER BY insert_dt;
     </select>
+
+
+    <select id="selectGroupByIdAndPassword" parameterType="java.util.Map" resultMap="hashMapResultVO">
+        SELECT group_id, group_nm
+        FROM map_group
+        WHERE group_id = #{groupId, jdbcType=VARCHAR} AND group_pw = #{groupPw, jdbcType=VARCHAR};
+    </select>
+
+    <select id="selectGroupUserByIdsAndRank" parameterType="java.util.Map" resultMap="hashMapResultVO">
+        SELECT group_id, user_id
+        FROM map_group_user
+        WHERE group_id = #{groupId, jdbcType=VARCHAR} AND user_id = #{userId, jdbcType=VARCHAR};
+    </select>
 </mapper>

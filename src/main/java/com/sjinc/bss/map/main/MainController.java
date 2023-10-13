@@ -1,5 +1,7 @@
 package com.sjinc.bss.map.main;
 
+import com.sjinc.bss.framework.data.HashMapResultVO;
+import com.sjinc.bss.project.base.BaseController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -17,41 +19,22 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-public class MainController {
+public class MainController extends BaseController {
+    private final MainService mainService;
 
+    // 메인화면 리턴 컨트롤러
     @RequestMapping(value = "/main")
     public ModelAndView main(HttpServletRequest request) {
+        // 사용자 아이디 추출
+        String username = BaseController.getLoginId(request);
 
-        // 원래 상속 받아서 사용하게 되있는데 이부분은 메소드로 빼도 안되려나..
-//        // 로그인 사용자 정보
-//        LoginUserVo loginUserVo = getLoginUserDetails(request);
+        // 가입된 그룹 추출
+        List<HashMapResultVO> resultVO = mainService.userGroupSearch(username);
 
-//        //menu/pgm 목록을 불러 온다.
-//        ArrayList<MenuPgmVo> menuList = menuPgmDetails.getMenulistByUserGroup(loginUserVo.getCompCd(), loginUserVo.getUserGbCd());
-//        log.info(menuList.toString());
-
-
+        // jsp 리턴
         ModelAndView modelAndView = new ModelAndView("/project/main/main");
-//        modelAndView.addObject("MENU_LIST", menuList);
-
-//        // 시스템 이름
-//        String systemName = systemConfigDetails.getSystemName();
-//        modelAndView.addObject("systemName", systemName);
-
+        modelAndView.addObject("GROUP_LIST", resultVO);
+        
         return modelAndView;
     }
-
-//    @RequestMapping(value = "/mainMessageGrid", method = RequestMethod.POST)
-//    @ResponseBody
-//    public List<MainMessageDto> selectMessage(@RequestBody MainMessageRequestVo parm) {
-//        List<MainMessageDto> list = null;
-//        try {
-//            list = mainService.selectMessage(parm);
-//        } catch (Exception e) {
-//
-//            log.error(FrameConstants.ERROR_CONTROLLER, e);
-//        }
-//
-//        return list;
-//    }
 }
