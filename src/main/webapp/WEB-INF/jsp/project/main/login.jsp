@@ -1,15 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page import="com.sjinc.bss.framework.FrameDateUtil" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
-<link>
+<head>
+    <%@include file="/WEB-INF/jsp/frame/common/programIncludeSp.jsp" %>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>위치정보 공유 플랫폼</title>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link type="text/css" rel="stylesheet" href="css/project/main/login.css">
     <script src="js/project/main/login.js"></script>
-
-
 </head>
 <body>
     <div class="topLine">
@@ -51,5 +52,6 @@
             </div>
         </form>
     </div>
+    <%@include file="/WEB-INF/jsp/frame/common/popup.jsp" %>
 </body>
 </html>

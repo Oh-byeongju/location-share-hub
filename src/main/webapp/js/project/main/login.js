@@ -51,7 +51,7 @@ $(document).ready(function() {
                     }
                 },
                 error: function (data) {
-                    alert('등록되지 않은 사용자입니다.');
+                    popup.alert.show("등록되지 않은 사용자입니다.");
                 }
             });
         }

@@ -20,7 +20,7 @@
     top: calc(50% - 100px);
     left: calc(50% - 150px);
     padding-bottom: 15px;
-    border: 2px solid #FB7D10;
+    border: 1px solid rgb(95, 0, 128);
 }
 
 #loadingContainer {
@@ -33,9 +33,9 @@
     line-height: 40px;
     height: 40px;
     font-weight: bold;
-    color: #000;
+    color: #FFFFFF;
     font-size: 12pt;
-    background-color: #FB7D10;
+    background-color: rgb(95, 0, 128);
 }
 
 #alertText, #confirmText {
@@ -100,7 +100,7 @@
 }
 
 #helpTitle {
-    background-color: #FB7D10;
+    background-color: rgb(95, 0, 128);
     /*box-shadow: 0ox 0ox 5px 0px rgba(0, 0, 0, 0.4);*/
     color: #000;
     font-weight: bold;
