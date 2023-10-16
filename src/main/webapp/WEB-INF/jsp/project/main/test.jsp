@@ -7,7 +7,7 @@
     <title>테스트 페이지</title>
     <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
     <style>
-        .map_wrap {position:relative;width:100%;height:350px;}
+        .map_wrap {position:relative;width:100%;height:100%;}
         .title {font-weight:bold;display:block;}
         .hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
         #centerAddr {display:block;margin-top:2px;font-weight: normal;}

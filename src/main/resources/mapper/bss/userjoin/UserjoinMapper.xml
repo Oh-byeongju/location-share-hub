@@ -22,6 +22,6 @@
     <insert id="insertUser" parameterType="map">
         insert into map_user(user_id, user_pw, user_nm, user_email, insert_dt, insert_id, insert_ip, update_dt, update_id, update_ip)
         values (#{id,jdbcType=VARCHAR}, #{pw,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, CURRENT_TIMESTAMP,
-                #{id,jdbcType=VARCHAR}, #{insertIP,jdbcType=VARCHAR}, NULL, NULL, NULL )
+                #{id,jdbcType=VARCHAR}, #{insertIP,jdbcType=VARCHAR}, NULL, NULL, NULL)
     </insert>
 </mapper>

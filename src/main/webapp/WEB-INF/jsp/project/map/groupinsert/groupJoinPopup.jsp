@@ -19,28 +19,24 @@
         float: none !important;
         width: 100% !important;
         text-align: right !important;
-        line-height: 80px;
-    }
-    #titleArea {
-        width: calc(100% - 20px) !important;
-        margin-left: 10px !important;
+        line-height: 60px;
     }
 </style>
-<form id="postForm" name="postForm" class="formArea" style="left:20px; top:40px" width: calc(100% - 60px); border:1px solid #eee;  onsubmit="return false;">
+<form id="postForm" name="postForm" class="formArea" style="left:20px; top:35px" width: calc(100% - 60px); border:1px solid #eee; onsubmit="return false;">
 
     <div class="formRow c2">
         <label for="pwd">비밀번호</label>
-        <input id="pwd" name="pwd" type="password" maxlength="30" style="width:calc(100% + 40px);"
+        <input id="pwd" name="pwd" type="password" maxlength="30" style="width:calc(100% + 60px);"
                data-field="pwd"/>
         <span id="spanmsg1"></span>
     </div>
 
 </form>
     <div class="buttonArea">
-        <button id="submitButton" style="margin-right: 5px">
+        <button class="yesButton" id="submitButton" style="margin-right: 5px">
             확인
         </button>
-        <button style="margin-right: 20px" onclick="customPopup.hide();">
+        <button class="noButton" style="margin-right: 20px" onclick="customPopup.hide();">
             취소
         </button>
     </div>

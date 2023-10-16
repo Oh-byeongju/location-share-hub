@@ -9,7 +9,17 @@
 <script type="text/javascript" src="${myContextPath}/js/project/map/groupinsert<spring:message key="js.addext"/>.js?ver=<spring:message key="js.version"/>"></script>
 <style>
 .formRow>label {
-	min-width:140px;
+	min-width: 140px;
+}
+
+.webix_overlay {
+	width: 185px;
+	height: 0px;
+	padding: 0px !important;
+	font-size: 20px;
+	top: 45% !important;
+	left: 50% !important;
+	transform: translate(-50%, -50%) !important;
 }
 </style>
 </head>
@@ -27,8 +37,8 @@
 			<button id="join">
 				가입
 			</button>
-			<button onclick="(top.btnMenu)?top.btnMenu(this):opener.top.btnMenu(this);" id="init">
-				${FrameStringUtil.isNullDefaultValue(pgmVo.btnNm,'생성') }
+			<button id="create">
+				생성
 			</button>
 		</div>
 	</div>
@@ -36,7 +46,7 @@
 	<form id="searchArea">
 		<div class="searchRow">
 			<label for="P_pgmInfo">그룹명</label>
-			<input id="P_pgmInfo" name="P_pgmInfo" type="text" size="20" maxlength="20" data-field="pgminfo" data-format="upper"/>
+			<input id="P_pgmInfo" name="P_pgmInfo" type="text" size="20" maxlength="20" data-field="pgminfo"/>
 		</div>
 	</form>
 

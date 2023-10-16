@@ -7,7 +7,9 @@ $(document).ready(function() {
 
         // id 빈칸 예외처리
         if (idInput === null || idInput.trim() === '') {
-            alert("아이디를 입력해주세요!");
+            popup.alert.show("아이디를 입력해주세요!", function () {
+                $("#idText").focus();
+            });
         } else {
             $.ajax({
                 type : "GET",
@@ -17,12 +19,13 @@ $(document).ready(function() {
                 contentType: "application/json",									// 무슨형의 데이터를 보낼것인지
                 dataType : "json",													// 무슨형으로 데이터를 받을것인지
                 success : function(data, jqXHR) {
-                    alert("사용 가능한 아이디입니다.");
-                    $("#idText").attr('disabled', true);
-                    $("#idCheckButton").attr('disabled', true);
+                    popup.alert.show("사용 가능한 아이디입니다.", function () {
+                        $("#idText").attr('disabled', true);
+                        $("#idCheckButton").attr('disabled', true);
+                    });
                 },
                 error : function(data) {
-                    alert("이미 사용중인 아이디입니다.");
+                    popup.alert.show("이미 사용중인 아이디입니다.");
                 }
             });
         }
@@ -35,7 +38,9 @@ $(document).ready(function() {
 
         // email 빈칸 예외처리
         if (emailInput === null || emailInput.trim() === '') {
-            alert("이메일을 입력해주세요!");
+            popup.alert.show("이메일을 입력해주세요!", function () {
+                $("#emailText").focus();
+            });
         } else {
             $.ajax({
                 type : "GET",
@@ -45,12 +50,13 @@ $(document).ready(function() {
                 contentType: "application/json",									// 무슨형의 데이터를 보낼것인지
                 dataType : "json",													// 무슨형으로 데이터를 받을것인지
                 success : function(data, jqXHR) {
-                    alert("사용 가능한 이메일입니다.");
-                    $("#emailText").attr('disabled', true);
-                    $("#emailCheckButton").attr('disabled', true);
+                    popup.alert.show("사용 가능한 이메일입니다.", function() {
+                        $("#emailText").attr('disabled', true);
+                        $("#emailCheckButton").attr('disabled', true);
+                    });
                 },
                 error : function(data) {
-                    alert("이미 사용중인 이메일입니다.");
+                    popup.alert.show("이미 사용중인 이메일입니다.");
                 }
             });
         }
@@ -65,23 +71,49 @@ $(document).ready(function() {
         const nameInput = $("#nameText").val();
         const emailInput = $("#emailText").val();
 
-        // 입력 빈칸 예외처리
-        if (idInput === null || idInput.trim() === '' || pwInput === null || pwInput.trim() === '' ||
-            pwConfirmInput === null || pwConfirmInput.trim() === '' || nameInput === null || nameInput.trim() === '' ||
-            emailInput === null || emailInput.trim() === '') {
-            alert("모든 정보를 입력해주세요!");
+        // 아이디 빈칸 예외처리
+        if (idInput === null || idInput.trim() === '') {
+            popup.alert.show("아이디를 입력해주세요!", function () {
+                $("#idText").focus();
+            });
+        }
+        // 비밀번호 빈칸 예외처리
+        else if (pwInput === null || pwInput.trim() === '') {
+            popup.alert.show("비밀번호를 입력해주세요!", function () {
+                $("#pwText").focus();
+            });
+        }
+        // 비밀번호 확인 빈칸 예외처리
+        else if (pwConfirmInput === null || pwConfirmInput.trim() === '') {
+            popup.alert.show("비밀번호 확인을 입력해주세요!", function () {
+                $("#pwConfirmText").focus();
+            });
+        }
+        // 이름 빈칸 예외처리
+        else if (nameInput === null || nameInput.trim() === '') {
+            popup.alert.show("이름을 입력해주세요!", function () {
+                $("#nameText").focus();
+            });
+        }
+        // 이메일 빈칸 예외처리
+        else if (emailInput === null || emailInput.trim() === '') {
+            popup.alert.show("이메일을 입력해주세요!", function () {
+                $("#emailText").focus();
+            });
         }
         // 비밀번호 확인 예외처리
         else if (pwInput !== pwConfirmInput) {
-            alert("동일한 비밀번호를 입력해주세요!")
+            popup.alert.show("동일한 비밀번호를 입력해주세요!", function () {
+                $("#pwConfirmText").focus();
+            })
         }
         // 아이디 중복확인 안된 케이스 예외처리
         else if ($("#idCheckButton").attr('disabled') === undefined) {
-            alert("아이디 중복확인을 해주세요!");
+            popup.alert.show("아이디 중복확인을 해주세요!");
         }
         // 이메일 중복확인 안된 케이스 예외처리
         else if ($("#emailCheckButton").attr('disabled') === undefined) {
-            alert("이메일 중복확인을 해주세요!");
+            popup.alert.show("이메일 중복확인을 해주세요!");
         }
         else {
             $.ajax({
@@ -101,13 +133,15 @@ $(document).ready(function() {
                 success: function (data, jqXHR) {
                     // 요청이 정상적으로 되었을때 실행
                     if (jqXHR === 'nocontent') {
-                        alert('회원가입에 성공했습니다.');
-                        $(location).attr('href', "http://localhost:8080/login");
+                        popup.alert.show("회원가입에 성공했습니다.", function() {
+                            $(location).attr('href', "http://localhost:8080/login");
+                        });
                     }
                 },
                 error: function (data) {
-                    alert('회원가입에 실패하였습니다. (오류 발생)');
-                    $(location).attr('href', "http://localhost:8080/userjoin");
+                    popup.alert.show('회원가입에 실패하였습니다. (오류 발생)', function () {
+                        $(location).attr('href', "http://localhost:8080/userjoin");
+                    });
                 }
             });
         }

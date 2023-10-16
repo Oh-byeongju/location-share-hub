@@ -41,6 +41,6 @@ public class UserJoinService {
     // 사용자 회원가입 메소드
     @Transactional
     public void userJoinProcess(Map<String, String> requestMap) {
-        primarySqlSessionTemplate.selectOne(namespace+".insertUser", requestMap);
+        primarySqlSessionTemplate.insert(namespace+".insertUser", requestMap);
     }
 }

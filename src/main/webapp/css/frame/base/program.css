@@ -346,7 +346,7 @@ body {
 }
 
 .formRow {
-	border-bottom: 1px solid #ccc;
+	/*border-bottom: 1px solid #ccc;*/
 	white-space:nowrap;
 	background-color: #fff;
 	font-size: 14px;

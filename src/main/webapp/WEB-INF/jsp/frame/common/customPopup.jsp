@@ -9,6 +9,6 @@
 			<button id="customClose" onclick="customPopup.hide();" style="top: 5px;" ></button>
 		</div>
 
-		<iframe id="customPopupFrame" style="width:100%; height:calc(100% - 15px);" frameborder="0"></iframe>
+		<iframe id="customPopupFrame" style="width:100%; height:calc(100% - 40px);" frameborder="0"></iframe>
 	</div>
 </div>

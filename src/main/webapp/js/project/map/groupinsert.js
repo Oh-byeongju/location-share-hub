@@ -13,28 +13,18 @@ webix.ready(function() {
             {id: "userId", sort:"string", header: "그룹장", css: "textLeft"},
             {id: "userEmail", sort:"string", header: "그룹장 이메일", css: "textLeft", fillspace:true},
             // 여기 가입자수를 채워야함
-            {id: "dssd", editor: "text", sort:"string", header: "가입자 수", css: "textLeft", fillspace:true},
-            {id: "insertDt", editor: "text", sort:"string", header: "그룹 등록일", css: "textLeft", fillspace:true},
+            {id: "dssd", sort:"string", header: "가입자 수", css: "textLeft", fillspace:true},
+            {id: "insertDt", sort:"string", header: "그룹 등록일", css: "textLeft", fillspace:true},
 
         ]
     });
 
-    $$("grid1").attachEvent("onBeforeEditStart", function(id){
-        var record = $$("grid1").getItem(id.row);
-        if( id.column == "pgmId" && checkEmpty(record["gstat"],"U") == "U" ){
-            return false;
+    $$("grid1").attachEvent("onAfterLoad", function(id){
+        if (this.count() === 0) {
+            this.showOverlay("그룹 정보가 없습니다."); // No Content View 표시
+        } else {
+            this.hideOverlay(); // 오버레이 숨기기
         }
-    });
-
-    $$("grid1").attachEvent("onAfterEditStop", function(state, editor, ignoreUpdate){
-        if( checkEmpty(state.value,"") != checkEmpty(state.old,"")) {
-            var record = $$("grid1").getItem(editor.row);
-            record["gstat"] = (record["gstat"] == "I")?"I":"U";
-        }
-    });
-    $$("grid1").attachEvent("onCheck", function(rowId, colId, state){
-        var record = $$("grid1").getItem(rowId);
-        record["gstat"] = (record["gstat"] == "I")?"I":"U";
     });
 });
 
@@ -68,87 +58,19 @@ listener.button.join.click = function () {
         return;
     }
 
-    var callback = new Callback(function(result) {});
+    var callback = new Callback(function(result) {listener.button.search.click();});
     // 가입 팝업창 여는 함수
     // 파라미터로 groupId 던져줌
-    customPopup.show("/groupinsert/popup", "그룹 가입", 400, 190, callback, {groupId: grid.getSelectedItem().groupId});
+    // 가입창 닫을때마다 그룹 정보 갱신
+    customPopup.show("/groupinsert/groupJoinPopup", "그룹 가입", 400, 190, callback, {groupId: grid.getSelectedItem().groupId});
 }
 
+// 생성버튼
+listener.button.create.click = function () {
+    var callback = new Callback(function(result) {listener.button.search.click();});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//삭제버튼
-listener.button.del.click = function () {
-    var grid = $$("grid1");
-
-    var param = new Object();
-    var delList = new Array();
-
-    grid.eachRow(function(row,b,c,d) {
-        var record = grid.getItem(row);
-
-        if (record["ch1"] == "Y") {
-            delList.push(record);
-        }
-    });
-
-    if (delList.length == 0) {
-        popup.alert.show("삭제할 데이터를 선택해주세요.", null);
-        return;
-    }
-
-    popup.confirm.show("삭제 하시겠습니까?", function(result) {
-        if (result) {
-            var callback = new Callback(function(result) {
-                if(result.resultCode == POST_RESULT.SUCCESS){
-                    popup.alert.show("삭제되었습니다", function() {
-                        listener.button.search.click();
-                    });
-                }else{
-                    popup.alert.show("삭제 중 문제가 발생되었습니다.\r\n관리자에게 문의하세요.", function() {
-                    });
-                }
-            });
-            param["queryid"] = "sy201.deleteByPrimaryKey";
-            param["data"] = delList;
-            platform.postService("/common/deleteList", param, callback);
-        }
-    });
-}
-
-//행추가
-listener.button.addRow.click = function(event) {
-    var evt = event || window.event;
-    var $el = $(evt.currentTarget);
-    var gridId = $el.data("target");
-
-    //추가 행 기본값 세팅
-    $$(gridId).addRow({pgmId:"", pgmNm:"", pgmDesc:"", path:"", useYn:"Y", bigo:"", oldPgmId:"", gstat:"I"});
-}
-
-//행삭제
-listener.button.removeRow.click = function(event) {
-    var evt = event || window.event;
-    var $el = $(evt.currentTarget);
-
-    var gridId = $el.data("target");
-    $$(gridId).removeSelectedRow();
+    // 생성 팝업창 여는 함수
+    // 파라미터는 사용 안함
+    // 생성창 닫을때마다 그룹 정보 갱신
+    customPopup.show("/groupinsert/groupCreatePopup", "그룹 생성", 780, 720, callback, {groupId: "temp"});
 }

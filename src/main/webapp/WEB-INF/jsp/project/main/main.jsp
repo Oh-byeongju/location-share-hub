@@ -22,9 +22,6 @@
 <body style="overscroll-behavior: contain;">
 
 <div id="topArea">
-    <%--<div class="topDivL" style="cursor : pointer;line-height: 50px">
-        <span style="font-size: 26px; font-weight: bold;cursor: pointer" onclick="window.location.reload();">CCMS v1.0</span>
-    </div>--%>
     <div class="topDivL" style="cursor : pointer;display: flex;align-items: center" onclick="window.location.reload();">
         <img alt="로고" src="${myContextPath}/img/project/logo/map_logo.png" class="logoImg" />
         <div style="font-size: 20px;font-weight: bold;letter-spacing: -0.1px;padding-left: 10px;">위치정보 공유 플랫폼</div>
@@ -53,7 +50,7 @@
                     <li class="sidebar-top-level-item" title="${groupVO.groupNm} 그룹"
                         data-program-id="${groupVO.groupId}"
                         data-program-name="${groupVO.groupId}"
-                        data-program-path="${groupVO.groupId}"
+                        data-program-path="/groupmap/${groupVO.groupId}"
                         data-program-path-name="${groupVO.groupId}"
                         data-program-rmrk="${groupVO.groupId}">
                         <a class="sidebar-top-level-item-header">

@@ -1,0 +1,6 @@
+#titleArea {
+    width:calc(100% - 80px);
+    height: 75px;
+    margin-left: 40px;
+    border-bottom: 2px solid #000000;
+}
