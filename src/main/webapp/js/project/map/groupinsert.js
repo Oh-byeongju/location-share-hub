@@ -12,8 +12,7 @@ webix.ready(function() {
             {id: "groupNm", sort:"string", header: "그룹명", css:"textLeft", width: 230},
             {id: "userId", sort:"string", header: "그룹장", css: "textLeft"},
             {id: "userEmail", sort:"string", header: "그룹장 이메일", css: "textLeft", fillspace:true},
-            // 여기 가입자수를 채워야함
-            {id: "dssd", sort:"string", header: "가입자 수", css: "textLeft", fillspace:true},
+            {id: "groupCount", sort:"int", header: "가입자 수", css: "textright", fillspace:true},
             {id: "insertDt", sort:"string", header: "그룹 등록일", css: "textLeft", fillspace:true},
 
         ]

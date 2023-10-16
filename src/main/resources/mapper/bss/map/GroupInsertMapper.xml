@@ -6,10 +6,13 @@
 
 <!--    그룹 검색 쿼리-->
     <select id="selectByLikeId" parameterType="String" resultMap="hashMapResultVO">
-        SELECT mg.group_id, mg.user_id, mg.group_nm, mu.user_email, mg.insert_dt
-        FROM map_group mg LEFT OUTER JOIN map_user mu ON mg.user_id = mu.user_id
+        SELECT mg.group_id, mg.user_id, mg.group_nm, COUNT(*) AS group_count,
+               MAX(mg.insert_dt) AS insert_dt, MAX(mu.user_email) AS user_email
+        FROM map_group mg INNER JOIN map_group_user mgu ON mg.group_id = mgu.group_id INNER JOIN
+            map_user mu ON mg.user_id = mu.user_id
         WHERE mg.group_nm LIKE '%' || #{groupId, jdbcType=VARCHAR} || '%'
-        ORDER BY insert_dt;
+        GROUP BY mg.group_id, mg.user_id, mg.group_nm
+        ORDER BY group_count DESC;
     </select>
 
 <!--    그룹 가입 전 조회 쿼리-->
