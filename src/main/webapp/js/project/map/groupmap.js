@@ -80,29 +80,30 @@ $(document).ready(function() {
 
     // 마커 찍고 나서 콜백 개념의 함수
     kakao.maps.event.addListener(manager, 'drawend', function () {
+        // marker의 마지막 index
+        var lastIndex=  manager.getData().marker.length - 1;
+        var mapAddress = ""
 
-
-        // 경도, 위도 순서대로 전달
-        searchDetailAddrFromCoords(manager.getData().marker[0].x, manager.getData().marker[0].y, function(result, status) {
+        // 경도, 위도 순서대로 전달 (주소 찾기)
+        searchDetailAddrFromCoords(manager.getData().marker[lastIndex].x, manager.getData().marker[lastIndex].y, function(result, status) {
             if (status === kakao.maps.services.Status.OK) {
-                console.log('이거 날라오는거 내일 매핑해버리기 도로명 주소 있으면 도로명 아니면 그냥 주소 --> test코드 보기')
+                // 주소 계산 후 할당
+                mapAddress = result[0].address.address_name;
                 
-                console.log(result);
-                console.log(status);
+                // 주소 때문에 콜백이후 함수 실행
+                var callback = new Callback(function(result) {
+                    // 마커를 그렸으니까 다시 false로 변경
+                    isDrawing = false;
+                });
 
+                // 마커 생성 팝업창을 여는 함수
+                // 파라미터로 마커주소, 위도, 경도를 전달
+                customPopup.show("/groupmap/markerCreatePopup", "마커 생성", 520, 510, callback,
+                    {markerAddress: mapAddress,
+                        markerLat: manager.getData().marker[0].y,
+                        markerLong: manager.getData().marker[0].x});
             }
         });
-
-
-
-        var callback = new Callback(function(result) {
-            // 마커를 그렸으니까 다시 false로 변경
-            isDrawing = false;
-        });
-
-        // 마커 생성 팝업창을 여는 함수
-        // 파라미터로 마커주소, 위도, 경도를 전달
-        // customPopup.show("/groupmap/markerCreatePopup", "마커 생성", 520, 510, callback, {markerLat: manager.getData().marker[0].y, markerLong: manager.getData().marker[0].x});
     });
 
     // 좌표로 법정동 상세 주소 정보를 요청합니다 (위도, 경도 기준)

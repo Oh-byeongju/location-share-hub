@@ -44,15 +44,8 @@ public class GroupMapController extends BaseController {
     }
 
     // 마커생성 팝업 리턴 컨트롤러
-    // 이부분 수정하기 파라미터 받을꺼 있음 Post로 받아야함 결국
     @RequestMapping(value = "/markerCreatePopup")
     public ModelAndView MarkerCreatePopup() {
-//        // 그룹에 대한 상세정보 검색
-//        HashMapResultVO groupVO =  groupMapService.groupDetailInfoSearch(groupId);
-
-        ModelAndView modelAndView = new ModelAndView("/project/map/" + "groupmap" + "/" + "groupInfoPopup");
-//        modelAndView.addObject("groupVO", groupVO);
-
-        return modelAndView;
+        return new ModelAndView("/project/map/" + "groupmap" + "/" + "markerCreatePopup");
     }
 }
