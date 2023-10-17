@@ -17,6 +17,7 @@ public class UserJoinService {
     private final static String namespace = "userjoin";
 
     // 사용자 id 중복확인 메소드
+    @Transactional
     public boolean idCheck(String userId) {
         // 중복이면 false 리턴
         if (primarySqlSessionTemplate.selectOne(namespace+".selectById", userId) == null) {
@@ -28,6 +29,7 @@ public class UserJoinService {
     }
 
     // 사용자 email 중복확인 메소드
+    @Transactional
     public boolean emailCheck(String userEmail) {
         // 중복이면 false 리턴
         if (primarySqlSessionTemplate.selectOne(namespace+".selectByEmail", userEmail) == null) {

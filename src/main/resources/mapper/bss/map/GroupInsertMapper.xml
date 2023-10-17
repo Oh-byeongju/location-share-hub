@@ -12,10 +12,10 @@
             map_user mu ON mg.user_id = mu.user_id
         WHERE mg.group_nm LIKE '%' || #{groupId, jdbcType=VARCHAR} || '%'
         GROUP BY mg.group_id, mg.user_id, mg.group_nm
-        ORDER BY group_count DESC;
+        ORDER by mg.insert_dt
     </select>
 
-<!--    그룹 가입 전 조회 쿼리-->
+<!--    그룹 가입 전 pw 확인 쿼리-->
     <select id="selectGroupByIdAndPassword" parameterType="java.util.Map" resultMap="hashMapResultVO">
         SELECT group_id, group_nm
         FROM map_group
@@ -32,16 +32,16 @@
 <!--    그룹 가입 쿼리(그룹원 등록)-->
     <insert id="joinMapGroupUser" parameterType="java.util.Map">
         INSERT INTO map_group_user (
-            group_id, user_id, group_user_rank_cd, group_user_quit_yn,
+            group_id, user_id, group_user_rank_cd,
             insert_dt, insert_id, insert_ip, update_dt, update_id, update_ip
         )
         VALUES (
-                   #{groupId, jdbcType=VARCHAR}, #{userId, jdbcType=VARCHAR}, #{groupRank, jdbcType=VARCHAR}, 'N',
+                   #{groupId, jdbcType=VARCHAR}, #{userId, jdbcType=VARCHAR}, #{groupRank, jdbcType=VARCHAR},
                    CURRENT_TIMESTAMP, #{userId, jdbcType=VARCHAR}, #{insertIp, jdbcType=VARCHAR}, NULL, NULL, NULL
                )
     </insert>
 
-<!--    그룹 생성 전 id 검색 쿼리-->
+<!--    그룹 생성 전 id 중복 확인 쿼리-->
     <select id="selectByGroupId" parameterType="java.lang.String" resultMap="hashMapResultVO">
         select group_id
         from map_group

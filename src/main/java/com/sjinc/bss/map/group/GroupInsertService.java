@@ -1,10 +1,8 @@
 package com.sjinc.bss.map.group;
 
-import com.sjinc.bss.framework.FrameUtil;
 import com.sjinc.bss.framework.data.HashMapResultVO;
 import com.sjinc.bss.framework.data.HashMapStringVO;
 import com.sjinc.bss.framework.data.HashMapVO;
-import com.sjinc.bss.project.base.BaseController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Service
@@ -22,6 +19,7 @@ public class GroupInsertService {
     private final static String namespace = "groupInsert";
 
     // 그룹 검색 메소드
+    @Transactional
     public List<HashMapResultVO> groupSearch(String groupId) {
         // 그룹 기본정보 검색 후 리턴
         return primarySqlSessionTemplate.selectList(namespace+".selectByLikeId", groupId);
@@ -48,6 +46,7 @@ public class GroupInsertService {
     }
 
     // 그룹 id 중복확인 메소드
+    @Transactional
     public boolean idCheck(String groupId) {
         // 중복이면 false 리턴
         if (primarySqlSessionTemplate.selectOne(namespace+".selectByGroupId", groupId) == null) {
@@ -62,20 +61,16 @@ public class GroupInsertService {
     @Transactional
     public void groupCreate(HashMapStringVO requestMap) {
         // 쿼리문에 Integer가 있어서 형변환 시킴
-        // 이거 임시로 해놨는데 Lev랑 Lat은 그냥 string 쓰는거도 생각해보기
-        // String으로 db에 저장한다음 
-        // js에서 parseFloat 쓰는게 더 편할듯
         HashMapVO groupMap = new HashMapVO();
         groupMap.put("groupId", requestMap.get("groupId"));
         groupMap.put("userId", requestMap.get("userId"));
         groupMap.put("groupPw", requestMap.get("groupPw"));
         groupMap.put("groupNm", requestMap.get("groupNm"));
         groupMap.put("groupLev", Integer.parseInt(requestMap.get("groupLev")));
-        groupMap.put("groupLat", Integer.parseInt("37"));
-        groupMap.put("groupLong", Integer.parseInt("128"));
+        groupMap.put("groupLat", requestMap.get("groupLat"));
+        groupMap.put("groupLong", requestMap.get("groupLong"));
         groupMap.put("insertIP", requestMap.get("insertIP"));
         groupMap.put("groupRank", requestMap.get("groupRank"));
-        
 
         // 그룹 생성
         primarySqlSessionTemplate.insert(namespace+".createMapGroup", groupMap);

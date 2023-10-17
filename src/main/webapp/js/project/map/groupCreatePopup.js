@@ -182,7 +182,7 @@ $(document).ready(function() {
                                   </a>
                               </li>`
                             );
-                            $(window.parent.document).find('.sidebar-top-level-items').prepend(newListItem);
+                            $(window.parent.document).find('#groupInsertTag').before(newListItem);
                         });
                     }
                 },

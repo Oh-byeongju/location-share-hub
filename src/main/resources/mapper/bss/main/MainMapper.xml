@@ -11,33 +11,27 @@
         WHERE group_id IN (
             SELECT group_id
             FROM map_group_user
-            WHERE user_id = #{userId} AND group_user_rank_cd != '차단'
+            WHERE user_id = #{userId} AND group_user_rank_cd != 'blocked'
             );
     </select>
 
+<!--    <select id="selectMessage" resultType="com.sjinc.bss.project.main.entity.MainMessageDto">-->
 
+<!--        SELECT COUNT(*) , 'TS' AS TYPE-->
+<!--        FROM TS_COTR_MNGR-->
+<!--        WHERE ACTO_DD IS NULL-->
+<!--        AND ACTO_METH_CD ='ACBU'-->
+<!--        UNION ALL-->
+<!--        SELECT COUNT(*) , 'EP' AS TYPE-->
+<!--        FROM EP_COMU_FORM_APRO a-->
+<!--        JOIN ep_comu_form b on (a.comp_cd = b.comp_cd and a.comu_form_ymon = b.comu_form_ymon and a.comu_form_no = b.comu_form_no)-->
+<!--        WHERE a.comp_cd = #{compCd}-->
+<!--        AND a.aprr_dept_cd = #{deptCd}-->
+<!--        AND a.aprr_id = #{userId}-->
+<!--        AND a.apro_role_cd ='ROAP'-->
+<!--        AND check_dt is null-->
+<!--        and b.curt_aprr_id = #{userId}-->
+<!--        and b.draft_stts_cd IN ('ASREQ','ASAPR')-->
 
-
-
-
-    <select id="selectMessage" resultType="com.sjinc.bss.project.main.entity.MainMessageDto">
-
-        SELECT COUNT(*) , 'TS' AS TYPE
-        FROM TS_COTR_MNGR
-        WHERE ACTO_DD IS NULL
-        AND ACTO_METH_CD ='ACBU'
-        UNION ALL
-        SELECT COUNT(*) , 'EP' AS TYPE
-        FROM EP_COMU_FORM_APRO a
-        JOIN ep_comu_form b on (a.comp_cd = b.comp_cd and a.comu_form_ymon = b.comu_form_ymon and a.comu_form_no = b.comu_form_no)
-        WHERE a.comp_cd = #{compCd}
-        AND a.aprr_dept_cd = #{deptCd}
-        AND a.aprr_id = #{userId}
-        AND a.apro_role_cd ='ROAP'
-        AND check_dt is null
-        and b.curt_aprr_id = #{userId}
-        and b.draft_stts_cd IN ('ASREQ','ASAPR')
-
-    </select>
-
+<!--    </select>-->
 </mapper>

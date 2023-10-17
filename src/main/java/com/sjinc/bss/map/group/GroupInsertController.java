@@ -48,19 +48,15 @@ public class GroupInsertController extends BaseController {
     // 그룹 가입 요청 컨트롤러
     @PostMapping(value = "/groupJoin")
     public HashMapResultVO groupJoin(HttpServletRequest request, @RequestBody HashMapResultVO requestMap) {
-
 //        1. 이미 가입된 그룹인지
 //        2. 그룹에서 차단된건 아닌지
 //        3. 그룹 비밀번호가 맞는지
-//        System.out.println(requestMap.get("groupId"));
-//        System.out.println(requestMap.get("groupPw"));
-//        System.out.println(BaseController.getLoginId(request));
 
         // 현재 사용자 id, ip 뽑아서 map에 삽입 후 메소드 호출
         // 그룹원 등급도 삽입
         requestMap.put("userId", BaseController.getLoginId(request));
         requestMap.put("insertIP", FrameUtil.getRemoteIP(request));
-        requestMap.put("groupRank", "일반");
+        requestMap.put("groupRank", "normal");
 
         return groupInsertService.groupJoin(requestMap);
     }
@@ -90,7 +86,7 @@ public class GroupInsertController extends BaseController {
         // 그룹원 등급도 삽입
         requestMap.put("userId", BaseController.getLoginId(request));
         requestMap.put("insertIP", FrameUtil.getRemoteIP(request));
-        requestMap.put("groupRank", "그룹장");
+        requestMap.put("groupRank", "leader");
 
         groupInsertService.groupCreate(requestMap);
 

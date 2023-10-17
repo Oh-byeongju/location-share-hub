@@ -64,7 +64,7 @@
                     </li>
                 </c:forEach>
 
-                <li class="sidebar-top-level-item" title="그룹 가입 / 생성"
+                <li id="groupInsertTag" class="sidebar-top-level-item" title="그룹 가입 / 생성"
                     data-program-id="groupinsert"
                     data-program-name="groupinsert"
                     data-program-path="groupinsert"

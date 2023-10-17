@@ -93,6 +93,8 @@
 
             // 마커를 생성하고 지도위에 표시하는 함수입니다
             function addMarker(event) {
+                console.log(event);
+
                 searchDetailAddrFromCoords(event, function(result, status) {
                     if (status === kakao.maps.services.Status.OK) {
 

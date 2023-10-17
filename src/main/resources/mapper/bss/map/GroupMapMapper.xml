@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="groupMap">
+    <resultMap id="hashMapVO" type="com.sjinc.bss.framework.data.HashMapVO"/>
+    <resultMap id="hashMapResultVO" type="com.sjinc.bss.framework.data.HashMapResultVO"/>
+
+    <!--    그룹 정보 검색 쿼리-->
+    <select id="selectGroupByGId" parameterType="java.lang.String" resultMap="hashMapResultVO">
+        SELECT group_id, group_nm, group_lat, group_long, group_lev
+        FROM map_group
+        WHERE group_id = #{groupId, jdbcType=VARCHAR}
+    </select>
+
+    <!--    그룹 상세정보 검색 쿼리-->
+    <select id="selectGroupDetailByGId" parameterType="java.lang.String" resultMap="hashMapResultVO">
+        SELECT mg.group_id, mg.user_id, mg.group_nm, mu.user_email, mg.insert_dt
+        FROM map_group mg INNER JOIN map_user mu ON mg.user_id = mu.user_id
+        WHERE mg.group_id = #{groupId, jdbcType=VARCHAR}
+    </select>
+
+    <!--    그룹내 가입자 수 검색 쿼리-->
+    <select id="getGroupUserCountByGroupId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) AS user_count
+        FROM map_group_user
+        WHERE group_id = #{groupId, jdbcType=VARCHAR}
+    </select>
+
+    <!--    그룹내 마커개수 검색 쿼리-->
+    <select id="getMarkerCountByGroupId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) AS marker_count
+        FROM map_marker
+        WHERE group_id = #{groupId, jdbcType=VARCHAR}
+    </select>
+</mapper>

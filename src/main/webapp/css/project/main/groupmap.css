@@ -4,3 +4,33 @@
     margin-left: 40px;
     border-bottom: 2px solid #000000;
 }
+
+.mapWrap {
+    position:relative;
+    width:100%;
+    height:100%;
+}
+
+.mapAddr {
+    position:absolute;
+    left:10px;
+    top:10px;
+    border-radius: 2px;
+    background:#fff;
+    background:rgba(255,255,255,0.8);
+    z-index:1;
+    padding:5px;
+}
+
+.mapTitle {
+    font-weight:bold;
+    display:block;
+    font-size: 18px;
+}
+
+#centerAddr {
+    display: block;
+    margin-top: 2px;
+    font-weight: normal;
+    font-size: 17px;
+}

@@ -1,3 +1,6 @@
+var sortId = null;
+var sortDir = null;
+
 function initPage() {
     listener.button.search.click();
 }
@@ -8,13 +11,22 @@ webix.ready(function() {
         container : "grid1",
         view : "datagrid",
         columns : [
-            {id: "groupId", sort:"string", header: "그룹 ID", css: "textLeft", width : 150},
-            {id: "groupNm", sort:"string", header: "그룹명", css:"textLeft", width: 230},
-            {id: "userId", sort:"string", header: "그룹장", css: "textLeft"},
-            {id: "userEmail", sort:"string", header: "그룹장 이메일", css: "textLeft", fillspace:true},
-            {id: "groupCount", sort:"int", header: "가입자 수", css: "textright", fillspace:true},
-            {id: "insertDt", sort:"string", header: "그룹 등록일", css: "textLeft", fillspace:true},
-
+            {id: "groupId", header: "그룹 ID", css: "textLeft", width : 150, fillspace:true},
+            {id: "groupNm", sort:"string", header: "그룹명", css:"textLeft", width: 230, fillspace:true},
+            {id: "userId", header: "그룹장", css: "textLeft", width: 200, fillspace:true},
+            {id: "userEmail", header: "그룹장 이메일", css: "textLeft", width: 170, fillspace:true},
+            {
+                id: "groupCount",
+                sort: "int",
+                header: "가입자 수",
+                css: "textCenter",
+                width: 100,
+                fillspace: true,
+                template: function (obj) {
+                    return obj.groupCount + "명";
+                }
+            },
+            {id: "insertDt", sort:"string", header: "그룹 등록일", css: "textCenter", width: 100, fillspace:true},
         ]
     });
 
@@ -25,13 +37,20 @@ webix.ready(function() {
             this.hideOverlay(); // 오버레이 숨기기
         }
     });
+
+    // 정렬에 따른 event
+    $$("grid1").attachEvent("onAfterSort", function (id, order) {
+        sortId = id;
+        sortDir = order;
+
+        // 정렬 3번 눌러서 초기화 되는 경우
+        // 정렬 순서도 초기화
+        if (id === 'id') {
+            sortId = null;
+            sortDir = null;
+        }
+    });
 });
-
-listener.select.change = function($el) {
-}
-
-listener.editor.keydown = function($el) {
-}
 
 // 조회버튼
 listener.button.search.click = function () {
@@ -43,6 +62,10 @@ listener.button.search.click = function () {
     // 그리드에 값 세팅
     var callback = new Callback(function(result) {
         $$("grid1").setData(result);
+        // 정렬된 기록이 있으면 정렬
+        if (sortId !== null && sortDir !== null) {
+            $$("grid1").sort(sortId, sortDir);
+        }
     });
 
     platform.postService("/groupinsert/groupSearch", param, callback);
