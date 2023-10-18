@@ -90,7 +90,7 @@
 }
 
 .inputText:disabled {
-    color: rgb(205, 205, 205);
+    color: #8c8c8c;
 }
 
 .inputCheckButton {

@@ -17,7 +17,12 @@
 
     <link rel="stylesheet" type="text/css" href="${myContextPath}/css/project/main/main.css?ver=<spring:message key="css.version"/>">
     <script type="text/javascript" src="${myContextPath}/js/project/main/main<spring:message key="js.addext"/>.js?ver=<spring:message key="js.version"/>"></script>
-
+    <script>
+        // 메인페이지 새로고침하는 함수(iframe에서 사용)
+        function refreshParent() {
+            location.reload();
+        }
+    </script>
 </head>
 <body style="overscroll-behavior: contain;">
 

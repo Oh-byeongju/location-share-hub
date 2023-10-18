@@ -94,5 +94,5 @@ listener.button.create.click = function () {
     // 생성 팝업창 여는 함수
     // 파라미터는 사용 안함
     // 생성창 닫을때마다 그룹 정보 갱신
-    customPopup.show("/groupinsert/groupCreatePopup", "그룹 생성", 780, 720, callback, {groupId: "temp"});
+    customPopup.show("/groupinsert/groupCreatePopup", "그룹 생성", 780, 725, callback, {groupId: "temp"});
 }

@@ -6,48 +6,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%@include file="/WEB-INF/jsp/frame/common/programInclude.jsp"%>
+    <%@include file="/WEB-INF/jsp/frame/common/programInclude2.jsp"%>
     <script type="text/javascript" src="${myContextPath}/js/project/map/markerCreatePopup<spring:message key="js.addext"/>.js?ver=<spring:message key="js.version"/>"></script>
-    <link type="text/css" rel="stylesheet" href="${myContextPath}/css/frame/common/groupInfoPopup.css">
-    <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
-    <style>
-        #editor p {
-            color: black !important;
-            font-size: 100px;
-        }
-    </style>
+    <link type="text/css" rel="stylesheet" href="${myContextPath}/css/frame/common/markerCreatePopup.css">
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/super-build/ckeditor.js"></script>
+    <script>
+        // 카테고리 리스트 가공
+        const categoryList = [
+            <c:forEach var="category" items="${CATEGORY_LIST}" varStatus="loop">
+            <!-- category의 필드를 JavaScript 객체로 사용 -->
+            { id: '${category.cd}', value: "${category.cdNm}", name: '${category.cd}' }
+            <!-- 마지막 아이템이 아니면 쉼표 추가 -->
+            <c:if test="${not loop.last}">,</c:if>
+            </c:forEach>
+        ];
+    </script>
 </head>
 <body>
-    <div class="infoLayout">
-        <div class="infoArea">
+    <div class="CreateLayout">
+        <div class="CreateArea">
             <div class="labelLayout">
                 <label class="labelInfo">
-                     이거를 바까야한다~
+                     마커주소
                 </label>
             </div>
-
-        </div>
-
-        <div class="infoArea">
-            <div class="labelLayout">
-                <p style="color: black">
-                    라이브러리 충돌이 있음 고민되네
-                    This is some sample content.</p>
+            <div class="inputLayout">
+                <div class="inputCenter">
+                    <input id="markerAddress" class="inputText" disabled="disabled" autocomplete="off" type="text">
+                </div>
             </div>
-
         </div>
-
-
-        <div id="editor">
-            <p style="color: black">This is some sample content.</p>
+        <div class="CreateArea">
+            <div class="labelLayout">
+                <label class="labelInfo">
+                    마커이름
+                </label>
+            </div>
+            <div class="inputLayout">
+                <div class="inputCenter">
+                    <input id="markerName" class="inputText" maxlength="29" autocomplete="off" type="text" placeholder="마커 이름을 입력해주세요.">
+                </div>
+            </div>
         </div>
-
-
-
-        <div class="formTitle" style="left:0px; top: 420px; width:calc(100%); height:calc(100% - 500px)">
+        <div class="CreateArea" style="margin-bottom: 25px;">
+            <div class="labelLayout" style="width: 118px">
+                <label class="labelInfo">
+                    마커분류
+                </label>
+            </div>
+            <div class="inputLayout">
+                <div id="selectBox" class="inputCenter" style="width: 100px;"></div>
+            </div>
+        </div>
+        <div id="editor"></div>
+        <div class="formTitle" style="left:0px; top: 637px; width:calc(100%); height:calc(100% - 700px)">
             <div class="buttonArea" style="text-align: right;">
-                <button class="yesButton" style="margin-right: 25px" onclick="customPopup.hide();">
-                    확인
+                <button id="submitButton" class="yesButton" style="margin-right: 5px">
+                    생성
+                </button>
+                <button class="noButton" style="margin-right: 40px" onclick="customPopup.hide();">
+                    취소
                 </button>
             </div>
         </div>

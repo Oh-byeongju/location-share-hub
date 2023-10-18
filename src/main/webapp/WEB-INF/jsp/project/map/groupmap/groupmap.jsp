@@ -14,11 +14,11 @@
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fb8bef5737e279bc3e7236391517d158&libraries=services,clusterer,drawing"></script>
 	<script>
 		// 그룹 정보 변수 할당
-		// groupId만 String으로 바꾸고 나머진 number로
 		const groupId = '${groupVO.groupId}';
-		const groupLat = ${groupVO.groupLat}
-		const groupLong = ${groupVO.groupLong}
-		const groupLev = ${groupVO.groupLev}
+		const groupLat = '${groupVO.groupLat}';
+		const groupLong = '${groupVO.groupLong}';
+		const groupLev = '${groupVO.groupLev}';
+		const groupUserRankCd = '${groupVO.groupUserRankCd}';
 	</script>
 </head>
 <body>

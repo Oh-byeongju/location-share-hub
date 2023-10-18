@@ -95,21 +95,21 @@
             function addMarker(event) {
                 console.log(event);
 
-                searchDetailAddrFromCoords(event, function(result, status) {
-                    if (status === kakao.maps.services.Status.OK) {
-
-                        console.log(result);
-                        console.log(status);
-
-                        var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-                        detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
-
-                        var content = '<div class="bAddr">' +
-                            '<span class="title">법정동 주소정보</span>' +
-                            detailAddr +
-                            '</div>';
-                    }
-                });
+                // searchDetailAddrFromCoords(event, function(result, status) {
+                //     if (status === kakao.maps.services.Status.OK) {
+                //
+                //         console.log(result);
+                //         console.log(status);
+                //
+                //         var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+                //         detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+                //
+                //         var content = '<div class="bAddr">' +
+                //             '<span class="title">법정동 주소정보</span>' +
+                //             detailAddr +
+                //             '</div>';
+                //     }
+                // });
 
                 // 마커를 생성
                 // event.latLng --> 위도 경도 좌표

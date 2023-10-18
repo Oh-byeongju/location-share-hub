@@ -11,6 +11,13 @@
         WHERE group_id = #{groupId, jdbcType=VARCHAR}
     </select>
 
+<!--    그룹원 등급 검색 쿼리-->
+    <select id="selectGroupUserRankCd" parameterType="java.util.Map" resultType="java.lang.String">
+        SELECT group_user_rank_cd
+        FROM map_group_user mgu
+        WHERE group_id = #{groupId} AND user_id = #{userId}
+    </select>
+
     <!--    그룹 상세정보 검색 쿼리-->
     <select id="selectGroupDetailByGId" parameterType="java.lang.String" resultMap="hashMapResultVO">
         SELECT mg.group_id, mg.user_id, mg.group_nm, mu.user_email, mg.insert_dt
@@ -30,5 +37,12 @@
         SELECT COUNT(*) AS marker_count
         FROM map_marker
         WHERE group_id = #{groupId, jdbcType=VARCHAR}
+    </select>
+
+<!--    마커 분류조회 쿼리-->
+    <select id="getMarkerCategories" resultMap="hashMapResultVO">
+        SELECT cd, cd_nm
+        FROM sy_cmm_cd scc
+        WHERE cd_gb_nm = '마커분류'
     </select>
 </mapper>
