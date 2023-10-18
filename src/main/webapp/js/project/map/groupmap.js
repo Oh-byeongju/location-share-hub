@@ -111,7 +111,7 @@ $(document).ready(function() {
                     
                     // 이걸로 날려야하는데 안되네
                     var marker = new kakao.maps.Marker({
-                        position: new kakao.maps.LatLng(manager.getData().marker[lastIndex].x.toFixed(6), manager.getData().marker[lastIndex].y.toFixed(6)),
+                        position: new kakao.maps.LatLng(35.245115, 129.094506),
                         map: kakaoMap
                     });
 
@@ -159,10 +159,10 @@ $(document).ready(function() {
 
             // 테스트용 정보
             positions = [
-                {
-                    title: 'A',
-                    latlng: new kakao.maps.LatLng(35.245115, 129.094506)
-                },
+                // {
+                //     title: 'A',
+                //     latlng: new kakao.maps.LatLng(35.245115, 129.094506)
+                // },
                 {
                     title: 'B',
                     latlng: new kakao.maps.LatLng(35.244456, 129.095049)
