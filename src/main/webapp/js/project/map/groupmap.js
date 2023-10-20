@@ -165,9 +165,30 @@ $(document).ready(function() {
 
         // 기존의 존재하는 마커생성 및 지도에 추가
         markerList.forEach(markerInfo => {
+            // 테스트
+
+
+            // 마커 이미지의 이미지 주소입니다((별모양))
+            // var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+            // 마커의 이미지 주소입니다((일반)) --> 이 부분을 그 마커 생성 거기서도 수정이 가능한가?
+            var imageSrc = "http://t1.daumcdn.net/mapjsapi/images/2x/marker.png"
+
+            // 마커 이미지의 이미지 크기 입니다
+            var imageSize = new kakao.maps.Size(33, 47);
+
+            // 마커 이미지를 생성합니다
+            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+
+            // 테스트
+
+
+
             const marker = new kakao.maps.Marker({
                 position: new kakao.maps.LatLng(markerInfo.markerLat, markerInfo.markerLong),
                 title: markerInfo.markerNm,
+                image : markerImage // 마커 이미지 (테스트용)
             });
 
             // 마커에 대한 정보 할당
