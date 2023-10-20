@@ -172,6 +172,7 @@ $(document).ready(function() {
             // var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
             // 마커의 이미지 주소입니다((일반)) --> 이 부분을 그 마커 생성 거기서도 수정이 가능한가?
+            // https://devtalk.kakao.com/t/drawing-library/120624 이 주소 까봐
             var imageSrc = "http://t1.daumcdn.net/mapjsapi/images/2x/marker.png"
 
             // 마커 이미지의 이미지 크기 입니다
