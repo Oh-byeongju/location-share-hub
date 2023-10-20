@@ -10,11 +10,6 @@ $(document).ready(function() {
         btnLogoutClick();
     });
 
-    // $("#userInfo").click(function() {
-    //     let callback = new Callback(function () { });
-    //     customPopup.show("/myInfo?programId=SY000P1", "내정보", 750, 250, callback, { });
-    // });
-
     $('#btnAtte').click(function () {
         btnAtteClick();
     })
@@ -25,7 +20,18 @@ $(document).ready(function() {
 
     // 제일 첫번째 태그의 path
     // 처음에 렌더링 되면 처음 화면을 밀어넣어줌
+    // 이미지도 변경
     const firstLiElement = $(".sidebar-top-level-item").first();
+    firstLiElement.addClass('selected');
+
+    const imgSrcElement = firstLiElement.find('.menuIco').find('img').get(0);
+    const imgSrc = imgSrcElement.src;
+
+    if (imgSrc.indexOf("-ov") === -1) {
+        const newImgSrc = imgSrc.replace(".png", "-ov.png");
+        imgSrcElement.src = newImgSrc;
+    }
+
     const programPath = firstLiElement.data("program-path");
 
     $("#programId").val(firstLiElement.data("program-id"));
@@ -42,18 +48,51 @@ $(document).ready(function() {
     $(".clsSubMenu li[data-selected='Y']").attr("data-selected", "N");
 
     $('.sidebar-top-level-item-header').on("mouseover",function (e){
-        const imgSrc = $(this).children().get(0).children[0].src;
-        if(imgSrc.indexOf("-ov") === -1) {
-            $(this).children().get(0).children[0].src = imgSrc.replace(".png","-ov.png")
+        const parentIsActive = $(this).parent().hasClass('selected');
+
+        if (!parentIsActive) {
+            const imgSrc = $(this).children().get(0).children[0].src;
+            if (imgSrc.indexOf("-ov") === -1) {
+                $(this).children().get(0).children[0].src = imgSrc.replace(".png", "-ov.png");
+            }
         }
     })
 
     $('.sidebar-top-level-item-header').on("mouseleave",function (e){
-        const imgSrc = $(this).children().get(0).children[0].src;
-        if(imgSrc.indexOf("-ov") !== -1) {
-            $(this).children().get(0).children[0].src = imgSrc.replace("-ov.png",".png")
+        const parentIsActive = $(this).parent().hasClass('selected');
+
+        if (!parentIsActive) {
+            const imgSrc = $(this).children().get(0).children[0].src;
+            if (imgSrc.indexOf("-ov") !== -1) {
+                $(this).children().get(0).children[0].src = imgSrc.replace("-ov.png", ".png")
+            }
         }
     })
+
+    // 동적으로 삽입된 a 태그 이벤트 추가
+    $('.sidebar-top-level-items').on('mouseover', 'a', function(e) {
+        const parentIsActive = $(this).parent().hasClass('selected');
+
+        if (!parentIsActive) {
+            const imgSrc = $(this).children().get(0).children[0].src;
+            if (imgSrc.indexOf("-ov") === -1) {
+                $(this).children().get(0).children[0].src = imgSrc.replace(".png", "-ov.png");
+            }
+        }
+    })
+
+    // 동적으로 삽입된 a 태그 이벤트 추가
+    $('.sidebar-top-level-items').on('mouseleave', 'a', function(e) {
+        const parentIsActive = $(this).parent().hasClass('selected');
+
+        if (!parentIsActive) {
+            const imgSrc = $(this).children().get(0).children[0].src;
+            if (imgSrc.indexOf("-ov") !== -1) {
+                $(this).children().get(0).children[0].src = imgSrc.replace("-ov.png", ".png")
+            }
+        }
+    })
+
 
     // 동적으로 삽입된 li 태그 이벤트 추가
     $('.sidebar-top-level-items').on('click', 'li', function(event) {
@@ -70,6 +109,27 @@ $(document).ready(function() {
             popup.alert.show("프로그램 Path정보가 없어서 실행할 수 없습니다.");
             return;
         }
+
+        // 현재 li태그 'selected' 클래스 생성
+        $(this).addClass('selected');
+        // 다른 li에 'selected' 클래스 제거
+        $('.sidebar-top-level-items li').not($this).removeClass('selected');
+
+        // 모든 li에 대해 자식 img 태그의 src 속성 변경('selected' 안된것)
+        $('.sidebar-top-level-items li').each(function () {
+            if (!$(this).hasClass('selected')) {
+                const imgSrcElement = $(this).find('.menuIco').find('img').get(0);
+                const imgSrc = imgSrcElement.src;
+
+                if (imgSrc.indexOf("-ov") !== -1) {
+                    const newImgSrc = imgSrc.replace("-ov.png", ".png");
+                    imgSrcElement.src = newImgSrc;
+                }
+            }
+        });
+
+
+
 
         $("#programId").val($this.data("program-id"));
         $("#programName").val($this.data("program-name"));

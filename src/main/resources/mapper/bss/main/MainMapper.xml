@@ -6,17 +6,13 @@
 
 <!--    사용자가 가입된 그룹 조회 (차단된 것 제외)-->
     <select id="selectGroupsByUserId" parameterType="String" resultMap="hashMapResultVO">
-        SELECT group_id, group_nm
-        FROM map_group
-        WHERE group_id IN (
-            SELECT group_id
-            FROM map_group_user
-            WHERE user_id = #{userId} AND group_user_rank_cd != 'blocked'
-            );
+        SELECT mg.group_id, mg.group_nm
+        FROM map_group mg INNER JOIN map_group_user mgu ON mg.group_id = mgu.group_id
+        WHERE mgu.user_id =  #{userId} AND group_user_rank_cd != 'blocked'
+        ORDER BY mgu.group_user_no;
     </select>
 
 <!--    <select id="selectMessage" resultType="com.sjinc.bss.project.main.entity.MainMessageDto">-->
-
 <!--        SELECT COUNT(*) , 'TS' AS TYPE-->
 <!--        FROM TS_COTR_MNGR-->
 <!--        WHERE ACTO_DD IS NULL-->

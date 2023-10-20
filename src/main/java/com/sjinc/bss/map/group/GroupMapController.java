@@ -26,10 +26,13 @@ public class GroupMapController extends BaseController {
     @RequestMapping(value = "/{groupId}")
     public ModelAndView defaultPage(HttpServletRequest request, @PathVariable("groupId") String groupId) {
         // 그룹에 대한 정보 검색
-        HashMapResultVO groupVO =  groupMapService.groupInfoSearch(BaseController.getLoginId(request), groupId);
+        HashMapResultVO groupVO = groupMapService.groupInfoSearch(BaseController.getLoginId(request), groupId);
+        // 그룹에 대한 마커목록 검색
+        List<HashMapResultVO> markerVO = groupMapService.groupMarkersSearch(groupId);
 
         ModelAndView modelAndView = new ModelAndView("/project/map/" + "groupmap" + "/" + "groupmap");
         modelAndView.addObject("groupVO", groupVO);
+        modelAndView.addObject("MARKER_LIST", markerVO);
 
         return modelAndView;
     }
@@ -38,7 +41,7 @@ public class GroupMapController extends BaseController {
     @RequestMapping(value = "/groupInfoPopup/{groupId}")
     public ModelAndView InfoPopup(@PathVariable("groupId") String groupId) {
         // 그룹에 대한 상세정보 검색
-        HashMapResultVO groupVO =  groupMapService.groupDetailInfoSearch(groupId);
+        HashMapResultVO groupVO = groupMapService.groupDetailInfoSearch(groupId);
 
         ModelAndView modelAndView = new ModelAndView("/project/map/" + "groupmap" + "/" + "groupInfoPopup");
         modelAndView.addObject("groupVO", groupVO);
@@ -59,41 +62,13 @@ public class GroupMapController extends BaseController {
         return modelAndView;
     }
 
-    /**
-    * 일단 저거 넣는건 문제가 안될거임
-     * 마커 넣기전에 그룹원 등급도 한번 조회하고 해야함
-     *
-     *
-     * 우선 마커를 어떻게 생성하고 밀어넣을것인가를 고민해보기.
-    * */
-
-
     // 마커생성 요청 컨트롤러
-//    @PostMapping(value = "/markerCreate")
-//    public HashMapResultVO groupJoin(HttpServletRequest request, @RequestBody HashMapResultVO requestMap) {
-////        1. 이미 가입된 그룹인지
-////        2. 그룹에서 차단된건 아닌지
-////        3. 그룹 비밀번호가 맞는지
-//
-//        // 현재 사용자 id, ip 뽑아서 map에 삽입 후 메소드 호출
-//        // 그룹원 등급도 삽입
-//        requestMap.put("userId", BaseController.getLoginId(request));
-//        requestMap.put("insertIP", FrameUtil.getRemoteIP(request));
-//        requestMap.put("groupRank", "normal");
-//
-//        return groupInsertService.groupJoin(requestMap);
-//    }
+    @PostMapping(value = "/markerCreate")
+    public HashMapResultVO markerCreate(HttpServletRequest request, @RequestBody HashMapResultVO requestMap) {
+        // 현재 사용자 id, ip 뽑아서 map에 삽입 후 메소드 호출
+        requestMap.put("userId", BaseController.getLoginId(request));
+        requestMap.put("insertIP", FrameUtil.getRemoteIP(request));
 
-    // 마커 생성시
-//    특별 아래론 못쓰게 만들어야함
-//--> html에서 한번 검사하고 spring에서도  검사해야함
-    // spring에서 검사하고 저기 콜백에서 오류나면 리프레시 한번 해줘야함(타이밍때매 등급 체크를 못했을경우를 대비)
-
-
-
-
-    // 이거는 나중에 수정-->**
-    // 메인에서 가져오는 group 버튼 순서 맞추려면
-    // 부질의 말고 join써서 만들어야함 (쿼리 수정)
-
+        return groupMapService.markerCreate(requestMap);
+    }
 }

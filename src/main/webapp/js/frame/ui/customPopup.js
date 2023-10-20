@@ -3,6 +3,19 @@ var customPopupContextPath = ""; //"/ding";
 var customPopup = {
     callback : null,    
     show : function(url, title, width, height, callback, params) {
+        // 마커 정보에는 header 없애고 close 버튼 생성
+        if (title === '마커 정보') {
+            $("#customPopupTitle").css("display", "none !important");
+            $("#customPopupTitle").css("display", "none");
+            $("#customClose").css("display", "block !important");
+            $("#customClose").css("display", "block");
+        } else {
+            $("#customPopupTitle").css("display", "flex !important");
+            $("#customPopupTitle").css("display", "flex");
+            $("#customClose").css("display", "none !important");
+            $("#customClose").css("display", "none");
+        }
+
         this.callback = callback;
 
         $(document).off("iframeready");
@@ -49,9 +62,6 @@ var customPopup = {
 };
 
 $(document).ready(function() {
-    $("#customClose").css("display", "none !important");
-    $("#customClose").css("display", "none");
-
     $("#customPopupContainer").draggable({
         containment: "parent",
         cursor: "move"

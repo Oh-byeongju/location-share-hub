@@ -228,7 +228,7 @@ cen.mainBg {
 #subMenuArea .sidebar-top-level-items > .sidebar-top-level-item .nav-item-name{
 	font-size: 14px;
 	color: #707070;
-	font-weight: 400;
+	font-weight: 500;
 	visibility: hidden;
 	height: 0px;
 	display: block;
@@ -300,13 +300,10 @@ cen.mainBg {
 }
 
 .sidebar-top-level-item-header{
-	padding:12px 15px;
+	padding: 18px 10px 18px 15px;
 	display: flex;
 	align-items: center;
 }
-
-
-
 
 #subMenuArea .sidebar-top-level-items > .sidebar-top-level-item.active{
 	box-shadow: inset 4px 0 0 #57667a;
@@ -396,6 +393,23 @@ cen.mainBg {
 
 
 
+
+/*
+	LSH 임시
+ */
+
+.sidebar-top-level-item.selected {
+	background: #e5e5e5; /* 강조하고자 하는 스타일 지정 */
+}
+
+.sidebar-top-level-item.selected .nav-item-name {
+	color: #2e2e2e !important;
+}
+
+/*// 이거 안먹히*/
+.sidebar-top-level-item.selected .menuIco {
+	color: #2e2e2e !important;
+}
 
 /*
 	프로그램 영역

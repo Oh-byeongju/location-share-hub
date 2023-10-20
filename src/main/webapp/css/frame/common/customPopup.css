@@ -69,21 +69,26 @@ button.custom {
 
 #customClose {
     position: absolute;
-    right: 5px;
-    width: 21px;
-    height: 21px;
-    background-image: url('/img/frame/popup/b_p_close.png');
-    background-color: transparent;
+    right: -10px;
+    top: -11px !important;
+    width: 23px;
+    height: 23px;
+    background-image: url('/img/frame/popup/close_button.png');
+    background-color: purple;
+    background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
+    background-size: 20px 20px; /* 이미지 크기 설정 */
+    background-position: center center; /* 이미지를 가운데로 정렬 */
     border: 0px;
+    border-radius: 2px;
     cursor: pointer;
 }
 
 #customClose:hover {
-    background-image: url('/img/frame/popup/b_p_close_ov.png');
+    /*background-image: url('/img/frame/popup/b_p_close_ov.png');*/
 }
 
 #customClose:active {
-    background-image: url('/img/frame/popup/b_p_close_ov.png');
+    /*background-image: url('/img/frame/popup/b_p_close_ov.png');*/
 }
 
 #confirmYes, #confirmNo {

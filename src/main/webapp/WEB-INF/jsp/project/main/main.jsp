@@ -87,11 +87,11 @@
                 </li>
 
                 <li class="sidebar-top-level-item" title="그룹 관리"
-                    data-program-id="sy101"
-                    data-program-name="sy101"
-                    data-program-path="sy101"
-                    data-program-path-name="sy101"
-                    data-program-rmrk="sy101">
+                    data-program-id="none"
+                    data-program-name="none"
+                    data-program-path=""
+                    data-program-path-name="none"
+                    data-program-rmrk="none">
                     <a class="sidebar-top-level-item-header">
                         <div class="menuIco">
                             <img class="menu-image" src="/img/project/menuicon/ico-menu-02.png">

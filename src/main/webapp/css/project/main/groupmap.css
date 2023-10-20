@@ -34,3 +34,170 @@
     font-weight: normal;
     font-size: 17px;
 }
+
+.wrap {
+    position: absolute;
+    /*left 조정하면 css위치 맞출 수 있음*/
+    left: 31px;
+    bottom: 40px;
+    width: 230px;
+    height: 158px;
+    margin-left: -144px;
+    text-align: left;
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 1.5;
+    cursor: default;
+}
+.wrap * {
+    padding: 0;
+    margin: 0;
+}
+
+.wrap .info {
+    width: 230px;
+    height: 146px;
+    border-radius: 5px;
+    border-bottom: 2px solid #ccc;
+    border-right: 1px solid #ccc;
+    overflow: hidden;
+    background: #fff;
+}
+
+.wrap .info:nth-child(1) {
+    border: 0;
+    box-shadow: 0px 1px 2px #888;
+}
+
+.info .title {
+    padding: 5px 32px 0 10px;
+    height: 35px;
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+    font-size: 17px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.info .close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    color: #888;
+    width: 17px;
+    height: 17px;
+    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+}
+
+.info .close:hover {
+    cursor: pointer;
+}
+
+.info .body {
+    position: relative;
+    overflow: hidden;
+}
+
+.favoriteButton {
+    position: absolute;
+    top: 7px;
+    left: 199px; /* 원하는 위치 조정 */
+    height: 23px;
+    border: none;
+    z-index: 99999;
+}
+
+.favoriteButton img {
+    width: 23px;
+    height: auto; /* 비율에 맞게 자동으로 높이 조절 */
+}
+
+.info .desc {
+    position: relative;
+    margin: 8px 14px 0 14px;
+    height: 101px;
+}
+
+.desc .ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.desc .jibun {
+    font-size: 12px;
+    color: #888;
+    margin-top: 1px;
+}
+
+.ButtonList {
+    position: relative;
+    margin-left: 5px !important;
+    list-style: none;
+    margin-top: 15px;
+    height: 15px;
+}
+
+.ButtonList::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 170px;
+    top: 2px;
+    width: 1px;
+    height: 15px;
+    background-color: #ccc;
+}
+
+.ButtonList li:first-child {
+    margin-left: 10px;
+}
+
+.ButtonWrap {
+    margin-left: 10px;
+    list-style: none;
+    display: list-item;
+    float: right;
+}
+
+.ButtonWrap button {
+    content: "";
+    cursor: pointer;
+    background-color: white;
+    display: block;
+    position: relative;
+    color: red;
+    font-size: 12px;
+    border: 0;
+    padding: 0;
+}
+
+.ButtonWrap button.active {
+    color: #000;
+}
+
+.detailButton {
+    position: absolute;
+    font-weight: bold;
+    top: 73px;
+    left: 152px; /* 원하는 위치 조정 */
+    height: 23px;
+    border: none;
+    z-index: 99999;
+    color: blue;
+    background: none;
+    font-size:14px;
+}
+
+.info:after {
+    content: '';
+    position: absolute;
+    margin-left: -12px;
+    left: 50%;
+    bottom: 0;
+    width: 22px;
+    height: 12px;
+    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+}

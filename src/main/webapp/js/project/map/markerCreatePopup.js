@@ -115,42 +115,32 @@ $(document).ready(function(){
         // ex) restaurant, cafe...
         const selectBoxValue = $$("selectBox").getInputNode().value;
 
-        console.log(markerLat.toFixed(6));
-        console.log(markerLong.toFixed(6));
-       
-
         // 전달할 값 객체로 생성
         const param = {
             "groupId": groupId,
             "markerName": markerNameValue,
-            "markerLat": markerLat,
-            "markerLong": markerLong,
+            "markerLat": markerLat.toFixed(6),
+            "markerLong": markerLong.toFixed(6),
             "markerAddress": markerAddress,
             "markerTypeCd": selectBoxValue,
             "markerText": editorValue
         }
-
+        
+        // 마커생성 요청 후 콜백
         const callback = new Callback(function(result) {
-            console.log(result);
-            if (Object.values(result).length === 2) {
-                customPopup.hide();
-                popup.alert.show('마커 생성에 성공하였습니다.', function () {
-                    // 여기를 이제 어떻게 할것인가가 고민인데
-                    // 마커를 밀어넣는 방법을 고민해야함
-                    // 비효율적이지만 하려고 하면
-                    // 이거 콘솔 닫힐때 마다 지도를 refresh 해줘야함
-                    // 그때마다 마커 정보를 들고와서 지도에 띄우는 형식으로 진행
-                    // 그러면 여기에 로딩창이 있으면 될꺼같은데
-                });
+            // 생성 성공 케이스
+            if (Object.values(result).length === 8) {
+                customPopup.hide(result);
+                popup.alert.show('마커 생성에 성공하였습니다.');
             } else {
-                customPopup.hide();
+                customPopup.hide('실패');
                 popup.alert.show("마커 생성에 실패하였습니다.", function () {
                     // main 페이지를 새로고침
                     parent.refreshParent();
                 });
             }
         });
-        platform.postService("/groupinsert/groupJoin", param, callback);
+        platform.postService("/groupmap/markerCreate", param, callback);
     })
 });
 

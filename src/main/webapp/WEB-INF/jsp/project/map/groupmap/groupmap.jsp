@@ -19,6 +19,21 @@
 		const groupLong = '${groupVO.groupLong}';
 		const groupLev = '${groupVO.groupLev}';
 		const groupUserRankCd = '${groupVO.groupUserRankCd}';
+
+		// 마커 리스트 가공
+		const markerList = [
+			<c:forEach var="marker" items="${MARKER_LIST}" varStatus="loop">
+			{markerNo:'${marker.markerNo}',
+				userId:'${marker.userId}',
+				userNm:'${marker.userNm}',
+				markerNm: '${marker.markerNm}',
+				markerAddress: '${marker.markerAddress}',
+				markerLat: "${marker.markerLat}",
+				markerLong: '${marker.markerLong}',
+				cdNm: "${marker.cdNm}"}
+			<c:if test="${not loop.last}">,</c:if>
+			</c:forEach>
+		];
 	</script>
 </head>
 <body>
@@ -29,9 +44,11 @@
 			</span>
 		</div>
 		<div class="buttonArea" style="float: left; width: 70%; line-height: 80px; text-align: right;">
-			<button id="create">
-				마커생성
-			</button>
+			<c:if test="${groupVO.groupUserRankCd eq 'leader' || groupVO.groupUserRankCd eq 'special'}">
+				<button id="create">
+					마커생성
+				</button>
+			</c:if>
 			<button id="search">
 				그룹정보
 			</button>

@@ -6,7 +6,9 @@
 	<div id="customPopupContainer">
 		<div>
 			<div id="customPopupTitle" style="vertical-align: text-bottom;display: flex;align-items: end;justify-content: center;">CODE HELP</div>
-			<button id="customClose" onclick="customPopup.hide();" style="top: 5px;" ></button>
+			<button id="customClose" onclick="customPopup.hide();" style="top: 5px;" >
+
+			</button>
 		</div>
 
 		<iframe id="customPopupFrame" style="width:100%; height:calc(100% - 40px);" frameborder="0"></iframe>

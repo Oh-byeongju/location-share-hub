@@ -4,12 +4,21 @@
     <resultMap id="hashMapVO" type="com.sjinc.bss.framework.data.HashMapVO"/>
     <resultMap id="hashMapResultVO" type="com.sjinc.bss.framework.data.HashMapResultVO"/>
 
-    <!--    그룹 정보 검색 쿼리-->
+<!--    그룹 정보 검색 쿼리-->
     <select id="selectGroupByGId" parameterType="java.lang.String" resultMap="hashMapResultVO">
         SELECT group_id, group_nm, group_lat, group_long, group_lev
         FROM map_group
         WHERE group_id = #{groupId, jdbcType=VARCHAR}
     </select>
+
+<!--    마커 목록 조회 쿼리-->
+    <select id="selectMarkersByGId" parameterType="java.lang.String" resultMap="hashMapResultVO">
+        SELECT mm.marker_no, mm.user_id, mu.user_nm, mm.marker_nm, mm.marker_address, mm.marker_lat, mm.marker_long, sc.cd_nm
+        FROM map_marker mm INNER JOIN map_user mu ON mm.user_id = mu.user_id INNER JOIN sy_cmm_cd sc ON mm.marker_type_cd = sc.cd
+        WHERE mm.group_id = #{groupId, jdbcType=VARCHAR}
+        ORDER BY mm.marker_no;
+    </select>
+
 
 <!--    그룹원 등급 검색 쿼리-->
     <select id="selectGroupUserRankCd" parameterType="java.util.Map" resultType="java.lang.String">
@@ -44,5 +53,30 @@
         SELECT cd, cd_nm
         FROM sy_cmm_cd scc
         WHERE cd_gb_nm = '마커분류'
+    </select>
+
+<!--    마커 생성 쿼리-->
+    <insert id="insertMapMarker" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="marker_no">
+        <selectKey keyProperty="marker_no" resultType="int" order="AFTER">
+            SELECT lastval() as marker_no
+        </selectKey>
+
+        INSERT INTO map_marker (
+            group_id, user_id, marker_nm, marker_lat, marker_long,
+            marker_address, marker_type_cd, marker_text,
+            insert_dt, insert_id, insert_ip, update_dt, update_id, update_ip
+        )
+        VALUES (
+                   #{groupId}, #{userId}, #{markerName}, #{markerLat}, #{markerLong},
+                   #{markerAddress}, #{markerTypeCd}, #{markerText},
+                   NOW(), #{userId}, #{insertIp}, NULL, NULL, NULL
+               );
+    </insert>
+
+<!--    생성한 마커 조회 쿼리-->
+    <select id="selectMarkerByGId" parameterType="int" resultMap="hashMapResultVO">
+        SELECT mm.marker_no, mm.user_id, mu.user_nm, mm.marker_nm, mm.marker_address, mm.marker_lat, mm.marker_long, sc.cd_nm
+        FROM map_marker mm INNER JOIN map_user mu ON mm.user_id = mu.user_id INNER JOIN sy_cmm_cd sc ON mm.marker_type_cd = sc.cd
+        WHERE mm.marker_no = #{markerNo}
     </select>
 </mapper>
