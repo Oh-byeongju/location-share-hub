@@ -74,7 +74,7 @@ button.custom {
     width: 23px;
     height: 23px;
     background-image: url('/img/frame/popup/close_button.png');
-    background-color: purple;
+    background-color: rgb(95, 0, 128);
     background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
     background-size: 20px 20px; /* 이미지 크기 설정 */
     background-position: center center; /* 이미지를 가운데로 정렬 */

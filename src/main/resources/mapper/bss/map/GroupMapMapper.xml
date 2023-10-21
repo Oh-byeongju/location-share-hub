@@ -19,6 +19,12 @@
         ORDER BY mm.marker_no;
     </select>
 
+<!--    사용자가 즐겨찾기 한 목록 조회 쿼리-->
+    <select id="selectFavoriteMarkerNo" resultType="int" parameterType="java.lang.String">
+        SELECT marker_no
+        FROM map_bookmark
+        WHERE user_id = #{userId, jdbcType=VARCHAR}
+    </select>
 
 <!--    그룹원 등급 검색 쿼리-->
     <select id="selectGroupUserRankCd" parameterType="java.util.Map" resultType="java.lang.String">

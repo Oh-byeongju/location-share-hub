@@ -30,7 +30,8 @@
 				markerAddress: '${marker.markerAddress}',
 				markerLat: "${marker.markerLat}",
 				markerLong: '${marker.markerLong}',
-				cdNm: "${marker.cdNm}"}
+				cdNm: "${marker.cdNm}",
+				markerBookmark: "${marker.markerBookmark}"},
 			<c:if test="${not loop.last}">,</c:if>
 			</c:forEach>
 		];

@@ -27,8 +27,9 @@ public class GroupMapController extends BaseController {
     public ModelAndView defaultPage(HttpServletRequest request, @PathVariable("groupId") String groupId) {
         // 그룹에 대한 정보 검색
         HashMapResultVO groupVO = groupMapService.groupInfoSearch(BaseController.getLoginId(request), groupId);
+
         // 그룹에 대한 마커목록 검색
-        List<HashMapResultVO> markerVO = groupMapService.groupMarkersSearch(groupId);
+        List<HashMapResultVO> markerVO = groupMapService.groupMarkersSearch(BaseController.getLoginId(request), groupId);
 
         ModelAndView modelAndView = new ModelAndView("/project/map/" + "groupmap" + "/" + "groupmap");
         modelAndView.addObject("groupVO", groupVO);

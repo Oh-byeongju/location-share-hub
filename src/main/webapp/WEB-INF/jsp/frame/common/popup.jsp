@@ -19,7 +19,7 @@
 </div>
 
 <div id="loadingPopupWindow" class="popupBackground" style="z-index:99999999;">
-	<div id="loadingContainer" style="background-image:url('${frameContextPathc3}/img/frame/popup/loading.gif'); width:200px; height:200px; background-repeat:no-repeat; background-position:center 55px; background-color:#ffffff; border: 2px solid #FB7D10;">
+	<div id="loadingContainer" style="background-image:url('${frameContextPathc3}/img/frame/popup/loading.gif'); width:200px; height:200px; background-repeat:no-repeat; background-position:center 55px; background-color:#ffffff; border: 2px solid rgb(95, 0, 128);">
 		<div style="position:absolute; top:15px; text-align:center; width:100%; font-size:12pt; font-weight:bold;">잠시만 기다려주세요</div>
 	</div>
 </div>

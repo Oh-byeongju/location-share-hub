@@ -37,8 +37,23 @@ public class GroupMapService {
 
     // 그룹 마커목록 조회 메소드
     @Transactional
-    public List<HashMapResultVO> groupMarkersSearch(String groupId) {
-        return primarySqlSessionTemplate.selectList(namespace+".selectMarkersByGId", groupId);
+    public List<HashMapResultVO> groupMarkersSearch(String userId, String groupId) {
+        // 그룹내 마커목록 조회
+        List<HashMapResultVO> markerVO =  primarySqlSessionTemplate.selectList(namespace+".selectMarkersByGId", groupId);
+
+        // 사용자가 즐겨찾기한 마커 목록
+        List<Integer> favorites = primarySqlSessionTemplate.selectList(namespace+".selectFavoriteMarkerNo", userId);
+
+        // 마커 목록에 사용자의 즐겨찾기 기록 추가
+        for (HashMapResultVO temp : markerVO) {
+            if (favorites.contains(temp.get("markerNo"))) {
+                temp.put("markerBookmark", "y");
+            } else {
+                temp.put("markerBookmark", "n");
+            }
+        }
+
+        return markerVO;
     }
 
     // 그룹 상세정보 조회 메소드

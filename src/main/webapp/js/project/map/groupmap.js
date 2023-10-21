@@ -49,20 +49,64 @@ $(document).ready(function() {
 
         // 오버레이의 삭제 버튼 이벤트
         $("body").on("click", "#delButton", function() {
-            // // 상세보기 누른 오버레이의 마커 id
+            // 삭제 누른 오버레이의 마커 id
             // var $this = $(this);
             // var markerId = $this.data("marker-no");
 
             popup.alert.show("아직 구현되지 않은 기능입니다.")
         });
 
-        // 오버레이의 상세보기 버튼 이벤트
+        // 오버레이의 수정 버튼 이벤트
         $("body").on("click", "#modifyButton", function() {
-            // // 상세보기 누른 오버레이의 마커 id
+            // 수정 누른 오버레이의 마커 id
             // var $this = $(this);
             // var markerId = $this.data("marker-no");
 
             popup.alert.show("아직 구현되지 않은 기능입니다.")
+        });
+
+        // 오버레이의 즐겨찾기 버튼 이벤트
+        $("body").on("click", ".favoriteButton", function() {
+            // 즐겨찾기 누른 오버레이의 마커 id
+            var $this = $(this);
+            var markerId = $this.data("marker-no");
+
+            // 즐겨찾기 요청
+            $.ajax({
+                type: "POST",
+                async: true,
+                url: "http://localhost:8080/marker/bookmark",
+                data: JSON.stringify({"markerNo": markerId}),
+                contentType: "application/json",
+                withCredentials: true,          // 세션 쿠키 날리는 설정
+                success: function (data) {
+                    // 존재하지 않는 마커 예외처리
+                    if (data === "error") {
+                        popup.alert.show("존재하지 않는 마커입니다.", function () {
+                            // main 페이지를 새로고침
+                            parent.refreshParent();
+                        });
+                    }
+
+                    const modifyMarker = markerList.find(marker => marker && marker.markerNo === markerId.toString());
+                    
+                    // 내가 저장한 배열에서는 수정했는데
+                    // 기존에걸 삭제하고 다시 밀어넣어야하나 아니면
+                    // 저거 이미지만 변경이 가능한가 고민해보기
+                    // // 찾은 객체가 있고, 해당 객체의 markerBookmark를 리턴값으로 변경
+                    // if (modifyMarker) {
+                    //     targetObject.markerBookmark = data;
+                    // }
+
+
+                },
+                error: function (data) {
+                    popup.alert.show("존재하지 않는 마커입니다.", function () {
+                        // main 페이지를 새로고침
+                        parent.refreshParent();
+                    });
+                }
+            });
         });
 
         // 오버레이의 상세보기 버튼 이벤트
@@ -85,6 +129,7 @@ $(document).ready(function() {
             var markerNm = marker.markerNm;
             var markerAddress = marker.markerAddress;
             var cdNm = marker.cdNm;
+            var markerBookmark = marker.markerBookmark;
 
             // 사용자가 만든 마커인지 확인하는 변수 + 사용자가 그룹장인지 확인하는 변수
             var isUserMatch = USER_INFO.USER_ID === userId;
@@ -98,8 +143,12 @@ $(document).ready(function() {
                             <div id="closeButton" class="close" title="닫기" data-marker-no="${markerNo}"></div>
                         </div>
                         <div class="body">
-                            <button class="favoriteButton">
-                                <img src="/img/heart_empty.png" alt="Image Button">
+                            <button class="favoriteButton" data-marker-no="${markerNo}">
+                                ${markerBookmark === 'y' ? `
+                                    <img src="/img/heart_fill.png" alt="Image Button">
+                                ` : `
+                                    <img src="/img/heart_empty.png" alt="Image Button">
+                                `}
                             </button>
                             <div class="desc">
                                 <div class="jibun ellipsis" style="width: 180px">주소 : ${markerAddress}</div>
@@ -107,12 +156,12 @@ $(document).ready(function() {
                                 ${isUserMatch || isLeaderMatch ? `
                                     <ul class="ButtonList">
                                         <li class="ButtonWrap">
-                                            <button id="delButton">
+                                            <button id="delButton" data-marker-no="${markerNo}">
                                                 삭제
                                             </button>
                                         </li>
                                         <li class="ButtonWrap">
-                                            <button id="modifyButton">
+                                            <button id="modifyButton" data-marker-no="${markerNo}">
                                                 수정
                                             </button>
                                         </li>
@@ -165,31 +214,25 @@ $(document).ready(function() {
 
         // 기존의 존재하는 마커생성 및 지도에 추가
         markerList.forEach(markerInfo => {
-            // 테스트
+            // 마커의 이미지 주소입니다((일반))
+            var imageSrc = "http://t1.daumcdn.net/mapjsapi/images/2x/marker.png";
 
-
+            // 사용자가 즐겨찾기한 마커면 별모양 마커 생성
             // 마커 이미지의 이미지 주소입니다((별모양))
-            // var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-
-            // 마커의 이미지 주소입니다((일반)) --> 이 부분을 그 마커 생성 거기서도 수정이 가능한가?
-            // https://devtalk.kakao.com/t/drawing-library/120624 이 주소 까봐
-            var imageSrc = "http://t1.daumcdn.net/mapjsapi/images/2x/marker.png"
+            if (markerInfo.markerBookmark === 'y') {
+                imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+            }
 
             // 마커 이미지의 이미지 크기 입니다
-            var imageSize = new kakao.maps.Size(33, 47);
+            var imageSize = new kakao.maps.Size(29, 43);
 
             // 마커 이미지를 생성합니다
             var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
-
-            // 테스트
-
-
-
             const marker = new kakao.maps.Marker({
                 position: new kakao.maps.LatLng(markerInfo.markerLat, markerInfo.markerLong),
                 title: markerInfo.markerNm,
-                image : markerImage // 마커 이미지 (테스트용)
+                image : markerImage
             });
 
             // 마커에 대한 정보 할당
@@ -199,6 +242,7 @@ $(document).ready(function() {
             marker.markerNm = markerInfo.markerNm;
             marker.markerAddress = markerInfo.markerAddress;
             marker.cdNm = markerInfo.cdNm;
+            marker.markerBookmark = markerInfo.markerBookmark;
 
             // 마커에 클릭이벤트 등록
             kakao.maps.event.addListener(marker, 'click', function() {
@@ -263,6 +307,16 @@ $(document).ready(function() {
             ],
             // 사용자에게 제공할 그리기 가이드 툴팁입니다
             guideTooltip: ['draw'],
+            markerOptions: { // 마커 옵션 커스텀
+                markerImages:
+                    [
+                        {
+                            src: 'http://t1.daumcdn.net/mapjsapi/images/2x/marker.png',
+                            width: 29,
+                            height: 43
+                        },
+                    ]
+            },
         };
 
         // 매니저 변수 할당
@@ -296,9 +350,19 @@ $(document).ready(function() {
                     var callback = new Callback(function(event) {
                         // 마커생성 성공 케이스
                         if (event !== "실패" && event !== undefined) {
+                            // 마커의 이미지 주소입니다((일반))
+                            var imageSrc = "http://t1.daumcdn.net/mapjsapi/images/2x/marker.png"
+
+                            // 마커 이미지의 이미지 크기 입니다
+                            var imageSize = new kakao.maps.Size(29, 43);
+
+                            // 마커 이미지를 생성합니다
+                            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
                             const marker = new kakao.maps.Marker({
                                 position: new kakao.maps.LatLng(event.markerLat, event.markerLong),
-                                title: event.markerNm
+                                title: event.markerNm,
+                                image : markerImage
                             });
 
                             // 마커에 대한 정보 할당

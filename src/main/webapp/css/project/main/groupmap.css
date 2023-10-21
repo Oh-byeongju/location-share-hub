@@ -107,6 +107,7 @@
     height: 23px;
     border: none;
     z-index: 99999;
+    background: none;
 }
 
 .favoriteButton img {

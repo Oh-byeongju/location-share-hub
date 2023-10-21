@@ -1,5 +1,9 @@
 package com.sjinc.bss.map.marker;
 
+import com.sjinc.bss.framework.FrameUtil;
+import com.sjinc.bss.framework.data.HashMapResultVO;
+import com.sjinc.bss.framework.data.HashMapStringVO;
+import com.sjinc.bss.framework.data.HashMapVO;
 import com.sjinc.bss.map.group.GroupMapService;
 import com.sjinc.bss.project.base.BaseController;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +22,11 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 @RequestMapping(value = "/marker")
 public class MarkerController extends BaseController {
-    private final GroupMapService groupMapService;
+    private final MarkerService markerService;
 
-    // 그룹 지도 화면 리턴 컨트롤러
+    // 마커 상세정보 화면 리턴 컨트롤러
     @RequestMapping(value = "/markerDetail/{markerNo}")
     public ModelAndView defaultPage(HttpServletRequest request, @PathVariable("markerNo") String markerNo) {
-
-
 //        // 그룹에 대한 정보 검색
 //        HashMapResultVO groupVO = groupMapService.groupInfoSearch(BaseController.getLoginId(request), groupId);
 //        // 그룹에 대한 마커목록 검색
@@ -37,38 +39,15 @@ public class MarkerController extends BaseController {
         return modelAndView;
     }
 
-//    // 그룹 정보 팝업 리턴 컨트롤러
-//    @RequestMapping(value = "/groupInfoPopup/{groupId}")
-//    public ModelAndView InfoPopup(@PathVariable("groupId") String groupId) {
-//        // 그룹에 대한 상세정보 검색
-//        HashMapResultVO groupVO = groupMapService.groupDetailInfoSearch(groupId);
-//
-//        ModelAndView modelAndView = new ModelAndView("/project/map/" + "groupmap" + "/" + "groupInfoPopup");
-//        modelAndView.addObject("groupVO", groupVO);
-//
-//        return modelAndView;
-//    }
-//
-//    // 마커생성 팝업 리턴 컨트롤러
-//    @RequestMapping(value = "/markerCreatePopup")
-//    public ModelAndView MarkerCreatePopup() {
-//        // 마커분류 목록 조회
-//        List<HashMapResultVO> resultVO = groupMapService.markerCategoriesSearch();
-//
-//        // jsp 리턴
-//        ModelAndView modelAndView = new ModelAndView("/project/map/" + "groupmap" + "/" + "markerCreatePopup");
-//        modelAndView.addObject("CATEGORY_LIST", resultVO);
-//
-//        return modelAndView;
-//    }
-//
-//    // 마커생성 요청 컨트롤러
-//    @PostMapping(value = "/markerCreate")
-//    public HashMapResultVO markerCreate(HttpServletRequest request, @RequestBody HashMapResultVO requestMap) {
-//        // 현재 사용자 id, ip 뽑아서 map에 삽입 후 메소드 호출
-//        requestMap.put("userId", BaseController.getLoginId(request));
-//        requestMap.put("insertIP", FrameUtil.getRemoteIP(request));
-//
-//        return groupMapService.markerCreate(requestMap);
-//    }
+    // 마커 즐겨찾기 컨트롤러
+    @RequestMapping(value = "/bookmark")
+    public String markerBookmark(HttpServletRequest request, @RequestBody HashMapStringVO requestMap) {
+        // DB에 사용되는 값 매핑
+        HashMapVO markerMap = new HashMapVO();
+        markerMap.put("userId", BaseController.getLoginId(request));
+        markerMap.put("markerNo", Integer.parseInt(requestMap.get("markerNo")));
+        markerMap.put("insertIP", FrameUtil.getRemoteIP(request));
+
+        return markerService.markerBookmark(markerMap);
+    }
 }
