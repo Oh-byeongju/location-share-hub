@@ -1,5 +1,6 @@
 package com.sjinc.bss.map.marker;
 
+import com.sjinc.bss.framework.data.HashMapResultVO;
 import com.sjinc.bss.framework.data.HashMapVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,12 @@ import java.util.List;
 public class MarkerService {
     private final SqlSessionTemplate primarySqlSessionTemplate;
     private final static String namespace = "marker";
+
+    // 마커 상세정보 조회 메소드
+    @Transactional
+    public HashMapResultVO markerSearch(int markerNo) {
+        return primarySqlSessionTemplate.selectOne(namespace + ".selectMarkerAllById", markerNo);
+    }
 
     // 그룹 마커 즐겨찾기 메소드
     @Transactional

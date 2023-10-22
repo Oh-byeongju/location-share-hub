@@ -2,6 +2,8 @@
 var isDrawing = false;
 var kakaoMap = null;
 var positions = null;
+// 생성된 마커 리스트(마커 원본)
+var markers = [];
 // 생성된 오버레이 리스트
 var createOverlay = [];
 // 오버레이 리스트
@@ -11,6 +13,9 @@ function initPage() {
 }
 
 $(document).ready(function() {
+    var callback = new Callback(function(result) {});
+    customPopup.show("/marker/markerDetail/"+ 1, "마커 정보", 780, 715, callback, {groupId: "temp"});
+
     // 존재하지 않는 그룹일경우 예외처리
     if (groupId === '') {
         popup.alert.show("존재하지 않는 그룹입니다.", function () {
@@ -69,14 +74,14 @@ $(document).ready(function() {
         $("body").on("click", ".favoriteButton", function() {
             // 즐겨찾기 누른 오버레이의 마커 id
             var $this = $(this);
-            var markerId = $this.data("marker-no");
+            var markerNo = $this.data("marker-no");
 
             // 즐겨찾기 요청
             $.ajax({
                 type: "POST",
                 async: true,
                 url: "http://localhost:8080/marker/bookmark",
-                data: JSON.stringify({"markerNo": markerId}),
+                data: JSON.stringify({"markerNo": markerNo}),
                 contentType: "application/json",
                 withCredentials: true,          // 세션 쿠키 날리는 설정
                 success: function (data) {
@@ -87,18 +92,32 @@ $(document).ready(function() {
                             parent.refreshParent();
                         });
                     }
+                    // 이미지를 바꿀 마커
+                    const modifyMarker = markers.find(marker => marker && marker.markerNo === markerNo.toString())
 
-                    const modifyMarker = markerList.find(marker => marker && marker.markerNo === markerId.toString());
-                    
-                    // 내가 저장한 배열에서는 수정했는데
-                    // 기존에걸 삭제하고 다시 밀어넣어야하나 아니면
-                    // 저거 이미지만 변경이 가능한가 고민해보기
-                    // // 찾은 객체가 있고, 해당 객체의 markerBookmark를 리턴값으로 변경
-                    // if (modifyMarker) {
-                    //     targetObject.markerBookmark = data;
-                    // }
+                    // 마커의 이미지 주소입니다((일반))
+                    var imageSrc = "http://t1.daumcdn.net/mapjsapi/images/2x/marker.png";
 
+                    // 사용자가 즐겨찾기한 마커면 별모양 마커 생성
+                    // 마커 이미지의 이미지 주소입니다((별모양))
+                    if (data === 'y') {
+                        imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+                    }
 
+                    // 마커 이미지의 이미지 크기 입니다
+                    var imageSize = new kakao.maps.Size(29, 43);
+
+                    // 마커 이미지를 생성 후 할당합니다
+                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+                    modifyMarker.setImage(markerImage);
+
+                    // 버튼 이미지도 변경
+                    var $button = $('.favoriteButton[data-marker-no="' + markerNo + '"]');
+                    if (data === 'y') {
+                        $button.html('<img src="/img/heart_fill.png" alt="Image Button">');
+                    } else {
+                        $button.html('<img src="/img/heart_empty.png" alt="Image Button">');
+                    }
                 },
                 error: function (data) {
                     popup.alert.show("존재하지 않는 마커입니다.", function () {
@@ -234,7 +253,7 @@ $(document).ready(function() {
                 title: markerInfo.markerNm,
                 image : markerImage
             });
-
+            
             // 마커에 대한 정보 할당
             marker.markerNo = markerInfo.markerNo;
             marker.userId = markerInfo.userId;
@@ -257,8 +276,9 @@ $(document).ready(function() {
                 }
             });
 
-            // 마커를 지도에 추가
+            // 마커를 지도에 추가 및 배열에도 추가
             marker.setMap(kakaoMap);
+            markers.push(marker);
         });
 
         // 지도 맵 타입 컨트롤 생성
@@ -366,12 +386,13 @@ $(document).ready(function() {
                             });
 
                             // 마커에 대한 정보 할당
-                            marker.markerNo = event.markerNo
+                            marker.markerNo = event.markerNo.toString();
                             marker.userId = event.userId;
                             marker.userNm = event.userNm
                             marker.markerNm = event.markerNm;
                             marker.markerAddress = event.markerAddress;
                             marker.cdNm = event.cdNm;
+                            marker.markerBookmark = 'n';
 
                             // 마커에 클릭이벤트 등록
                             kakao.maps.event.addListener(marker, 'click', function() {
@@ -385,9 +406,9 @@ $(document).ready(function() {
                                     removeOverlay(marker.markerNo);
                                 }
                             });
-
-                            // 마커를 지도에 추가
+                            // 마커를 지도에 추가 및 배열에도 추가
                             marker.setMap(kakaoMap);
+                            markers.push(marker);
                         }
 
                         // 마커를 그렸으니까 다시 false로 변경
@@ -431,5 +452,5 @@ $(document).ready(function() {
 listener.button.search.click = function () {
     var callback = new Callback(function(result) {});
     // 그룹정보 팝업창 여는 함수
-    customPopup.show("/groupmap/groupInfoPopup/"+ groupId, "그룹 정보", 520, 510, callback, {groupId: "temp"});
+    customPopup.show("/groupmap/groupInfoPopup/"+ groupId, "그룹 정보", 520, 505, callback, {groupId: "temp"});
 }

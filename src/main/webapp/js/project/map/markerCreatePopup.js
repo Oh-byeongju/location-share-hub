@@ -52,6 +52,10 @@ $(document).ready(function(){
                 options: [8, 9, 10, 11, 12, 13, 'default', 16, 17, 18],
                 supportAllValues: true
             },
+            link: {
+                // Automatically add target="_blank" and rel="noopener noreferrer" to all external links.
+                addTargetToExternalLinks: true
+            },
             removePlugins: [
                 'ExportPdf',
                 'ExportWord',

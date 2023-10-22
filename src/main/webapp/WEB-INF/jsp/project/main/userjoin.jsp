@@ -1,4 +1,5 @@
 <%@ page import="com.sjinc.bss.framework.FrameDateUtil" %>
+<%@ page import="com.sjinc.bss.framework.FrameConstants" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -11,6 +12,17 @@
     <link type="text/css" rel="stylesheet" href="css/project/main/userjoin.css">
     <script src="js/project/main/userjoin.js"></script>
 </head>
+<script>
+    <%
+         Object obj = session.getAttribute(FrameConstants.LOGIN_USER_ATTR);
+                // 로그인세션 존재하면 메인으로
+                if (obj != null) {
+    %>
+    document.location = commonContextPath + "/main";
+    <%
+        }
+    %>
+</script>
 <body>
     <div class="topLine">
         <a href="/login">

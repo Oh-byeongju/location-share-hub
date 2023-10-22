@@ -9,6 +9,7 @@ var customPopup = {
             $("#customPopupTitle").css("display", "none");
             $("#customClose").css("display", "block !important");
             $("#customClose").css("display", "block");
+            $("#customPopupFrame").css("height", "calc(100% - 1px)");
         } else {
             $("#customPopupTitle").css("display", "flex !important");
             $("#customPopupTitle").css("display", "flex");

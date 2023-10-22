@@ -27,13 +27,11 @@ public class MarkerController extends BaseController {
     // 마커 상세정보 화면 리턴 컨트롤러
     @RequestMapping(value = "/markerDetail/{markerNo}")
     public ModelAndView defaultPage(HttpServletRequest request, @PathVariable("markerNo") String markerNo) {
-//        // 그룹에 대한 정보 검색
-//        HashMapResultVO groupVO = groupMapService.groupInfoSearch(BaseController.getLoginId(request), groupId);
-//        // 그룹에 대한 마커목록 검색
-//        List<HashMapResultVO> markerVO = groupMapService.groupMarkersSearch(groupId);
+        // 마커 상세정보 검색
+        HashMapResultVO markerVO = markerService.markerSearch(Integer.parseInt(markerNo));
 
         ModelAndView modelAndView = new ModelAndView("/project/map/" + "marker" + "/" + "markerPopup");
-//        modelAndView.addObject("groupVO", groupVO);
+        modelAndView.addObject("markerVO", markerVO);
 //        modelAndView.addObject("MARKER_LIST", markerVO);
 
         return modelAndView;

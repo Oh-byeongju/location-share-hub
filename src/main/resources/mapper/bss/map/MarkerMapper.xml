@@ -4,6 +4,13 @@
     <resultMap id="hashMapVO" type="com.sjinc.bss.framework.data.HashMapVO"/>
     <resultMap id="hashMapResultVO" type="com.sjinc.bss.framework.data.HashMapResultVO"/>
 
+    <!--    마커 상세 조회 쿼리-->
+    <select id="selectMarkerAllById" parameterType="int" resultMap="hashMapResultVO">
+        SELECT mm.marker_no, mm.user_id, mu.user_nm, mm.marker_nm, mm.marker_address, sc.cd_nm, mm.marker_text, mm.insert_dt
+        FROM map_marker mm INNER JOIN map_user mu ON mm.user_id = mu.user_id INNER JOIN sy_cmm_cd sc ON mm.marker_type_cd = sc.cd
+        WHERE mm.marker_no = #{markerNo}
+    </select>
+
 <!--    특정 마커 검색 쿼리-->
     <select id="selectMarkerById" parameterType="java.util.Map" resultType="int">
         SELECT mm.marker_no
@@ -34,11 +41,4 @@
         FROM map_bookmark
         WHERE user_id = #{userId} AND marker_no = #{markerNo}
     </delete>
-
-<!--&lt;!&ndash;    생성한 마커 조회 쿼리&ndash;&gt;-->
-<!--    <select id="selectMarkerByGId" parameterType="int" resultMap="hashMapResultVO">-->
-<!--        SELECT mm.marker_no, mm.user_id, mu.user_nm, mm.marker_nm, mm.marker_address, mm.marker_lat, mm.marker_long, sc.cd_nm-->
-<!--        FROM map_marker mm INNER JOIN map_user mu ON mm.user_id = mu.user_id INNER JOIN sy_cmm_cd sc ON mm.marker_type_cd = sc.cd-->
-<!--        WHERE mm.marker_no = #{markerNo}-->
-<!--    </select>-->
 </mapper>

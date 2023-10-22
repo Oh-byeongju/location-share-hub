@@ -1,0 +1,89 @@
+.infoLayout {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.infoLayout h1,
+.infoLayout h2,
+.infoLayout h3,
+.infoLayout h4,
+.infoLayout h5,
+.infoLayout h6 {
+    margin: 0;
+}
+
+.infoHeader {
+    padding: 15px 15px 15px 15px;
+    border-bottom: 1px solid #000000;
+
+    /*chat gpt꺼*/
+    position: sticky;
+    top: 0;
+    background-color: white; /* 원하는 배경색으로 설정하세요 */
+    z-index: 100; /* 다른 요소들 위에 나타나도록 z-index 조절 */
+}
+
+.infoTitle {
+    line-height: 36px;
+    font-size: 24px;
+    font-weight: bold;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: auto;
+}
+
+.infoSubTitle {
+    margin-top: 4px;
+    line-height: 17px;
+    font-size: 14px;
+    color: #7b858e;
+}
+
+.markerCreator {
+    line-height: 17px;
+    font-size: 14px;
+    color: black;
+    float: right;
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 1px solid #98a0a7;
+    color: #7b858e;
+}
+
+.markerCategory {
+    line-height: 17px;
+    font-size: 14px;
+    color: black;
+    float: right;
+    color: #7b858e;
+}
+
+.infoContent {
+    padding: 8px 8px 8px 8px;
+    /*border-bottom: 1px solid #000000;*/
+}
+
+.markerContent {
+    background-color: rgb(247, 247, 247);
+    background-clip: content-box;
+    min-height: 230px !important;
+    border-radius: 4px;
+}
+
+.markerContent > * {
+    padding: 2px 7px 2px 7px;
+}
+
+.reviewHeader {
+    padding: 5px 15px 10px 15px;
+    border-bottom: 1px solid #000000;
+}
+
+.reviewTitle {
+    line-height: 36px;
+    font-size: 24px;
+    font-weight: bold;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: auto;
+}

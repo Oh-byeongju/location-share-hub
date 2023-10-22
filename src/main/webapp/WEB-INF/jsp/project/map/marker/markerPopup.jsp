@@ -6,34 +6,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%@include file="/WEB-INF/jsp/frame/common/programInclude.jsp"%>
-    <link type="text/css" rel="stylesheet" href="${myContextPath}/css/frame/common/groupInfoPopup.css">
+    <%@include file="/WEB-INF/jsp/frame/common/programInclude2.jsp"%>
+    <link type="text/css" rel="stylesheet" href="${myContextPath}/css/frame/common/markerPopup.css">
+    <script type="text/javascript" src="${myContextPath}/js/project/map/markerPopup<spring:message key="js.addext"/>.js?ver=<spring:message key="js.version"/>"></script>
+    <script>
+        console.log('${markerVO}')
+        <%--// 그룹 정보 변수 할당--%>
+        <%--const groupId = '${groupVO.groupId}';--%>
+        <%--const groupLat = '${groupVO.groupLat}';--%>
+        <%--const groupLong = '${groupVO.groupLong}';--%>
+        <%--const groupLev = '${groupVO.groupLev}';--%>
+        <%--const groupUserRankCd = '${groupVO.groupUserRankCd}';--%>
+    </script>
 </head>
+
 <body>
-<script>
-    function initFrame() {}
-</script>
     <div class="infoLayout">
-        <div class="infoArea">
-            <div class="labelLayout">
-                <label class="labelInfo">
-                    여기를 싹 바까야함
-                </label>
+        <div class="infoHeader">
+            <div class="infoTitle">
+                ${markerVO.markerNm}
             </div>
-            <span class="infoText" title="테스트">
-                테스트
-            </span>
+            <div class="infoSubTitle">
+                ${markerVO.markerAddress}
+                <span class="markerCreator">
+                    ${markerVO.userNm}
+                </span>
+                <span class="markerCategory">
+                    ${markerVO.cdNm}
+                </span>
+            </div>
+        </div>
+        <div class="infoContent">
+            <div class="markerContent">
+                ${markerVO.markerText}
+            </div>
+        </div>
+        <div class="infoReview">
+            <div class="reviewHeader">
+                <div class="reviewTitle">
+                    리뷰
+                </div>
+            </div>
+            <div class="markerContent">
+
+            </div>
         </div>
 
 
 
-<%--        <div class="formTitle" style="left:0px; top: 420px; width:calc(100%); height:calc(100% - 500px)">--%>
-<%--            <div class="buttonArea" style="text-align: right;">--%>
-<%--                <button class="yesButton" style="margin-right: 25px" onclick="customPopup.hide();">--%>
-<%--                    확인--%>
-<%--                </button>--%>
-<%--            </div>--%>
-<%--        </div>--%>
+
+
     </div>
 </body>
 </html>
