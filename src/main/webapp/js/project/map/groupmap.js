@@ -14,7 +14,8 @@ function initPage() {
 
 $(document).ready(function() {
     var callback = new Callback(function(result) {});
-    customPopup.show("/marker/markerDetail/"+ 1, "마커 정보", 780, 715, callback, {groupId: "temp"});
+    // customPopup.show("/marker/markerDetail/"+ 1, "마커 정보", 780, 715, callback, {markerNo: 1, groupUserRankCd: groupUserRankCd});
+
 
     // 존재하지 않는 그룹일경우 예외처리
     if (groupId === '') {
@@ -136,7 +137,7 @@ $(document).ready(function() {
 
             var callback = new Callback(function(result) {});
             // 마커 상세정보 요청
-            customPopup.show("/marker/markerDetail/"+ markerId, "마커 정보", 780, 715, callback, {groupId: "temp"});
+            customPopup.show("/marker/markerDetail/"+ markerId, "마커 정보", 780, 715, callback, {markerNo: markerId, groupUserRankCd: groupUserRankCd});
         });
 
         // 오버레이를 생성하고 리스트에 추가하는 함수

@@ -39,7 +39,7 @@
     color: #7b858e;
 }
 
-.markerCreator {
+.markerCreator_Day {
     line-height: 17px;
     font-size: 14px;
     color: black;
@@ -65,18 +65,26 @@
 
 .markerContent {
     background-color: rgb(247, 247, 247);
-    background-clip: content-box;
-    min-height: 230px !important;
+    min-height: 240px !important;
     border-radius: 4px;
 }
 
 .markerContent > * {
-    padding: 2px 7px 2px 7px;
+    padding: 0px 10px 0px 10px;
+}
+
+.markerContent:first-child {
+    padding-top: 5px;
+}
+
+/*!* 마지막 .markerContent에 스타일 적용 *!*/
+.markerContent:last-child {
+    padding-bottom: 10px;
 }
 
 .reviewHeader {
-    padding: 5px 15px 10px 15px;
-    border-bottom: 1px solid #000000;
+    padding: 5px 15px 0px 15px;
+    /*border-bottom: 1px solid #000000;*/
 }
 
 .reviewTitle {
@@ -86,4 +94,235 @@
     word-wrap: break-word;
     word-break: break-all;
     overflow: auto;
+}
+
+.reviewWriteArea {
+    padding: 5px 8px 8px 8px;
+    /*border-bottom: 1px solid #000000;*/
+}
+
+.reviewWrite {
+    background-color: rgb(247, 247, 247);
+    min-height: 126px !important;
+    border-radius: 4px;
+    padding-top: 10px;
+}
+
+.writeLayout {
+    background-color: #fff;
+    border: 1px solid #dddfe4;
+    width: 97%;
+    margin: 0 auto;
+}
+
+.writeForm {
+    overflow: hidden;
+    overflow-wrap: break-word;
+    height: 70px;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    line-height: 20px;
+    font-size: 14px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    resize: none;
+    border: none;
+    outline: none;
+    align-items:center;
+    padding: 6px;
+}
+
+.writeInfo {
+    position: relative;
+    border-top: 1px solid #dddfe4;
+    min-height: 33.5px;
+    box-sizing: border-box;
+    padding-right: 186px;
+}
+
+.writeNumber {
+    font-size: 14px;
+    line-height: 17px;
+    color: #7b858e;
+    position: absolute;
+    right: 100px;
+    bottom: 8px;
+}
+
+.writeButtonArea {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.writeButton {
+    cursor: pointer;
+    width: 92px;
+    padding: 6px 9px;
+    line-height: 19px;
+    font-size: 16px;
+    border-radius: 0;
+    border-color: #46cfa7;
+    background-color: rgb(95, 0, 128);
+    color: #fff;
+    border: 1px solid #dddfe4;
+}
+
+.reviewList {
+    padding: 10px 8px 8px 8px;
+}
+
+.reviewListLayout {
+    background-color: rgb(247, 247, 247);
+    background-clip: content-box;
+    min-height: 170px !important;
+    overflow:auto;
+    border-radius: 4px;
+}
+
+.sortButtonArea {
+    padding-top: 4px;
+    width: 97%;
+    margin: 0 auto;
+}
+
+.newSort {
+    /*padding: 15px 16px 12px;*/
+    line-height: 15px;
+    font-size: 13px;
+    color: #1e2022;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+.likeSort {
+    /*padding: 15px 16px 12px;*/
+    line-height: 15px;
+    padding-left: 9px;
+    font-size: 13px;
+    color: #1e2022;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    border-left: 1px solid #98a0a7;
+}
+
+.reviewDataArea {
+    background-color: #fff;
+    width: 97%;
+    margin: 8px auto 10px;
+    min-height: 110px !important;
+}
+
+.commentData {
+    list-style-type: none;
+    position: relative;
+    margin: 0;
+    padding-left: 0;
+    width: 100%;
+}
+
+.commentData li:last-child {
+    border-bottom: none;
+}
+
+.comment {
+    position: relative;
+    padding: 12px 26px 10px 26px;
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid #dddfe4;
+}
+
+.writer_time {
+    line-height: 17px;
+    font-size: 14px;
+    margin-top: 5px;
+    color: #7b858e;
+}
+
+.commentWriter {
+    display: inline-block;
+    word-wrap: break-word;
+    word-break: break-all;
+    padding-right: 12px;
+    line-height: 10px;
+    height: 12px;
+    border-right: 1px solid #98a0a7;
+    font-weight: 700;
+    color: #1e2022;
+}
+
+.commentTime {
+    padding-left: 6px;
+    color: #7b858e;
+}
+
+.reviewLike {
+    float: right;
+}
+
+.reviewLikeButton {
+    height: 16px;
+    border: none;
+    background: none;
+    z-index: 99999;
+    padding-right: 4px;
+}
+
+.reviewLikeButton img {
+    width: 16px;
+    line-height: 16px;
+    height: auto; /* 비율에 맞게 자동으로 높이 조절 */
+}
+
+.likeNum {
+    font-size: 16px;
+    vertical-align: top;
+}
+
+.commentContent {
+    padding-top: 12px;
+    line-height: 25px;
+    font-size: 14px;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: auto;
+    max-height: 400px;
+}
+
+.commentButtons {
+    position:relative;
+    color: #7b858e;
+    line-height: 20px;
+    word-wrap: break-word;
+    word-break: break-all;
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.modifyButton {
+    float: right;
+    color: red;
+    border: none;
+    background: white;
+    padding: 0;
+    vertical-align: middle;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.delButton {
+    float: right;
+    color: red;
+    border: none;
+    background: white;
+    padding: 0;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 12px;
 }

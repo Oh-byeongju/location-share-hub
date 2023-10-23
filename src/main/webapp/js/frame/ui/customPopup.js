@@ -15,6 +15,7 @@ var customPopup = {
             $("#customPopupTitle").css("display", "flex");
             $("#customClose").css("display", "none !important");
             $("#customClose").css("display", "none");
+            $("#customPopupFrame").css("height", "calc(100% - 40px)");
         }
 
         this.callback = callback;
