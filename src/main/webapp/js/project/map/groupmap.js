@@ -56,20 +56,37 @@ $(document).ready(function() {
             var $this = $(this);
             var markerNo = $this.data("marker-no");
 
-            // 이거를 callback안에 다 넣어버리기
-            
-            // Overlay제거
-            removeOverlay(markerNo);
-            
-            // 제거할 마커 (삭제가 안됨)
-            const delMarker = markers.filter((marker) => marker.markerNo === markerNo.toString());
-            console.log(delMarker);
-            delMarker.setMap(null);
+            var param = {
+                "markerNo": markerNo
+            };
 
-            // 제거된 마커를 배열에서 제거
-            markers = markers.filter((marker) => marker.markerNo !== markerNo.toString());
+            popup.confirm.show("마커를 삭제하시겠습니까?", function(bool) {
+                if (bool) {
+                    try {
+                        var callback = new Callback(function(result) {
+                            if (result === '성공') {
+                                popup.alert.show('마커 삭제에 성공하였습니다.', function () {
+                                    // Overlay제거
+                                    removeOverlay(markerNo);
 
-            popup.alert.show("아직 구현되지 않은 기능입니다.")
+                                    // 맵에서 마커 제거
+                                    const delMarker = markers.filter((marker) => marker.markerNo === markerNo.toString());
+                                    delMarker[0].setMap(null);
+
+                                    // 제거된 마커를 배열에서 제거
+                                    markers = markers.filter((marker) => marker.markerNo !== markerNo.toString());
+                                });
+                            } else {
+                                popup.alert.show("마커 삭제에 실패하였습니다.", function () {
+                                    // main 페이지를 새로고침
+                                    parent.refreshParent();
+                                });
+                            }
+                        });
+                        platform.postService("/marker/delete", param, callback);
+                    } catch (e) {}
+                }
+            });
         });
 
         // 오버레이의 수정 버튼 이벤트

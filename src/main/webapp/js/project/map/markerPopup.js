@@ -16,10 +16,133 @@ $(document).ready(function() {
     // 리뷰의 삭제 버튼 이벤트
     $("body").on("click", "#delButton", function() {
         // 삭제 누른 오버레이의 마커 id
-        // var $this = $(this);
-        // var markerId = $this.data("marker-no");
+        var $this = $(this);
+        var reviewNo = $this.data("review-no");
 
-        popup.alert.show("아직 구현되지 않은 기능입니다.")
+        popup.confirm.show("리뷰를 삭제하시겠습니까?", function(bool) {
+            if (bool) {
+                try {
+                    var param = {"reviewNo": reviewNo};
+                    var callback = new Callback(function(result) {
+                        if (result === '성공') {
+                            popup.alert.show('리뷰 삭제에 성공하였습니다.', function () {
+                                // 최신순 버튼 클릭 상태
+                                if ($("#newSort").css("color") === 'rgb(30, 32, 34)') {
+                                    var callback = new Callback(function(result) {
+                                        // 정렬값 갱신
+                                        // ul태그 비우고 사용
+                                        commentList.empty();
+                                        if (result.length === 0) {
+                                            // 배열이 비어있을 경우 '콘텐츠가 없습니다' 출력
+                                            commentList.append("<li style='text-align: center; padding-top: 40px'>작성된 리뷰가 없습니다.</li>");
+                                        } else {
+                                            // 배열이 비어있지 않을 경우 각 요소에 대해 li 태그 동적으로 생성
+                                            result.forEach(function(item) {
+                                                commentList.append(`
+                                            <li class="comment">
+                                                <div class="writer_time">
+                                                    <span class="commentWriter">
+                                                        ${item.userNm}
+                                                    </span>
+                                                    <span class="commentTime" title=${item.markerReviewDts}>
+                                                        ${detailDate(item.markerReviewDts)}
+                                                    </span>
+                                                    <span class="reviewLike">
+                                                        <button class="reviewLikeButton" data-review-no="${item.markerReviewNo}">
+                                                            ${item.reviewLike === 'y' ? `
+                                                                <img src="/img/heart_fill.png" alt="Image Button">
+                                                            ` : `
+                                                                <img src="/img/heart_empty.png" alt="Image Button">
+                                                            `}
+                                                        </button>
+                                                        <span class="likeNum" data-review-no="${item.markerReviewNo}">
+                                                            ${item.likeCount}
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <div class="commentContent">
+                                                    ${item.markerReviewText}
+                                                </div>
+                                                <div class="commentButtons">
+                                                  ${USER_INFO.USER_ID === item.userId || groupUserRankCd === 'leader' ? `
+                                                    <button id="delButton" class="delButton" data-review-no="${item.markerReviewNo}">
+                                                      삭제
+                                                    </button>
+                                                    <button id="modifyButton" class="modifyButton">
+                                                      수정
+                                                    </button>` : ''}
+                                                </div>
+                                            </li>
+                                            `);
+                                            });
+                                        }
+                                    });
+                                    platform.getService("/marker/markerList/" + markerNo + "?sort=new", callback, null);
+                                } else {
+                                    var callback = new Callback(function (result) {
+                                        // 정렬값 갱신
+                                        // ul태그 비우고 사용
+                                        commentList.empty();
+                                        if (result.length === 0) {
+                                            // 배열이 비어있을 경우 '콘텐츠가 없습니다' 출력
+                                            commentList.append("<li style='text-align: center; padding-top: 40px'>작성된 리뷰가 없습니다.</li>");
+                                        } else {
+                                            // 배열이 비어있지 않을 경우 각 요소에 대해 li 태그 동적으로 생성
+                                            result.forEach(function (item) {
+                                                commentList.append(`
+                                            <li class="comment">
+                                                <div class="writer_time">
+                                                    <span class="commentWriter">
+                                                        ${item.userNm}
+                                                    </span>
+                                                    <span class="commentTime" title=${item.markerReviewDts}>
+                                                        ${detailDate(item.markerReviewDts)}
+                                                    </span>
+                                                    <span class="reviewLike">
+                                                        <button class="reviewLikeButton" data-review-no="${item.markerReviewNo}">
+                                                            ${item.reviewLike === 'y' ? `
+                                                                <img src="/img/heart_fill.png" alt="Image Button">
+                                                            ` : `
+                                                                <img src="/img/heart_empty.png" alt="Image Button">
+                                                            `}
+                                                        </button>
+                                                        <span class="likeNum" data-review-no="${item.markerReviewNo}">
+                                                            ${item.likeCount}
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <div class="commentContent">
+                                                    ${item.markerReviewText}
+                                                </div>
+                                                <div class="commentButtons">
+                                                  ${USER_INFO.USER_ID === item.userId || groupUserRankCd === 'leader' ? `
+                                                    <button id="delButton" class="delButton" data-review-no="${item.markerReviewNo}">
+                                                      삭제
+                                                    </button>
+                                                    <button id="modifyButton" class="modifyButton">
+                                                      수정
+                                                    </button>` : ''}
+                                                </div>
+                                            </li>
+                                            `);
+                                            });
+                                        }
+                                    });
+                                    platform.getService("/marker/markerList/" + markerNo + "?sort=like", callback, null);
+                                }
+                            })
+                        } else {
+                            popup.alert.show("존재하지 않는 리뷰입니다.", function () {
+                                // main 페이지를 새로고침
+                                parent.refreshParent();
+                            });
+                        }
+                    });
+                    platform.postService("/marker/reviewDelete", param, callback);
+                }
+                catch (e) {}
+            }
+        });
     });
 
     // 리뷰의 수정 버튼 이벤트
@@ -168,7 +291,7 @@ $(document).ready(function() {
                                                 </div>
                                                 <div class="commentButtons">
                                                   ${USER_INFO.USER_ID === item.userId || groupUserRankCd === 'leader' ? `
-                                                    <button id="delButton" class="delButton">
+                                                    <button id="delButton" class="delButton" data-review-no="${item.markerReviewNo}">
                                                       삭제
                                                     </button>
                                                     <button id="modifyButton" class="modifyButton">
@@ -219,7 +342,7 @@ $(document).ready(function() {
                                                 </div>
                                                 <div class="commentButtons">
                                                   ${USER_INFO.USER_ID === item.userId || groupUserRankCd === 'leader' ? `
-                                                    <button id="delButton" class="delButton">
+                                                    <button id="delButton" class="delButton" data-review-no="${item.markerReviewNo}">
                                                       삭제
                                                     </button>
                                                     <button id="modifyButton" class="modifyButton">
@@ -289,7 +412,7 @@ $(document).ready(function() {
                         <button id="delButton" class="delButton">
                           삭제
                         </button>
-                        <button id="modifyButton" class="modifyButton">
+                        <button id="delButton" class="delButton" data-review-no="${item.markerReviewNo}">
                           수정
                         </button>` : ''}
                     </div>
@@ -344,7 +467,7 @@ $(document).ready(function() {
                     </div>
                     <div class="commentButtons">
                       ${USER_INFO.USER_ID === item.userId || groupUserRankCd === 'leader' ? `
-                        <button id="delButton" class="delButton">
+                        <button id="delButton" class="delButton" data-review-no="${item.markerReviewNo}">
                           삭제
                         </button>
                         <button id="modifyButton" class="modifyButton">
@@ -395,7 +518,7 @@ $(document).ready(function() {
                     </div>
                     <div class="commentButtons">
                       ${USER_INFO.USER_ID === item.userId || groupUserRankCd === 'leader' ? `
-                        <button id="delButton" class="delButton">
+                        <button id="delButton" class="delButton" data-review-no="${item.markerReviewNo}">
                           삭제
                         </button>
                         <button id="modifyButton" class="modifyButton">

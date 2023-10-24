@@ -42,6 +42,13 @@
         WHERE user_id = #{userId} AND marker_no = #{markerNo}
     </delete>
 
+<!--    마커 삭제 쿼리-->
+    <delete id="deleteMarker" parameterType="java.util.Map">
+        DELETE
+        FROM map_marker
+        WHERE marker_no = #{markerNo}
+    </delete>
+
 <!--    마커 리뷰 조회 쿼리-->
     <select id="selectMarkerReviews" parameterType="int" resultMap="hashMapResultVO">
         select mmr.marker_review_no, mmr.user_id, mu.user_nm, mmr.marker_review_text, mmr.marker_review_dts
@@ -109,6 +116,12 @@
     <delete id="deleteMarkerReview" parameterType="java.util.Map">
         DELETE
         FROM map_review_like
+        WHERE marker_review_no = #{markerReviewNo} AND user_id = #{userId}
+    </delete>
+
+    <delete id="deleteMarkerReviewReal" parameterType="java.util.Map">
+        DELETE
+        FROM map_marker_review
         WHERE marker_review_no = #{markerReviewNo}
     </delete>
 </mapper>

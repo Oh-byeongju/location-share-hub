@@ -36,6 +36,16 @@ public class MarkerController extends BaseController {
         return markerService.markerBookmark(markerMap);
     }
 
+    // 마커 삭제 컨트롤러
+    @RequestMapping(value = "/delete")
+    public String markerDelete(HttpServletRequest request, @RequestBody HashMapStringVO requestMap) {
+        // DB에 사용되는 값 매핑
+        HashMapVO markerMap = new HashMapVO();
+        markerMap.put("markerNo", Integer.parseInt(requestMap.get("markerNo")));
+
+        return markerService.markerDelete(markerMap);
+    }
+
     // 마커 상세정보 화면 리턴 컨트롤러
     @RequestMapping(value = "/markerDetail/{markerNo}")
     public ModelAndView defaultPage(HttpServletRequest request, @PathVariable("markerNo") String markerNo) {
@@ -88,5 +98,15 @@ public class MarkerController extends BaseController {
         reviewMap.put("insertIP", "0:0:0:0:0:1");
 
         return markerService.reviewLike(reviewMap);
+    }
+
+    // 마커리뷰 삭제 컨트롤러
+    @RequestMapping(value = "/reviewDelete")
+    public String reviewDelete(HttpServletRequest request, @RequestBody HashMapStringVO requestMap) {
+        // DB에 사용되는 값 매핑
+        HashMapVO markerMap = new HashMapVO();
+        markerMap.put("markerReviewNo", Integer.parseInt(requestMap.get("reviewNo")));
+
+        return markerService.reviewDelete(markerMap);
     }
 }

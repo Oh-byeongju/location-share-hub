@@ -46,6 +46,19 @@ public class MarkerService {
         }
     }
 
+    // 그룹 마커 삭제 메소드
+    @Transactional
+    public String markerDelete(HashMapVO markerMap) {
+        // 존재하지 않는 마커 예외처리
+        Integer check = primarySqlSessionTemplate.selectOne(namespace + ".selectMarkerById", markerMap);
+        if (check == null) {
+            return "실패";
+        }
+        // 마커 삭제
+        primarySqlSessionTemplate.delete(namespace + ".deleteMarker", markerMap);
+        return "성공";
+    }
+
     // 마커 상세정보 조회 메소드
     @Transactional
     public HashMapResultVO markerSearch(int markerNo) {
@@ -138,5 +151,19 @@ public class MarkerService {
             primarySqlSessionTemplate.delete(namespace + ".deleteMarkerReview", reviewMap);
             return "n";
         }
+    }
+
+    // 리뷰 삭제 메소드
+    @Transactional
+    public String reviewDelete(HashMapVO reviewMap) {
+        // 존재하지 않는 리뷰 예외처리
+        Integer check = primarySqlSessionTemplate.selectOne(namespace + ".selectMarkerReviewNo", reviewMap);
+        if (check == null) {
+            return "error";
+        }
+
+        // 리뷰 삭제
+        primarySqlSessionTemplate.delete(namespace + ".deleteMarkerReviewReal", reviewMap);
+        return "성공";
     }
 }
