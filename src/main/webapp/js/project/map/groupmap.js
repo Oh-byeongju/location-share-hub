@@ -13,9 +13,6 @@ function initPage() {
 }
 
 $(document).ready(function() {
-    var callback = new Callback(function(result) {});
-    // customPopup.show("/marker/markerDetail/"+ 1, "마커 정보", 780, 715, callback, {markerNo: 1, groupUserRankCd: groupUserRankCd});
-
 
     // 존재하지 않는 그룹일경우 예외처리
     if (groupId === '') {
@@ -56,8 +53,21 @@ $(document).ready(function() {
         // 오버레이의 삭제 버튼 이벤트
         $("body").on("click", "#delButton", function() {
             // 삭제 누른 오버레이의 마커 id
-            // var $this = $(this);
-            // var markerId = $this.data("marker-no");
+            var $this = $(this);
+            var markerNo = $this.data("marker-no");
+
+            // 이거를 callback안에 다 넣어버리기
+            
+            // Overlay제거
+            removeOverlay(markerNo);
+            
+            // 제거할 마커 (삭제가 안됨)
+            const delMarker = markers.filter((marker) => marker.markerNo === markerNo.toString());
+            console.log(delMarker);
+            delMarker.setMap(null);
+
+            // 제거된 마커를 배열에서 제거
+            markers = markers.filter((marker) => marker.markerNo !== markerNo.toString());
 
             popup.alert.show("아직 구현되지 않은 기능입니다.")
         });

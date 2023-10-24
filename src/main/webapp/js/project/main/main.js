@@ -106,7 +106,7 @@ $(document).ready(function() {
         var programPath = $this.data("program-path");
 
         if(isEmpty(programPath)) {
-            popup.alert.show("프로그램 Path정보가 없어서 실행할 수 없습니다.");
+            popup.alert.show("아직 구현되지 않은 기능입니다.");
             return;
         }
 
