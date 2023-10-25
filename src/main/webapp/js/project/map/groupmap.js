@@ -209,7 +209,7 @@ $(document).ready(function() {
                                         </li>
                                         <li class="ButtonWrap">
                                             <button id="modifyButton" data-marker-no="${markerNo}">
-                                                수정
+<!--                                                수정-->
                                             </button>
                                         </li>
                                     </ul>
