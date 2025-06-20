@@ -25,6 +25,12 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
     private final LoginService loginService;
 
+    // 메인 jsp 컨트롤러
+    @GetMapping("/")
+    public ModelAndView main() {
+        return new ModelAndView("project/main/login");
+    }
+
     // 로그인 jsp 컨트롤러
     @GetMapping("/login")
     public ModelAndView login() {

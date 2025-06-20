@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.sjinc.bss</groupId>
-    <artifactId>bss</artifactId>
+    <artifactId>LSH</artifactId>
     <version>0.9</version>
-    <name>bss</name>
-    <description>Spring Boot for bss</description>
+    <name>LSH</name>
+    <description>Spring Boot for LSH</description>
     <packaging>war</packaging>
 
     <properties>
