@@ -1,5 +1,5 @@
-<%@ page import="com.sjinc.bss.framework.FrameStringUtil"%>
-<%@ page import="com.sjinc.bss.framework.FrameConstants"%>
+<%@ page import="com.lsh.framework.FrameStringUtil"%>
+<%@ page import="com.lsh.framework.FrameConstants"%>
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="org.springframework.util.ObjectUtils" %>
 <%@ page language="java" pageEncoding="utf-8"%>

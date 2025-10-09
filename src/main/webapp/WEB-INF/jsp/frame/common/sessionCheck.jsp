@@ -1,8 +1,8 @@
-<%@page import="com.sjinc.bss.framework.model.LoginUserVo" %>
-<%@page import="com.sjinc.bss.framework.FrameConstants" %>
-<%@page import="com.sjinc.bss.framework.FrameStringUtil" %>
-<%@page import="com.sjinc.bss.framework.FrameUtil" %>
-<%@ page import="com.sjinc.bss.framework.data.HashMapResultVO" %>
+<%@page import="com.lsh.framework.model.LoginUserVo" %>
+<%@page import="com.lsh.framework.FrameConstants" %>
+<%@page import="com.lsh.framework.FrameStringUtil" %>
+<%@page import="com.lsh.framework.FrameUtil" %>
+<%@ page import="com.lsh.framework.data.HashMapResultVO" %>
 
 <%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <script>

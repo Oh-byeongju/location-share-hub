@@ -1,5 +1,5 @@
-<%@ page import="com.sjinc.bss.framework.FrameStringUtil" %>
-<%@ page import="com.sjinc.bss.project.commonmodule.menuprogram.MenuPgmVo" %>
+<%@ page import="com.lsh.framework.FrameStringUtil" %>
+<%@ page import="com.lsh.project.commonmodule.menuprogram.MenuPgmVo" %>
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
@@ -137,7 +137,7 @@
 
 <div id="footerArea">
     <div class="fLeftArea"></div>
-    <div class="fCenterArea"><span>Copyright@2023 SEJUNG I&C. All Rights Reserverd.</span></div>
+    <div class="fCenterArea"><span>위치정보 공유 플랫폼</span></div>
     <div class="fRightArea"></div>
 </div>
 

@@ -1,4 +1,4 @@
-<%@page import="com.sjinc.bss.framework.FrameStringUtil"%>
+<%@page import="com.lsh.framework.FrameStringUtil"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page contentType="text/html;charset=utf-8"%>
 <%@page import = "java.io.*"%>

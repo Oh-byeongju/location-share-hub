@@ -1,5 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.sjinc.bss.framework.FrameStringUtil" %>
+<%@ page import="com.lsh.framework.FrameStringUtil" %>
 <%@page language="java" pageEncoding="utf-8"%>
 
 <div id="titleArea" style="width:calc(100% - 80px); height:80px; margin-left: 40px;">

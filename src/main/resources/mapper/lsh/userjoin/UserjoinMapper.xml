@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userjoin">
+    <resultMap id="hashMapVO" type="com.lsh.framework.data.HashMapVO"/>
+    <resultMap id="hashMapResultVO" type="com.lsh.framework.data.HashMapResultVO"/>
+
+<!--    사용자 id 검색 쿼리-->
+    <select id="selectById" parameterType="java.lang.String" resultMap="hashMapResultVO">
+        select user_id
+        from map_user
+        where user_id = #{userId, jdbcType=VARCHAR}
+    </select>
+
+<!--    사용자 email 검색 쿼리-->
+    <select id="selectByEmail" parameterType="java.lang.String" resultMap="hashMapResultVO">
+        select user_email
+        from map_user
+        where user_email = #{userEmail, jdbcType=VARCHAR}
+    </select>
+
+<!--    회원 insert 쿼리-->
+    <insert id="insertUser" parameterType="map">
+        insert into map_user(user_id, user_pw, user_nm, user_email, insert_dt, insert_id, insert_ip, update_dt, update_id, update_ip)
+        values (#{id,jdbcType=VARCHAR}, #{pw,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, CURRENT_TIMESTAMP,
+                #{id,jdbcType=VARCHAR}, #{insertIP,jdbcType=VARCHAR}, NULL, NULL, NULL)
+    </insert>
+</mapper>
