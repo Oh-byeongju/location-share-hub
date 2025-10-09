@@ -11,7 +11,7 @@
 	<%@include file="/WEB-INF/jsp/frame/common/programInclude.jsp" %>
 	<script type="text/javascript" src="${myContextPath}/js/project/map/groupmap<spring:message key="js.addext"/>.js?ver=<spring:message key="js.version"/>"></script>
 <%--	카카오 지도 api--%>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fb8bef5737e279bc3e7236391517d158&libraries=services,clusterer,drawing"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoApiKey}&libraries=services,clusterer,drawing"></script>
 	<script>
 		// 그룹 정보 변수 할당
 		const groupId = '${groupVO.groupId}';

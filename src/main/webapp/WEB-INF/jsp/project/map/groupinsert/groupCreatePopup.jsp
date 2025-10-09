@@ -10,7 +10,7 @@
     <link type="text/css" rel="stylesheet" href="${myContextPath}/css/frame/common/groupCreatePopup.css">
     <script type="text/javascript" src="${myContextPath}/js/project/map/groupCreatePopup<spring:message key="js.addext"/>.js?ver=<spring:message key="js.version"/>"></script>
     <%--	카카오 지도 api--%>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fb8bef5737e279bc3e7236391517d158&libraries=services"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoApiKey}&libraries=services"></script>
 </head>
 <body>
     <form class="createForm">
