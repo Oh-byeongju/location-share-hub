@@ -145,15 +145,6 @@ $(document).ready(function() {
         });
     });
 
-    // 리뷰의 수정 버튼 이벤트
-    $("body").on("click", "#modifyButton", function() {
-        // 수정 누른 오버레이의 마커 id
-        // var $this = $(this);
-        // var markerId = $this.data("marker-no");
-
-        popup.alert.show("아직 구현되지 않은 기능입니다.")
-    });
-
     // 리뷰의 공감 버튼 이벤트
     $("body").on("click", ".reviewLikeButton", function() {
         // 공감 누른 리뷰 No

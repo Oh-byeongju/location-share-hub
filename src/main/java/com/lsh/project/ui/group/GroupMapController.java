@@ -3,6 +3,7 @@ package com.lsh.project.ui.group;
 import com.lsh.framework.data.HashMapResultVO;
 import com.lsh.framework.FrameUtil;
 import com.lsh.project.base.BaseController;
+import com.lsh.project.ui.marker.MarkerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import java.util.List;
 @RequestMapping(value = "/groupmap")
 public class GroupMapController extends BaseController {
     private final GroupMapService groupMapService;
+    private final MarkerService markerService;
 
     // 그룹 지도 화면 리턴 컨트롤러
     @RequestMapping(value = "/{groupId}")
@@ -59,6 +61,23 @@ public class GroupMapController extends BaseController {
         // jsp 리턴
         ModelAndView modelAndView = new ModelAndView("/project/map/" + "groupmap" + "/" + "markerCreatePopup");
         modelAndView.addObject("CATEGORY_LIST", resultVO);
+
+        return modelAndView;
+    }
+
+    // 마커수정 팝업 리턴 컨트롤러
+    @RequestMapping(value = "/markerUpdatePopup/{markerId}")
+    public ModelAndView markerUpdatePopup(@PathVariable("markerId") String markerId) {
+        // 마커분류 목록 조회
+        List<HashMapResultVO> resultVO = groupMapService.markerCategoriesSearch();
+
+        // 마커 상세정보 조회
+        HashMapResultVO markerVO = markerService.markerSearch(Integer.parseInt(markerId));
+
+        // jsp 리턴
+        ModelAndView modelAndView = new ModelAndView("/project/map/" + "groupmap" + "/" + "markerUpdatePopup");
+        modelAndView.addObject("CATEGORY_LIST", resultVO);
+        modelAndView.addObject("MARKER_INFO", markerVO);
 
         return modelAndView;
     }

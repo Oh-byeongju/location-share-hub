@@ -95,7 +95,7 @@ public class MarkerController extends BaseController {
         HashMapVO reviewMap = new HashMapVO();
         reviewMap.put("userId", BaseController.getLoginId(request));
         reviewMap.put("markerReviewNo", Integer.parseInt(requestMap.get("reviewNo")));
-        reviewMap.put("insertIP", "0:0:0:0:0:1");
+        reviewMap.put("insertIP", FrameUtil.getRemoteIP(request));
 
         return markerService.reviewLike(reviewMap);
     }
