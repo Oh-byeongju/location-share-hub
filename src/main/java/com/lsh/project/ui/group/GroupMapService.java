@@ -1,4 +1,4 @@
-package com.lsh.map.group;
+package com.lsh.project.ui.group;
 
 import com.lsh.framework.data.HashMapResultVO;
 import com.lsh.framework.data.HashMapStringVO;
