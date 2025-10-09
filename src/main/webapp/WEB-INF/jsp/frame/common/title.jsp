@@ -1,4 +1,3 @@
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="com.lsh.framework.FrameStringUtil" %>
 <%@page language="java" pageEncoding="utf-8"%>
 

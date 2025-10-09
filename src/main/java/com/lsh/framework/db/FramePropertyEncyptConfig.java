@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class FramePropertyEncyptConfig {
 
     public static final String PROP_ALGORITHM = "PBEWithMD5AndDES";
-    public static final String PROP_PSWD = "SJINC_PASS";
+    public static final String PROP_PSWD = "PASSWORD";
 
     @Bean("jasyptStringEncryptor")
     public PooledPBEStringEncryptor stringEncryptor() {

@@ -29,7 +29,7 @@ public class MenuPgmDetails {
      * 사용자 그룹에 해당하는 메뉴/프로그램 목록을 리턴한다.
      *
      * @param compCd 회사코드
-     * @param userGb 사용자 그룹 (SY020)
+     * @param userGb 사용자 그룹
      * @return 그룹별 메뉴/프로그램 목록
      */
     public ArrayList<MenuPgmVo> getMenulistByUserGroup(String compCd, String userGb) {

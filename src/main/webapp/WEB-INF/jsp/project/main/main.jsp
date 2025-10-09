@@ -142,9 +142,7 @@
 </div>
 
 <%@include file="/WEB-INF/jsp/frame/common/userPopup.jsp" %>
-<%@include file="/WEB-INF/jsp/frame/common/attachFilePopup.jsp" %>
 <%@include file="/WEB-INF/jsp/frame/common/popup.jsp" %>
 <%@include file="/WEB-INF/jsp/frame/common/customPopup.jsp" %>
-<%@include file="/WEB-INF/jsp/frame/common/filePopup.jsp" %>
 </body>
 </html>

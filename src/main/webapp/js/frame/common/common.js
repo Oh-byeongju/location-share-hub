@@ -711,30 +711,6 @@ function getSelectCommList(code, param, comm) {
 }
 */
 
-function downloadForm(PGMID) {
-	var frame = $('<iframe class="downloadFrame" style="display: none;"></iframe>');
-	frame.attr('src', commonContextPath + "/jsp/frame/common/downloadForm.jsp?PGMID=" + PGMID);
-	$("body").after(frame);
-
-	setTimeout(function() {
-		$("iframe.downloadFrame").remove();
-	}, 1000);
-}
-
-/* remark 20220215
-function fnDownload(obj) {
-	var downclick = function() {
-		var frame = $('<iframe class="downloadFrame" style="display: none;"></iframe>');
-		frame.attr('src', commonContextPath + "/jsp/common/download.jsp?BLLT_CLAS_CD=" + obj["BLLT_CLAS_CD"] + "&ATTC_FL_ID=" + obj["ATTC_FL_ID"] + "&ATTC_FILE_SQOR=" + obj["ATTC_FILE_SQOR"]);
-		$("body").after(frame);
-
-		setTimeout(function() {
-			$("iframe.downloadFrame").remove();
-		}, 1000);
-	}
-	downclick();
-}
-
 
 function fnRemove(obj) {
 	var removeclick = function() {
@@ -748,7 +724,6 @@ function fnRemove(obj) {
 	}
 	removeclick();
 }
-*/
 
 /*
 function check(){

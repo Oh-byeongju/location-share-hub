@@ -71,7 +71,6 @@ public class PrimaryMybatisConfiguration {
 
         sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        //Resource[] resource = resolver.getResources("classpath*:mapper/nara/**/*.xml");
         Resource[] resource = resolver.getResources(mapperDir);
 
         sqlSessionFactoryBean.setMapperLocations(resource);

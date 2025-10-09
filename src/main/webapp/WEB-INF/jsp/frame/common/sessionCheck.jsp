@@ -26,7 +26,6 @@
 
 	if (!FrameStringUtil.isNull(USER_DATA) ) { // 세션이 null 아닐때....
         // id, name, email 제외하고는 임의의값 설정
-        // 프레임워크 구조를 몰라서 변경이 어려움
 		USER_ID    = (String) USER_DATA.get("userId");
 		USER_NM    = (String) USER_DATA.get("userNm");
 		COMP_CD    = "test";

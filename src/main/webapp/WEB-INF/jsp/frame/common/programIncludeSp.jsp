@@ -9,10 +9,8 @@
 
 <link rel="stylesheet" type="text/css" href="${myContextPath}/css/frame/lib/webix.custom.css?ver=<spring:message key="css.version"/>" />
 <link rel="stylesheet" type="text/css" href="${myContextPath}/css/frame/common/userPopup.css?ver=<spring:message key="css.version"/>">
-<link rel="stylesheet" type="text/css" href="${myContextPath}/css/frame/common/attachFilePopup.css?ver=<spring:message key="css.version"/>">
 <link rel="stylesheet" type="text/css" href="${myContextPath}/css/frame/common/popup.css?ver=<spring:message key="css.version"/>">
 <link rel="stylesheet" type="text/css" href="${myContextPath}/css/frame/common/customPopup.css?ver=<spring:message key="css.version"/>">
-<link rel="stylesheet" type="text/css" href="${myContextPath}/css/frame/common/filePopup.css?ver=<spring:message key="css.version"/>">
 
 <%--LIBRARY & COMMON--%>
 <script type="text/javascript" src="${myContextPath}/js/lib/jquery/jquery-2.1.4.js?ver=<spring:message key="js.version"/>"></script>
