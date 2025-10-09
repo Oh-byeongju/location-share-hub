@@ -59,7 +59,7 @@
 }
 
 .infoContent {
-    padding: 8px 8px 8px 8px;
+    padding: 15px 20px 8px 20px;
     /*border-bottom: 1px solid #000000;*/
 }
 
@@ -83,7 +83,7 @@
 }
 
 .reviewHeader {
-    padding: 5px 15px 0px 15px;
+    padding: 5px 25px 0px 25px;
     /*border-bottom: 1px solid #000000;*/
 }
 
@@ -97,7 +97,7 @@
 }
 
 .reviewWriteArea {
-    padding: 5px 8px 8px 8px;
+    padding: 5px 20px 8px 20px;
     /*border-bottom: 1px solid #000000;*/
 }
 
@@ -171,7 +171,7 @@
 }
 
 .reviewList {
-    padding: 10px 8px 8px 8px;
+    padding: 10px 20px 15px 20px;
 }
 
 .reviewListLayout {
