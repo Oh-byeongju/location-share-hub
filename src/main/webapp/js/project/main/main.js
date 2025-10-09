@@ -10,6 +10,10 @@ $(document).ready(function() {
         btnLogoutClick();
     });
 
+    $(".icoUserImg").click(function() {
+        btnUserClick();
+    });
+
     $('#btnAtte').click(function () {
         btnAtteClick();
     })
@@ -182,4 +186,12 @@ function btnLogoutClick() {
             } catch (e) {}
         }
     });
+}
+
+function btnUserClick() {
+    var callback = new Callback(function(result) {
+        console.log(result);
+    });
+    // 회원정보 팝업창 여는 함수
+    customPopup.show("/main/userInfoPopup", "회원 정보", 520, 505, callback);
 }

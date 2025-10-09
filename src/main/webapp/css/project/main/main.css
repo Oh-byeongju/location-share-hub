@@ -53,18 +53,18 @@ cen.mainBg {
 	background-image: url("/img/project/main/ico-logout-ov.png");
 }
 
-#topArea .topDivR #userInfo{
-	width: 75px;
+#topArea .topDivR .icoUserImg{
+	width: 85px;
 }
 
-#topArea .topDivR #userInfo .icoUser{
+#topArea .topDivR .icoUserImg .icoUser{
 	width: 11px;
 	height: 11px;
 	background-image: url("/img/project/main/ico-user.png");
 }
 
-#topArea .topDivR #userInfo:hover .icoUser,
-#topArea .topDivR #userInfo:active .icoUser{
+#topArea .topDivR .icoUserImg:hover .icoUser,
+#topArea .topDivR .icoUserImg:active .icoUser{
 	background-image: url("/img/project/main/ico-user-ov.png");
 }
 

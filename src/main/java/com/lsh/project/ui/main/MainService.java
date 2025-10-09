@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -20,5 +21,17 @@ public class MainService {
     @Transactional
     public List<HashMapResultVO> userGroupSearch(String userId) {
         return primarySqlSessionTemplate.selectList(namespace+".selectGroupsByUserId", userId);
+    }
+
+    // 사용자 정보 조회
+    @Transactional(readOnly = true)
+    public HashMapResultVO userInfoSearch(String userId) {
+        return primarySqlSessionTemplate.selectOne(namespace+".selectUserInfoByUserId", userId);
+    }
+
+    // 사용자 회원정보 수정 메소드
+    @Transactional
+    public void userInfoModify(Map<String, String> requestMap) {
+        primarySqlSessionTemplate.update(namespace+".updateUser", requestMap);
     }
 }

@@ -11,4 +11,21 @@
         WHERE mgu.user_id =  #{userId} AND group_user_rank_cd != 'blocked'
         ORDER BY mgu.group_user_no;
     </select>
+
+<!--    사용자 정보 조회-->
+    <select id="selectUserInfoByUserId" parameterType="java.lang.String" resultMap="hashMapResultVO">
+        select user_id, user_nm, user_email, insert_dt
+        from map_user
+        where user_id = #{userId, jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateUser" parameterType="map">
+        update map_user
+        set user_pw = #{userPw, jdbcType=VARCHAR},
+            user_nm = #{userNm, jdbcType=VARCHAR},
+            update_dt = CURRENT_TIMESTAMP,
+            update_id = #{userId, jdbcType=VARCHAR},
+            update_ip = #{updateIP,jdbcType=VARCHAR}
+        where user_id = #{userId, jdbcType=VARCHAR}
+    </update>
 </mapper>

@@ -32,6 +32,11 @@
         <div style="font-size: 20px;font-weight: bold;letter-spacing: -0.1px;padding-left: 10px;">위치정보 공유 플랫폼</div>
     </div>
     <div class="topDivR">
+        <div class="icoUserImg btn">
+            <div class="icoUser"></div>회원정보
+        </div>
+    </div>
+    <div class="topDivR">
         <div class="LogOutImg btn">
             <div class="icoLogout"></div>로그아웃
         </div>
@@ -86,22 +91,22 @@
                     </a>
                 </li>
 
-<%--                <li class="sidebar-top-level-item" title="그룹 관리"--%>
-<%--                    data-program-id="none"--%>
-<%--                    data-program-name="none"--%>
-<%--                    data-program-path=""--%>
-<%--                    data-program-path-name="none"--%>
-<%--                    data-program-rmrk="none">--%>
-<%--                    <a class="sidebar-top-level-item-header">--%>
-<%--                        <div class="menuIco">--%>
-<%--                            <img class="menu-image" src="/img/project/menuicon/ico-menu-02.png">--%>
-<%--                        </div>--%>
-<%--                        &lt;%&ndash;<img alt="메뉴" title="${menuVo.menuNm}" class = "menuIco" style="display:flex" src="${myContextPath}${menuVo.menuImg}"/>&ndash;%&gt;--%>
-<%--                        <span class = "nav-item-name" >--%>
-<%--                            그룹 관리--%>
-<%--                        </span>--%>
-<%--                    </a>--%>
-<%--                </li>--%>
+                <li class="sidebar-top-level-item" title="그룹 관리"
+                    data-program-id="none"
+                    data-program-name="none"
+                    data-program-path=""
+                    data-program-path-name="none"
+                    data-program-rmrk="none">
+                    <a class="sidebar-top-level-item-header">
+                        <div class="menuIco">
+                            <img class="menu-image" src="/img/project/menuicon/ico-menu-02.png">
+                        </div>
+                        <%--<img alt="메뉴" title="${menuVo.menuNm}" class = "menuIco" style="display:flex" src="${myContextPath}${menuVo.menuImg}"/>--%>
+                        <span class = "nav-item-name" >
+                            그룹 관리
+                        </span>
+                    </a>
+                </li>
                 <a class="toggle-sidebar-button js-toggle-sidebar" type="button">
                     <span class="collapse-text">&lt;&lt;</span>
                 </a>
