@@ -92,11 +92,11 @@
                 </li>
 
                 <li class="sidebar-top-level-item" title="그룹 관리"
-                    data-program-id="none"
-                    data-program-name="none"
-                    data-program-path=""
-                    data-program-path-name="none"
-                    data-program-rmrk="none">
+                    data-program-id="groupmanage"
+                    data-program-name="groupmanage"
+                    data-program-path="groupmanage"
+                    data-program-path-name="groupmanage"
+                    data-program-rmrk="groupmanage" >
                     <a class="sidebar-top-level-item-header">
                         <div class="menuIco">
                             <img class="menu-image" src="/img/project/menuicon/ico-menu-02.png">
