@@ -98,4 +98,14 @@ public class GroupMapService {
         // 방금 생성한 마커의 정보 조회
         return primarySqlSessionTemplate.selectOne(namespace+".selectMarkerByGId", requestMap.get("markerNo"));
     }
+
+    // 마커수정 메소드
+    @Transactional
+    public HashMapResultVO markerUpdate(HashMapResultVO requestMap) {
+        // 마커수정 후 수정된 마커 기본키 추출
+        primarySqlSessionTemplate.update(namespace+".updateMapMarker", requestMap);
+
+        // 방금 수정한 마커의 정보 조회
+        return primarySqlSessionTemplate.selectOne(namespace+".selectMarkerByGId", requestMap.get("markerNo"));
+    }
 }

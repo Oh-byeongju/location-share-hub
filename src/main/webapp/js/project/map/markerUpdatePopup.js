@@ -13,7 +13,8 @@ $(document).ready(function(){
         id : "selectBox",
         container: "selectBox",
         view: "select",
-        options: categoryList
+        options: categoryList,
+        value: selCategory
     });
 
     // editor 생성
@@ -69,6 +70,11 @@ $(document).ready(function(){
         .then(editor => {
             // 전역 변수로 에디터를 저장
             window.editor = editor;
+
+            // 기존값 설정
+            if (markerText && markerText.trim() !== '') {
+                editor.setData(markerText);
+            }
         })
         .catch(error => {
                 console.error('에디터 초기화 중 오류가 발생했습니다.', error);
@@ -83,7 +89,7 @@ $(document).ready(function(){
         }
     }
 
-    // 마커 생성버튼 함수
+    // 마커 수정버튼 함수
     $("#submitButton").click(function () {
         // 마커이름 값 가져오기
         const markerNameValue = $("#markerName").val();
@@ -112,30 +118,27 @@ $(document).ready(function(){
 
         // 전달할 값 객체로 생성
         const param = {
-            "groupId": groupId,
+            "markerNo": markerNo,
             "markerName": markerNameValue,
-            "markerLat": markerLat.toFixed(6),
-            "markerLong": markerLong.toFixed(6),
-            "markerAddress": markerAddress,
             "markerTypeCd": selectBoxValue,
             "markerText": editorValue
         }
         
-        // 마커생성 요청 후 콜백
+        // 마커수정 요청 후 콜백
         const callback = new Callback(function(result) {
-            // 생성 성공 케이스
+            // 수정 성공 케이스
             if (Object.values(result).length === 8) {
                 customPopup.hide(result);
-                popup.alert.show('마커 생성에 성공하였습니다.');
+                popup.alert.show('마커 수정에 성공하였습니다.');
             } else {
                 customPopup.hide('실패');
-                popup.alert.show("마커 생성에 실패하였습니다.", function () {
+                popup.alert.show("마커 수정에 실패하였습니다.", function () {
                     // main 페이지를 새로고침
                     parent.refreshParent();
                 });
             }
         });
-        platform.postService("/groupmap/markerCreate", param, callback);
+        platform.postService("/groupmap/markerUpdate", param, callback);
     })
 });
 

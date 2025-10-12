@@ -85,4 +85,18 @@
         FROM map_marker mm INNER JOIN map_user mu ON mm.user_id = mu.user_id INNER JOIN sy_cmm_cd sc ON mm.marker_type_cd = sc.cd
         WHERE mm.marker_no = #{markerNo}
     </select>
+
+<!--    마커 수정 쿼리-->
+    <update id="updateMapMarker" parameterType="java.util.Map">
+        UPDATE map_marker
+        SET
+            marker_nm       = #{markerName},
+            marker_type_cd  = #{markerTypeCd},
+            marker_text     = #{markerText},
+            update_dt       = NOW(),
+            update_id       = #{userId},
+            update_ip       = #{updateIp}
+        WHERE marker_no = #{markerNo}
+        AND user_id = #{userId}
+    </update>
 </mapper>

@@ -11,6 +11,9 @@
     <link type="text/css" rel="stylesheet" href="${myContextPath}/css/frame/common/markerUpdatePopup.css">
     <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/super-build/ckeditor.js"></script>
     <script>
+        // 마커 넘버
+        const markerNo = '${MARKER_INFO.markerNo}';
+
         // 카테고리 리스트 가공
         const categoryList = [
             <c:forEach var="category" items="${CATEGORY_LIST}" varStatus="loop">
@@ -20,6 +23,12 @@
             <c:if test="${not loop.last}">,</c:if>
             </c:forEach>
         ];
+
+        // 이미 선택해둔 마커분류
+        const selCategory = '${MARKER_INFO.markerTypeCd}';
+
+        // 이미 작성한 내용
+        const markerText = '${MARKER_INFO.markerText}';
     </script>
 </head>
 <body>
@@ -44,7 +53,7 @@
             </div>
             <div class="inputLayout">
                 <div class="inputCenter">
-                    <input id="markerName" class="inputText" maxlength="29" autocomplete="off" type="text" placeholder="마커 이름을 입력해주세요.">
+                    <input id="markerName" class="inputText" maxlength="29" autocomplete="off" type="text" placeholder="마커 이름을 입력해주세요." value="${MARKER_INFO.markerNm}" >
                 </div>
             </div>
         </div>

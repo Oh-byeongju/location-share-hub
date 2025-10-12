@@ -95,9 +95,6 @@ $(document).ready(function() {
             var markerId = $this.data("marker-no");
 
             var callback = new Callback(function(event) {
-
-                console.log(event)
-
                 const infoBox = document.querySelector(`.info [data-marker-no="${markerId}"]`)?.closest('.info');
 
                 if (!infoBox) {
@@ -105,72 +102,20 @@ $(document).ready(function() {
                     return;
                 }
 
-                // title 변경
-                const titleDiv = infoBox.querySelector('.title');
-                if (titleDiv) titleDiv.childNodes[0].nodeValue = " 새 제목 ";
-
-                // 분류 변경
-                const categoryDiv = infoBox.querySelector('.jibun.ellipsis:nth-of-type(2)');
-                if (categoryDiv) categoryDiv.textContent = "분류 : 수정됨";
-                
-                ///////////////////////////////////// 위 느낌으로 하면 될꺼같은데
-                //// 오우 쉣 되버림
-                //// 테스트 할 때, 새로 만든 마커랑 기존 마커랑 다 되는지 봐야해
-
                 // 마커생성 성공 케이스
                 if (event !== "실패" && event !== undefined) {
+                    // title 변경
+                    const titleDiv = infoBox.querySelector('.title');
+                    if (titleDiv) titleDiv.childNodes[0].nodeValue = event.markerNm;
 
-                    console.log('여기서 변경@@')
-
-                    // 마커의 이미지 주소입니다((일반))
-                    var imageSrc = "http://t1.daumcdn.net/mapjsapi/images/2x/marker.png"
-
-                    // 마커 이미지의 이미지 크기 입니다
-                    var imageSize = new kakao.maps.Size(29, 43);
-
-                    // 마커 이미지를 생성합니다
-                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-                    const marker = new kakao.maps.Marker({
-                        position: new kakao.maps.LatLng(event.markerLat, event.markerLong),
-                        title: event.markerNm,
-                        image : markerImage
-                    });
-
-                    // 마커에 대한 정보 할당
-                    marker.markerNo = event.markerNo.toString();
-                    marker.userId = event.userId;
-                    marker.userNm = event.userNm
-                    marker.markerNm = event.markerNm;
-                    marker.markerAddress = event.markerAddress;
-                    marker.cdNm = event.cdNm;
-                    marker.markerBookmark = 'n';
-
-                    // 마커에 클릭이벤트 등록
-                    kakao.maps.event.addListener(marker, 'click', function() {
-                        // 특정마커에 생성된 오버레이가 없을경우
-                        if (!createOverlay.includes(marker.markerNo.toString())) {
-                            // 마커의 key를 배열에 넣고 오버레이 생성
-                            createOverlay.push(marker.markerNo.toString());
-                            addOverlay(marker);
-                        } else {
-                            // 마커의 key를 배열에서 삭제하고 오버레이 제거
-                            removeOverlay(marker.markerNo);
-                        }
-                    });
-                    // 마커를 지도에 추가 및 배열에도 추가
-                    marker.setMap(kakaoMap);
-                    markers.push(marker);
+                    // 분류 변경
+                    const categoryDiv = infoBox.querySelector('.jibun.ellipsis:nth-of-type(2)');
+                    if (categoryDiv) categoryDiv.textContent = '분류 : ' + event.cdNm;
                 }
             });
 
             customPopup.show("/groupmap/markerUpdatePopup/" + markerId, "마커 수정", 780, 725, callback,
                 {markerId: markerId});
-
-            ///이게.... 콜백에서 리스트를 다시 받아오거나 해야할듯
-            /// 정확히는 리스트를 다시 받아오진 말고 html을 수정하는게 맞을듯 ㅋㅋ
-            /// html만 딱 수정하는법을 흠 marker-no를 가지고 해야할듯ㄱ 한데
-            //// 흠 markers 배열을 좀 조지면 될꺼 같기도 하고?
         });
 
         // 오버레이의 즐겨찾기 버튼 이벤트

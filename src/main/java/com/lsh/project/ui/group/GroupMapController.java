@@ -91,4 +91,15 @@ public class GroupMapController extends BaseController {
 
         return groupMapService.markerCreate(requestMap);
     }
+
+    // 마커수정 요청 컨트롤러
+    @PostMapping(value = "/markerUpdate")
+    public HashMapResultVO markerUpdate(HttpServletRequest request, @RequestBody HashMapResultVO requestMap) {
+        // 현재 사용자 id, ip 뽑아서 map에 삽입 후 메소드 호출
+        requestMap.put("userId", BaseController.getLoginId(request));
+        requestMap.put("updateIP", FrameUtil.getRemoteIP(request));
+        requestMap.put("markerNo", Integer.parseInt((String) requestMap.get("markerNo")));
+
+        return groupMapService.markerUpdate(requestMap);
+    }
 }

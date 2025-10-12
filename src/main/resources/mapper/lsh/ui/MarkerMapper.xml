@@ -6,7 +6,7 @@
 
     <!--    마커 상세 조회 쿼리-->
     <select id="selectMarkerAllById" parameterType="int" resultMap="hashMapResultVO">
-        SELECT mm.marker_no, mm.user_id, mu.user_nm, mm.marker_nm, mm.marker_address, sc.cd_nm, mm.marker_text, mm.insert_dt
+        SELECT mm.marker_no, mm.user_id, mu.user_nm, mm.marker_nm, mm.marker_address, mm.marker_type_cd, sc.cd_nm, mm.marker_text, mm.insert_dt
         FROM map_marker mm INNER JOIN map_user mu ON mm.user_id = mu.user_id INNER JOIN sy_cmm_cd sc ON mm.marker_type_cd = sc.cd
         WHERE mm.marker_no = #{markerNo}
     </select>
