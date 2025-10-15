@@ -12,14 +12,30 @@
 	min-width: 140px;
 }
 
-.webix_overlay {
-	width: 185px;
-	height: 0px;
-	padding: 0px !important;
-	font-size: 20px;
-	top: 45% !important;
-	left: 50% !important;
-	transform: translate(-50%, -50%) !important;
+.button {
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-left: 10px;
+	height: 32px;
+	line-height: 32px;
+	min-width: 80px;
+	background-image: linear-gradient(rgb(122, 122, 122), rgb(122, 122, 122));
+	color: rgb(238, 238, 238);
+	font-size: 14px;
+	font-weight: 400;
+	border: none;
+}
+
+button:hover {
+	background-image: linear-gradient(#676767, #676767);
+	color: #fff;
+}
+
+.button:disabled {
+	background-image: linear-gradient(#676767, #676767);
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#53565a', endColorstr='#53565a');
+	border: 1px solid #676767;
+	color:#fff;
 }
 </style>
 </head>
@@ -34,11 +50,14 @@
 			<button id="search">
 				조회
 			</button>
-			<button id="join">
-				가입
+			<button id="leave">
+				탈퇴
 			</button>
-			<button id="create">
-				생성
+			<button id="delete">
+				삭제
+			</button>
+			<button id="modify">
+				수정
 			</button>
 		</div>
 	</div>
@@ -50,8 +69,21 @@
 		</div>
 	</form>
 
-	<div class="formTitle" style="top:145px;">그룹 정보</div>
-	<div id="grid1" style="position:absolute; top:185px; left:40px; width:calc(100% - 80px); height:calc(100% - 192px);"></div>
+	<!-- 왼쪽 제목 -->
+	<div class="formTitle" style="position:absolute; top:145px; left:40px; width:calc(55% - 80px); text-align:left;">
+		가입 그룹 정보
+	</div>
+
+	<!-- 오른쪽 제목 -->
+	<div class="formTitle" style="position:absolute; top:145px; left:calc(55%); width:calc(45% - 40px); text-align:left">
+		그룹원 정보
+	</div>
+	<button class="button" style="position:absolute; top:145px; left:calc(100% - 130px)">
+		저장
+	</button>
+
+	<div id="grid1" style="position:absolute; top:185px; left:40px; width:calc(55% - 80px); height:calc(100% - 192px);"></div>
+	<div id="grid2" style="position:absolute; top:185px; left:calc(55%); width:calc(45% - 40px); height:calc(100% - 192px);"></div>
 </body>
 <iframe id="fileIframe" name="fileIframe" style="position: absolute; left:-50px; width:0;"></iframe>
 </html>
