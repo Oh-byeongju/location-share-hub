@@ -53,10 +53,10 @@ button:hover {
 			<button id="leave">
 				탈퇴
 			</button>
-			<button id="delete">
+			<button id="del">
 				삭제
 			</button>
-			<button id="modify">
+			<button id="edit">
 				수정
 			</button>
 		</div>

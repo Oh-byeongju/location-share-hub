@@ -112,21 +112,46 @@ listener.button.search.click = function () {
     platform.postService("/groupmanage/groupSearch", param, callback);
 }
 
-// // 가입버튼
-// listener.button.join.click = function () {
-//     var grid = $$("grid1");
-//
-//     if (grid.getSelectedItem() === undefined) {
-//         popup.alert.show('그룹을 선택해주세요.');
-//         return;
-//     }
-//
-//     var callback = new Callback(function(result) {listener.button.search.click();});
-//     // 가입 팝업창 여는 함수
-//     // 파라미터로 groupId 던져줌
-//     // 가입창 닫을때마다 그룹 정보 갱신
-//     customPopup.show("/groupinsert/groupJoinPopup", "그룹 가입", 400, 190, callback, {groupId: grid.getSelectedItem().groupId});
-// }
+// 탈퇴버튼
+listener.button.leave.click = function () {
+    var param = $$("grid1").getSelectedItem()
+
+    if (!param) {
+        popup.alert.show('그룹을 선택해주세요.');
+        return;
+    }
+
+    if (param.userId === USER_INFO.USER_ID) {
+        popup.alert.show('그룹장의 경우 탈퇴가 불가능합니다.');
+        return;
+    }
+
+    popup.confirm.show("그룹을 탈퇴하시겠습니까?", function(bool) {
+        if (bool) {
+            try {
+                var callback = new Callback(function(result) {
+                    if (result === '성공') {
+                        popup.alert.show('그룹 탈퇴에 성공하였습니다.', function () {
+                            $("#search").trigger("click");
+                            $(window.parent.document)
+                                .find(`.sidebar-top-level-item[data-program-id='${param.groupId}']`)
+                                .remove();
+                        });
+                    } else {
+                        popup.alert.show("그룹 탈퇴에 실패하였습니다.", function () {
+                            // main 페이지를 새로고침
+                            parent.refreshParent();
+                        });
+                    }
+                });
+                platform.postService("/groupmanage/groupLeave", param, callback);
+            } catch (e) {}
+        }
+    });
+}
+
+
+
 //
 // // 생성버튼
 // listener.button.create.click = function () {

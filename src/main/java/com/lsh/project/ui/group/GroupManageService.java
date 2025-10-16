@@ -29,6 +29,24 @@ public class GroupManageService {
         return primarySqlSessionTemplate.selectList(namespace+".selectByLikeId", groupMap);
     }
 
+    @Transactional
+    public String groupLeave(HashMapStringVO requestMap) {
+        primarySqlSessionTemplate.delete(namespace + ".deleteReviewLikeByGroupAndUser", requestMap);
+        primarySqlSessionTemplate.delete(namespace + ".deleteMarkerReviewByGroupAndUser", requestMap);
+        primarySqlSessionTemplate.delete(namespace + ".deleteBookmarkByGroupAndUser", requestMap);
+        primarySqlSessionTemplate.delete(namespace + ".deleteMarkerByGroupAndUser", requestMap);
+        primarySqlSessionTemplate.delete(namespace + ".deleteGroupUserByGroupAndUser", requestMap);
+
+        return "성공";
+    }
+
+
+
+
+
+
+
+    ///////////////
     // 그룹 가입 메소드
     @Transactional
     public HashMapResultVO groupJoin(HashMapResultVO requestMap) {

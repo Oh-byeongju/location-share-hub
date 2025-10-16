@@ -26,31 +26,61 @@
                            WHERE user_id = #{userId, jdbcType=VARCHAR})
     </select>
 
+    <delete id="deleteReviewLikeByGroupAndUser" parameterType="map">
+        DELETE
+        FROM map_review_like
+        WHERE marker_review_no IN (
+            SELECT marker_review_no
+            FROM map_marker_review
+            WHERE marker_no IN (
+                SELECT marker_no
+                FROM map_marker
+                WHERE group_id = #{groupId, jdbcType=VARCHAR}
+            )
+        )
+        AND user_id = #{userId, jdbcType=VARCHAR}
+    </delete>
 
+    <delete id="deleteMarkerReviewByGroupAndUser" parameterType="map">
+        DELETE
+        FROM map_marker_review
+        WHERE marker_no IN (
+            SELECT marker_no
+            FROM map_marker
+            WHERE group_id = #{groupId, jdbcType=VARCHAR}
+        )
+          AND user_id = #{userId, jdbcType=VARCHAR}
+    </delete>
 
+    <delete id="deleteBookmarkByGroupAndUser" parameterType="map">
+        DELETE
+        FROM map_bookmark
+        WHERE marker_no IN (
+            SELECT marker_no
+            FROM map_marker
+            WHERE group_id = #{groupId, jdbcType=VARCHAR}
+        )
+          AND user_id = #{userId, jdbcType=VARCHAR}
+    </delete>
 
+    <delete id="deleteMarkerByGroupAndUser" parameterType="map">
+        DELETE
+        FROM map_marker
+        WHERE group_id = #{groupId, jdbcType=VARCHAR}
+        AND user_id = #{userId, jdbcType=VARCHAR}
+    </delete>
 
-
-
-
-
-
-
-
-
-<!--    그룹 가입 전 pw 확인 쿼리-->
-    <select id="selectGroupByIdAndPassword" parameterType="java.util.Map" resultMap="hashMapResultVO">
-        SELECT group_id, group_nm
-        FROM map_group
-        WHERE group_id = #{groupId, jdbcType=VARCHAR} AND group_pw = #{groupPw, jdbcType=VARCHAR};
-    </select>
-
-<!--    그룹 가입 전 가입여부 확인 쿼리-->
-    <select id="selectGroupUserByIdsAndRank" parameterType="java.util.Map" resultMap="hashMapResultVO">
-        SELECT group_id, user_id
+    <delete id="deleteGroupUserByGroupAndUser" parameterType="map">
+        DELETE
         FROM map_group_user
-        WHERE group_id = #{groupId, jdbcType=VARCHAR} AND user_id = #{userId, jdbcType=VARCHAR};
-    </select>
+        WHERE group_id = #{groupId, jdbcType=VARCHAR}
+          AND user_id = #{userId, jdbcType=VARCHAR}
+    </delete>
+
+
+
+
+
 
 <!--    그룹 가입 쿼리(그룹원 등록)-->
     <insert id="joinMapGroupUser" parameterType="java.util.Map">

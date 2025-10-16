@@ -40,16 +40,17 @@ public class GroupManageController extends BaseController {
         return groupManageService.groupSearch(requestMap);
     }
 
+    // 그룹 탈퇴 컨트롤러
+    @PostMapping(value = "/groupLeave")
+    public String groupLeave(HttpServletRequest request, @RequestBody HashMapStringVO requestMap) {
+        requestMap.put("userId", BaseController.getLoginId(request));
+        return groupManageService.groupLeave(requestMap);
+    }
+
 
 
 
     //////////////////////////////////////////////////////////// 아래로 보기
-
-    // 그룹 가입 팝업 리턴 컨트롤러
-    @RequestMapping(value = "/groupJoinPopup")
-    public ModelAndView insertPopup() {
-        return new ModelAndView("/project/map/groupinsert/groupJoinPopup");
-    }
 
     // 그룹 생성 팝업 리턴 컨트롤러
     @RequestMapping(value = "/groupCreatePopup")

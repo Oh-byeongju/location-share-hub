@@ -160,6 +160,7 @@ var listener = {
 		"join" : {click : function() {console.log("button.join.click default", arguments);}},
 		"edit" : {click : function() {console.log("button.edit.click default", arguments);}},
 		"del" : {click : function() {console.log("button.del.click default", arguments);}},
+		"leave" : {click : function() {console.log("button.leave.click default", arguments);}},
 		"create" : {click : function() {console.log("button.create.click default", arguments);}},
 
 		"etc1" : {click : function() {console.log("button.etc1.click default", arguments);}},
