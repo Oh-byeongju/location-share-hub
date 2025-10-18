@@ -47,30 +47,39 @@ public class GroupManageController extends BaseController {
         return groupManageService.groupLeave(requestMap);
     }
 
-
-
-
-    //////////////////////////////////////////////////////////// 아래로 보기
-
-    // 그룹 생성 팝업 리턴 컨트롤러
-    @RequestMapping(value = "/groupCreatePopup")
-    public ModelAndView CreatePopup() {
-        return new ModelAndView("/project/map/groupinsert/groupCreatePopup");
+    // 그룹 삭제 컨트롤러
+    @PostMapping(value = "/groupDelete")
+    public String groupDelete(HttpServletRequest request, @RequestBody HashMapStringVO requestMap) {
+        requestMap.put("userId", BaseController.getLoginId(request));
+        return groupManageService.groupDelete(requestMap);
     }
 
-    // 그룹 생성 요청 컨트롤러
-    @PostMapping("/groupCreate")
-    public ResponseEntity<Void> groupCreate(HttpServletRequest request, @RequestBody HashMapStringVO requestMap) {
-        // 현재 사용자 id, ip 뽑아서 map에 삽입 후 메소드 호출
-        // 그룹원 등급도 삽입
-        requestMap.put("userId", BaseController.getLoginId(request));
-        requestMap.put("insertIP", FrameUtil.getRemoteIP(request));
-        requestMap.put("groupRank", "leader");
+    // 그룹 수정 팝업 리턴 컨트롤러
+    @RequestMapping(value = "/groupUpdatePopup/{groupId}")
+    public ModelAndView UpdatePopup(@PathVariable("groupId") String groupId) {
+        ModelAndView modelAndView = new ModelAndView("/project/map/groupmanage/groupUpdatePopup");
+        modelAndView.addObject("groupInfo", groupManageService.groupInfo(groupId));
 
-        //groupInsertService.groupCreate(requestMap);
+        return modelAndView;
+    }
+
+    // 그룹 수정 요청 컨트롤러
+    @PostMapping("/groupUpdate")
+    public ResponseEntity<Void> groupUpdate(HttpServletRequest request, @RequestBody HashMapStringVO requestMap) {
+        // 현재 사용자 id, ip 뽑아서 map에 삽입 후 메소드 호출
+        requestMap.put("userId", BaseController.getLoginId(request));
+        requestMap.put("updateIP", FrameUtil.getRemoteIP(request));
+
+        groupManageService.groupUpdate(requestMap);
 
         // NO_CONTENT로 성공 처리 알림
         // DB 삽입 실패시 스프링이 알아서 던져주는 500 error로 프론트단에서 오류 체크
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    // 그룹원 조회 컨트롤러
+    @RequestMapping("/group-user-search")
+    public List<HashMapResultVO> groupUserSearch(HttpServletRequest request, @RequestBody HashMapStringVO requestMap) {
+        return groupManageService.groupUserSearch(requestMap);
     }
 }

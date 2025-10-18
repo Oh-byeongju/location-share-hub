@@ -21,12 +21,12 @@ webix.ready(function() {
                 header: "가입자 수",
                 css: "textCenter",
                 width: 100,
-                fillspace: true,
                 template: function (obj) {
                     return obj.groupCount + "명";
                 }
             },
-            {id: "insertDt", sort:"string", header: "그룹 등록일", css: "textCenter", width: 100, fillspace:true},
+            {id: "insertDt", sort:"string", header: "그룹 등록일", css: "textCenter", width: 130},
+            {id: "joinStatus", sort:"string", header: "상태", css: "textCenter", width: 100, fillspace:true}
         ]
     });
 
@@ -73,10 +73,15 @@ listener.button.search.click = function () {
 
 // 가입버튼
 listener.button.join.click = function () {
-    var grid = $$("grid1");
+    var param = $$("grid1").getSelectedItem()
 
-    if (grid.getSelectedItem() === undefined) {
+    if (!param) {
         popup.alert.show('그룹을 선택해주세요.');
+        return;
+    }
+
+    if (param.joinStatus === '가입 완료') {
+        popup.alert.show('이미 가입된 그룹입니다.');
         return;
     }
 
@@ -84,7 +89,7 @@ listener.button.join.click = function () {
     // 가입 팝업창 여는 함수
     // 파라미터로 groupId 던져줌
     // 가입창 닫을때마다 그룹 정보 갱신
-    customPopup.show("/groupinsert/groupJoinPopup", "그룹 가입", 400, 190, callback, {groupId: grid.getSelectedItem().groupId});
+    customPopup.show("/groupinsert/groupJoinPopup", "그룹 가입", 400, 190, callback, {groupId: param.groupId});
 }
 
 // 생성버튼

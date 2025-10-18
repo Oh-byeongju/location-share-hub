@@ -5,14 +5,22 @@
     <resultMap id="hashMapResultVO" type="com.lsh.framework.data.HashMapResultVO"/>
 
 <!--    그룹 검색 쿼리-->
-    <select id="selectByLikeId" parameterType="String" resultMap="hashMapResultVO">
-        SELECT mg.group_id, mg.user_id, mg.group_nm, COUNT(*) AS group_count,
-               MAX(mg.insert_dt) AS insert_dt, MAX(mu.user_email) AS user_email
-        FROM map_group mg INNER JOIN map_group_user mgu ON mg.group_id = mgu.group_id INNER JOIN
-            map_user mu ON mg.user_id = mu.user_id
-        WHERE mg.group_nm LIKE '%' || #{groupId, jdbcType=VARCHAR} || '%'
-        GROUP BY mg.group_id, mg.user_id, mg.group_nm
-        ORDER by mg.insert_dt
+    <select id="selectByLikeId" parameterType="java.util.Map" resultMap="hashMapResultVO">
+        SELECT A.*,
+                B.group_user_no,
+                CASE
+                    WHEN B.group_user_no IS NULL THEN '가입 전'
+                    ELSE '가입 완료'
+                END AS join_status
+        FROM (
+            SELECT mg.group_id, mg.user_id, mg.group_nm, COUNT(*) AS group_count,
+                   MAX(mg.insert_dt) AS insert_dt, MAX(mu.user_email) AS user_email
+            FROM map_group mg INNER JOIN map_group_user mgu ON mg.group_id = mgu.group_id INNER JOIN
+                map_user mu ON mg.user_id = mu.user_id
+            WHERE mg.group_nm LIKE '%' || #{groupId, jdbcType=VARCHAR} || '%'
+            GROUP BY mg.group_id, mg.user_id, mg.group_nm
+            ORDER by mg.insert_dt
+        ) A LEFT JOIN map_group_user B on A.group_id = B.group_id and B.user_id = #{userId, jdbcType=VARCHAR};
     </select>
 
 <!--    그룹 가입 전 pw 확인 쿼리-->

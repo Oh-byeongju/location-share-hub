@@ -78,7 +78,7 @@ button:hover {
 	<div class="formTitle" style="position:absolute; top:145px; left:calc(55%); width:calc(45% - 40px); text-align:left">
 		그룹원 정보
 	</div>
-	<button class="button" style="position:absolute; top:145px; left:calc(100% - 130px)">
+	<button id="userSave" class="button" style="position:absolute; top:145px; left:calc(100% - 130px)">
 		저장
 	</button>
 

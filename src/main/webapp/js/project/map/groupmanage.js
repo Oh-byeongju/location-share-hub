@@ -1,8 +1,46 @@
 var sortId = null;
 var sortDir = null;
+var sortId2 = null;
+var sortDir2 = null;
 
 function initPage() {
     listener.button.search.click();
+
+    // 그룹원 저장 버튼 이벤트
+    $("#userSave").on("click", function(){
+        const table = $$("grid2"); // datatable ID
+        const allData = table.serialize(); // 전체 데이터
+
+        // 체크박스가 체크된 행만 필터링
+        const dirtyRows = allData.filter(row => row._dirty === 1);
+
+        if (dirtyRows.length === 0) {
+            popup.alert.show('그룹원을 선택해주세요.');
+            return;
+        }
+
+        popup.confirm.show("그룹원을 수정하시겠습니까?", function(bool) {
+            if (bool) {
+                try {
+                    var callback = new Callback(function(result) {
+                        if (result === '성공') {
+                            popup.alert.show('그룹원 수정에 성공하였습니다.', function () {
+                                const sel = $$("grid1").getSelectedId();
+                                if (sel)
+                                    $$("grid1").callEvent("onItemClick", [sel]);
+                            });
+                        } else {
+                            popup.alert.show("그룹원 수정에 실패하였습니다.", function () {
+                                // main 페이지를 새로고침
+                                parent.refreshParent();
+                            });
+                        }
+                    });
+                    platform.postService("/groupmanage/groupUserUpdate", dirtyRows, callback);
+                } catch (e) {}
+            }
+        });
+    });
 }
 
 webix.ready(function() {
@@ -11,9 +49,9 @@ webix.ready(function() {
         container : "grid1",
         view : "datagrid",
         columns : [
-            {id: "groupId", header: "그룹 ID", css: "textLeft", width : 150, fillspace:true},
+            {id: "groupId", header: "그룹 ID", css: "textLeft", width : 120},
             {id: "groupNm", sort:"string", header: "그룹명", css:"textLeft", width: 230, fillspace:true},
-            {id: "userId", header: "그룹장", css: "textLeft", width: 200, fillspace:true},
+            {id: "userId", header: "그룹장", css: "textLeft", width: 90},
             {id: "userEmail", header: "그룹장 이메일", css: "textLeft", width: 170, fillspace:true},
             {
                 id: "groupCount",
@@ -21,12 +59,14 @@ webix.ready(function() {
                 header: "가입자 수",
                 css: "textCenter",
                 width: 100,
-                fillspace: true,
                 template: function (obj) {
                     return obj.groupCount + "명";
                 }
             },
-            {id: "insertDt", sort:"string", header: "그룹 등록일", css: "textCenter", width: 100, fillspace:true},
+            {id: "insertDt", sort:"string", header: "그룹 등록일", css: "textCenter", width: 100},
+            {id: "groupLev", header: "그룹 크기", hidden: true},
+            {id: "groupLat", header: "그룹 위도", hidden: true},
+            {id: "groupLong", header: "그룹 경도", hidden: true}
         ]
     });
 
@@ -52,21 +92,78 @@ webix.ready(function() {
     });
 
     $$("grid1").attachEvent("onItemClick", function(id) {
-        var record = $$("grid1").getItem(id.row);
-        /// 여기서 그룹원 조회 이벤트 드가면 됨
-        //alert (record.groupId)
+        const record = $$("grid1").getItem(id.row);
+
+        // 그리드초기화
+        $$("grid2").clearData();
+
+        // 그리드에 값 세팅
+        var callback = new Callback(function(result) {
+            $$("grid2").setData(result);
+            // 정렬된 기록이 있으면 정렬
+            if (sortId2 !== null && sortDir2 !== null) {
+                $$("grid2").sort(sortId2, sortDir2);
+            }
+        });
+
+        platform.postService("/groupmanage/group-user-search", record, callback);
     });
+
+    const RANK_OPTIONS = [
+        { id: "special", value: "특별" },
+        { id: "normal", value: "일반" },
+        { id: "blocked", value: "차단" }
+    ];
+    const rankOptions = new webix.DataCollection({ data: RANK_OPTIONS });
 
     webix.ui({
         id : "grid2",
         container : "grid2",
         view : "datagrid",
+        editable: true,
+        css: "webix_header_border webix_data_border",
+        multiselect:true,
+        select:"row",
         columns : [
-            {id: "groupUserId", header: "그룹원 ID", css: "textLeft", width : 150, fillspace:true},
-            {id: "groupUserNm", sort:"string", header: "이름", css:"textLeft", width: 230, fillspace:true},
-            {id: "groupUserRank", header: "등급", css: "textLeft", width: 200, fillspace:true},
-            {id: "groupUserEmail", header: "그룹원 이메일", css: "textLeft", width: 170, fillspace:true},
-            {id: "groupUserInstDt", sort:"string", header: "그룹 가입일", css: "textCenter", width: 100, fillspace:true}
+            {id: "groupUserNo", header: "그룹가입번호", hidden: true},
+            {id: "_dirty", header: " ", width: 30, css: "textCenter", template: "{common.checkbox()}", editor: "checkbox", checkValue: 1, uncheckValue: 0 },
+            {id: "userId", header: "그룹원 ID", css: "textLeft", width : 90},
+            {id: "userNm", sort:"string", header: "이름", css:"textLeft", width: 230, fillspace:true},
+            {
+                id: "groupUserRankCd",
+                header: "등급",
+                css: "textCenter",
+                width: 90,
+                editor: "richselect",
+                options: rankOptions,          // 위의 옵션 재사용
+                template: function (obj, common, value) {
+                    const item = rankOptions.getItem(value);
+                    const label = item ? item.value : (value || "");
+
+                    if (value === 'leader') {
+                        return (
+                            "<div class='rank-display' " +
+                            "style='pointer-events:none; opacity:0.5; cursor:default;'>" +
+                            "<span class='rank-label'>" + '그룹장' + "</span>" +
+                            "<img class='rank-icon' " +
+                            "style='padding-left:8px; padding-bottom:1px;' " +
+                            "src='/img/mngr/drop_down.png' alt='▼'/>" +
+                            "</div>"
+                        );
+                    } else {
+                        return (
+                            "<div class='rank-display'>" +
+                            "<span class='rank-label'>" + webix.template.escape(label) + "</span>" +
+                            "<img class='rank-icon' " +
+                            "style='padding-left:8px; padding-bottom:1px;' " +
+                            "src='/img/mngr/drop_down.png' alt='▼'/>" +
+                            "</div>"
+                        );
+                    }
+                }
+            },
+            {id: "userEmail", header: "그룹원 이메일", css: "textLeft", width: 170},
+            {id: "insertDt", sort:"string", header: "그룹 가입일", css: "textCenter", width: 100, fillspace:true}
         ]
     });
 
@@ -80,14 +177,30 @@ webix.ready(function() {
 
     // 정렬에 따른 event
     $$("grid2").attachEvent("onAfterSort", function (id, order) {
-        sortId = id;
-        sortDir = order;
+        sortId2 = id;
+        sortDir2 = order;
 
         // 정렬 3번 눌러서 초기화 되는 경우
         // 정렬 순서도 초기화
         if (id === 'id') {
-            sortId = null;
-            sortDir = null;
+            sortId2 = null;
+            sortDir2 = null;
+        }
+    });
+
+    $$("grid2").attachEvent("onAfterEditStop", function (state, editor) {
+        if (state.value != state.old) {
+            const rowId = editor.row;
+            const item = this.getItem(rowId);
+            item._dirty = 1; // 체크박스 자동 체크
+            this.updateItem(rowId, item);
+        }
+    });
+
+    $$("grid2").attachEvent("onBeforeEditStart", function(id){
+        if (id.column === "groupUserRankCd") {
+            const item = this.getItem(id.row);
+            if (item.groupUserRankCd === "leader") return false; // 편집 금지
         }
     });
 });
@@ -150,15 +263,60 @@ listener.button.leave.click = function () {
     });
 }
 
+listener.button.del.click = function () {
+    var param = $$("grid1").getSelectedItem()
 
+    if (!param) {
+        popup.alert.show('그룹을 선택해주세요.');
+        return;
+    }
 
-//
-// // 생성버튼
-// listener.button.create.click = function () {
-//     var callback = new Callback(function(result) {listener.button.search.click();});
-//
-//     // 생성 팝업창 여는 함수
-//     // 파라미터는 사용 안함
-//     // 생성창 닫을때마다 그룹 정보 갱신
-//     customPopup.show("/groupinsert/groupCreatePopup", "그룹 생성", 780, 725, callback, {groupId: "temp"});
-// }
+    if (param.userId !== USER_INFO.USER_ID) {
+        popup.alert.show('그룹장만 그룹 삭제가 가능합니다.');
+        return;
+    }
+
+    popup.confirm.show("그룹을 삭제하시겠습니까?", function(bool) {
+        if (bool) {
+            try {
+                var callback = new Callback(function(result) {
+                    if (result === '성공') {
+                        popup.alert.show('그룹 삭제에 성공하였습니다.', function () {
+                            $("#search").trigger("click");
+                            $(window.parent.document)
+                                .find(`.sidebar-top-level-item[data-program-id='${param.groupId}']`)
+                                .remove();
+                        });
+                    } else {
+                        popup.alert.show("그룹 삭제에 실패하였습니다.", function () {
+                            // main 페이지를 새로고침
+                            parent.refreshParent();
+                        });
+                    }
+                });
+                platform.postService("/groupmanage/groupDelete", param, callback);
+            } catch (e) {}
+        }
+    });
+}
+
+// 수정버튼
+listener.button.edit.click = function () {
+    var param = $$("grid1").getSelectedItem()
+
+    if (!param) {
+        popup.alert.show('그룹을 선택해주세요.');
+        return;
+    }
+
+    if (param.userId !== USER_INFO.USER_ID) {
+        popup.alert.show('그룹장만 그룹 수정이 가능합니다.');
+        return;
+    }
+
+    var callback = new Callback(function(result) {listener.button.search.click();});
+
+    // 수정 팝업창 여는 함수
+    // 수정창 닫을때마다 그룹 정보 갱신
+    customPopup.show(`/groupmanage/groupUpdatePopup/${param.groupId}`, "그룹 수정", 780, 725, callback, param);
+}

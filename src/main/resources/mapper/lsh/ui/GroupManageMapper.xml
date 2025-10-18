@@ -11,6 +11,9 @@
                  SELECT mg.group_id,
                         mg.user_id,
                         mg.group_nm,
+                        mg.group_lev,
+                        mg.group_lat,
+                        mg.group_long,
                         COUNT(*)           AS group_count,
                         MAX(mg.insert_dt)  AS insert_dt,
                         MAX(mu.user_email) AS user_email
@@ -18,7 +21,7 @@
                           INNER JOIN map_group_user mgu ON mg.group_id = mgu.group_id
                           INNER JOIN map_user mu ON mg.user_id = mu.user_id
                  WHERE mg.group_nm LIKE '%' || #{groupId, jdbcType=VARCHAR} || '%'
-                 GROUP BY mg.group_id, mg.user_id, mg.group_nm
+                 GROUP BY mg.group_id, mg.user_id, mg.group_nm, mg.group_lev, mg.group_lat, mg.group_long
                  ORDER by mg.insert_dt
              )
         WHERE group_id IN (SELECT group_id
@@ -77,42 +80,42 @@
           AND user_id = #{userId, jdbcType=VARCHAR}
     </delete>
 
+    <delete id="deleteGroupByGroup" parameterType="map">
+        DELETE
+        FROM map_group
+        WHERE group_id = #{groupId, jdbcType=VARCHAR}
+          AND user_id = #{userId, jdbcType=VARCHAR}
+    </delete>
 
-
-
-
-
-<!--    그룹 가입 쿼리(그룹원 등록)-->
-    <insert id="joinMapGroupUser" parameterType="java.util.Map">
-        INSERT INTO map_group_user (
-            group_id, user_id, group_user_rank_cd,
-            insert_dt, insert_id, insert_ip, update_dt, update_id, update_ip
-        )
-        VALUES (
-                   #{groupId, jdbcType=VARCHAR}, #{userId, jdbcType=VARCHAR}, #{groupRank, jdbcType=VARCHAR},
-                   CURRENT_TIMESTAMP, #{userId, jdbcType=VARCHAR}, #{insertIp, jdbcType=VARCHAR}, NULL, NULL, NULL
-               )
-    </insert>
-
-<!--    그룹 생성 전 id 중복 확인 쿼리-->
-    <select id="selectByGroupId" parameterType="java.lang.String" resultMap="hashMapResultVO">
-        select group_id
-        from map_group
-        where group_id = #{groupId, jdbcType=VARCHAR}
+    <select id="selectGroupByGroup" parameterType="java.lang.String" resultMap="hashMapResultVO">
+        SELECT group_id, group_nm, group_lat, group_long, group_lev
+        FROM map_group
+        WHERE group_id = #{groupId, jdbcType=VARCHAR}
     </select>
 
-<!--    그룹 생성 쿼리-->
-    <insert id="createMapGroup" parameterType="java.util.Map">
-        INSERT INTO map_group (
-            group_id, user_id, group_pw, group_nm,
-            group_lat, group_long, group_lev,
-            insert_dt, insert_id, insert_ip, update_dt, update_id, update_ip
-        )
-        VALUES (
-                   #{groupId, jdbcType=VARCHAR}, #{userId, jdbcType=VARCHAR}, #{groupPw, jdbcType=VARCHAR}, #{groupNm, jdbcType=VARCHAR},
-                   #{groupLat, jdbcType=INTEGER}, #{groupLong, jdbcType=INTEGER}, #{groupLev, jdbcType=INTEGER},
-                   CURRENT_TIMESTAMP, #{userId, jdbcType=VARCHAR}, #{insertIp, jdbcType=VARCHAR},
-                   NULL, NULL, NULL
-               )
-    </insert>
+<!--    그룹 수정 쿼리-->
+    <update id="updateMapGroup" parameterType="java.util.Map">
+        UPDATE map_group
+        SET
+            group_pw    = #{groupPw, jdbcType=VARCHAR},
+            group_nm    = #{groupNm, jdbcType=VARCHAR},
+            group_lat   = #{groupLat, jdbcType=VARCHAR},
+            group_long  = #{groupLong, jdbcType=VARCHAR},
+            group_lev   = #{groupLev, jdbcType=INTEGER},
+            update_dt   = CURRENT_TIMESTAMP,
+            update_id   = #{userId, jdbcType=VARCHAR},
+            update_ip   = #{updateIp, jdbcType=VARCHAR}
+        WHERE
+            group_id = #{groupId, jdbcType=VARCHAR};
+    </update>
+
+    <select id="groupUserSearch" parameterType="java.util.Map" resultMap="hashMapResultVO">
+        SELECT A.group_user_no, A.user_id, B.user_nm, A.group_user_rank_cd, C.cd_nm, B.user_email, A.insert_dt
+        FROM map_group_user A
+            INNER JOIN map_user B ON A.user_id = B.user_id
+            INNER JOIN sy_cmm_cd C ON A.group_user_rank_cd = C.cd
+        WHERE A.group_id = #{groupId, jdbcType=VARCHAR}
+        ORDER BY A.insert_dt
+    </select>
+
 </mapper>

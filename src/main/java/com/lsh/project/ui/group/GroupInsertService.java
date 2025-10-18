@@ -19,10 +19,14 @@ public class GroupInsertService {
     private final static String namespace = "groupInsert";
 
     // 그룹 검색 메소드
-    @Transactional
-    public List<HashMapResultVO> groupSearch(String groupId) {
+    @Transactional(readOnly = true)
+    public List<HashMapResultVO> groupSearch(HashMapStringVO requestMap) {
+        HashMapVO groupMap = new HashMapVO();
+        groupMap.put("userId", requestMap.get("userId"));
+        groupMap.put("groupId", requestMap.get("pgminfo"));
+
         // 그룹 기본정보 검색 후 리턴
-        return primarySqlSessionTemplate.selectList(namespace+".selectByLikeId", groupId);
+        return primarySqlSessionTemplate.selectList(namespace+".selectByLikeId", groupMap);
     }
 
     // 그룹 가입 메소드

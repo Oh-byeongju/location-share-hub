@@ -40,48 +40,22 @@ public class GroupManageService {
         return "성공";
     }
 
-
-
-
-
-
-
-    ///////////////
-    // 그룹 가입 메소드
     @Transactional
-    public HashMapResultVO groupJoin(HashMapResultVO requestMap) {
-        // 그룹 정보 검색(id, pw 일치 확인)
-        HashMapResultVO group = primarySqlSessionTemplate.selectOne(namespace+".selectGroupByIdAndPassword", requestMap);
+    public String groupDelete(HashMapStringVO requestMap) {
+        primarySqlSessionTemplate.delete(namespace + ".deleteGroupByGroup", requestMap);
 
-        // 그룹원 정보 검색
-        HashMapResultVO group_user = primarySqlSessionTemplate.selectOne(namespace+".selectGroupUserByIdsAndRank", requestMap);
-
-        // 그룹 비번은 맞췄고, 그룹에 가입된 기록이 없을 때
-        if (group != null && group_user == null) {
-            // 그룹 가입 후 그룹 정보 리턴
-            primarySqlSessionTemplate.insert(namespace+".joinMapGroupUser", requestMap);
-            return group;
-        } else {
-            // 그룹 가입 불가시 null map 리턴
-            return new HashMapResultVO();
-        }
+        return "성공";
     }
 
-    // 그룹 id 중복확인 메소드
-    @Transactional
-    public boolean idCheck(String groupId) {
-        // 중복이면 false 리턴
-        if (primarySqlSessionTemplate.selectOne(namespace+".selectByGroupId", groupId) == null) {
-            return false;
-        }
-
-        // 중복 아니면 true 리턴
-        return true;
+    @Transactional(readOnly = true)
+    // 그룹 정보 검색
+    public HashMapResultVO groupInfo(String groupId) {
+        return primarySqlSessionTemplate.selectOne(namespace+".selectGroupByGroup", groupId);
     }
 
-    // 그룹 생성 메소드
+    // 그룹 수정 메소드
     @Transactional
-    public void groupCreate(HashMapStringVO requestMap) {
+    public void groupUpdate(HashMapStringVO requestMap) {
         // 쿼리문에 Integer가 있어서 형변환 시킴
         HashMapVO groupMap = new HashMapVO();
         groupMap.put("groupId", requestMap.get("groupId"));
@@ -91,13 +65,19 @@ public class GroupManageService {
         groupMap.put("groupLev", Integer.parseInt(requestMap.get("groupLev")));
         groupMap.put("groupLat", requestMap.get("groupLat"));
         groupMap.put("groupLong", requestMap.get("groupLong"));
-        groupMap.put("insertIP", requestMap.get("insertIP"));
-        groupMap.put("groupRank", requestMap.get("groupRank"));
+        groupMap.put("updateIP", requestMap.get("updateIP"));
 
         // 그룹 생성
-        primarySqlSessionTemplate.insert(namespace+".createMapGroup", groupMap);
+        primarySqlSessionTemplate.update(namespace+".updateMapGroup", groupMap);
+    }
 
-        // 생성된 그룹에 그룹원정보 삽입
-        primarySqlSessionTemplate.insert(namespace+".joinMapGroupUser", groupMap);
+    // 그룹원 검색 메소드
+    @Transactional(readOnly = true)
+    public List<HashMapResultVO> groupUserSearch(HashMapStringVO requestMap) {
+        HashMapVO groupMap = new HashMapVO();
+        groupMap.put("groupId", requestMap.get("groupId"));
+
+        // 그룹원 기본정보 검색 후 리턴
+        return primarySqlSessionTemplate.selectList(namespace+".groupUserSearch", groupMap);
     }
 }
