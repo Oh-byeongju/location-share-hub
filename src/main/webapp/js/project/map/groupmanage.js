@@ -25,9 +25,21 @@ function initPage() {
                     var callback = new Callback(function(result) {
                         if (result === '성공') {
                             popup.alert.show('그룹원 수정에 성공하였습니다.', function () {
-                                const sel = $$("grid1").getSelectedId();
-                                if (sel)
-                                    $$("grid1").callEvent("onItemClick", [sel]);
+                                var param = $$("grid1").getSelectedItem()
+
+                                // 그리드초기화
+                                $$("grid2").clearData();
+
+                                // 그리드에 값 세팅
+                                var callback = new Callback(function(result) {
+                                    $$("grid2").setData(result);
+                                    // 정렬된 기록이 있으면 정렬
+                                    if (sortId2 !== null && sortDir2 !== null) {
+                                        $$("grid2").sort(sortId2, sortDir2);
+                                    }
+                                });
+
+                                platform.postService("/groupmanage/group-user-search", param, callback);
                             });
                         } else {
                             popup.alert.show("그룹원 수정에 실패하였습니다.", function () {
@@ -36,7 +48,7 @@ function initPage() {
                             });
                         }
                     });
-                    platform.postService("/groupmanage/groupUserUpdate", dirtyRows, callback);
+                    platform.postService("/groupmanage/group-user-update", dirtyRows, callback);
                 } catch (e) {}
             }
         });

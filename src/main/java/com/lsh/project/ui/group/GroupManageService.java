@@ -1,8 +1,10 @@
 package com.lsh.project.ui.group;
 
+import com.lsh.framework.FrameUtil;
 import com.lsh.framework.data.HashMapResultVO;
 import com.lsh.framework.data.HashMapStringVO;
 import com.lsh.framework.data.HashMapVO;
+import com.lsh.project.base.BaseController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -79,5 +81,24 @@ public class GroupManageService {
 
         // 그룹원 기본정보 검색 후 리턴
         return primarySqlSessionTemplate.selectList(namespace+".groupUserSearch", groupMap);
+    }
+
+    @Transactional
+    public String groupUserUpdate(List<HashMapStringVO> requestMap) {
+        String userId = requestMap.get(0).get("userId");
+        String updateIP = requestMap.get(0).get("updateIP");
+
+        for (HashMapStringVO item : requestMap) {
+            HashMapVO groupUserMap = new HashMapVO();
+
+            groupUserMap.put("groupUserRankCd", item.get("groupUserRankCd"));
+            groupUserMap.put("groupUserNo", Integer.parseInt(item.get("groupUserNo")));
+            groupUserMap.put("userId", userId);
+            groupUserMap.put("updateIP", updateIP);
+
+            primarySqlSessionTemplate.update(namespace + ".updateGroupUser", groupUserMap);
+        }
+
+        return "성공";
     }
 }

@@ -118,4 +118,15 @@
         ORDER BY A.insert_dt
     </select>
 
+
+    <update id="updateGroupUser" parameterType="java.util.Map">
+        UPDATE map_group_user
+        SET
+            group_user_rank_cd = #{groupUserRankCd, jdbcType=VARCHAR},
+            update_dt          = CURRENT_TIMESTAMP,
+            update_id          = #{userId, jdbcType=VARCHAR},
+            update_ip          = #{updateIp, jdbcType=VARCHAR}
+        WHERE
+            group_user_no = #{groupUserNo, jdbcType=INTEGER};
+    </update>
 </mapper>

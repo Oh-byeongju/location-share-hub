@@ -82,4 +82,13 @@ public class GroupManageController extends BaseController {
     public List<HashMapResultVO> groupUserSearch(HttpServletRequest request, @RequestBody HashMapStringVO requestMap) {
         return groupManageService.groupUserSearch(requestMap);
     }
+
+    // 그룹원 수정 컨트롤러
+    @RequestMapping("/group-user-update")
+    public String groupUserUpdate(HttpServletRequest request, @RequestBody List<HashMapStringVO> requestMap) {
+        requestMap.get(0).put("userId", BaseController.getLoginId(request));
+        requestMap.get(0).put("updateIP", FrameUtil.getRemoteIP(request));
+
+        return groupManageService.groupUserUpdate(requestMap);
+    }
 }
