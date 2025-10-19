@@ -72,10 +72,10 @@
                 지도 레벨 : 3
             </div>
             <div id="mapLat" class="mapText">
-                중심 위도 : 35.244791
+                중심 위도 : 35.156773
             </div>
             <div id="mapLong" class="mapText">
-                중심 경도 : 129.094453
+                중심 경도 : 129.059111
             </div>
             <div class="buttonArea" style="text-align: right;">
                 <button class="yesButton" id="submitButton" style="margin-right: 5px">

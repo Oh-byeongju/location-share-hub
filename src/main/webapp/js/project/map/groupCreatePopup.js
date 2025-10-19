@@ -7,7 +7,7 @@ function initFrame() {
 $(document).ready(function() {
     const mapContainer = document.getElementById('map'),
         mapOption = {
-            center: new kakao.maps.LatLng(35.244791, 129.094453),
+            center: new kakao.maps.LatLng(35.156773, 129.059111),
             level: 3
         };
 
