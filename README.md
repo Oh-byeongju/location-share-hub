@@ -1,55 +1,33 @@
 ## **1. 프로젝트 개요**
 
 ### 1. **프로젝트 소개**
-- Spring-Boot와 JSP를 이용하여 개발한 위치정보 공유 플랫폼 (내용 검토 필요)
+- Spring Boot와 JSP를 이용하여 개발한 위치정보 공유 플랫폼 프로젝트입니다.
+- 그룹별로 자신만의 맛집이나 관심 장소를 지도 위에 공유해보자는 아이디어로 제작했습니다.
+- GIS 기반 프로젝트를 진행하며 지도 API의 구조와 활용 방식을 직접 이해해보기 위해 개발을 진행했습니다.
 ### 2. **개발 기간**
-- Demo-Version : 2023.01.08 ~ 2023.04.05 (기간 수정 필요)
-- 추가 개발 영어로 : 2023.04.10 ~ 2023.05.30 (기간 수정 필요)
-
----
----
----
-## **1. 프로젝트 개요**
-
-### **1. 프로젝트 소개**
-- Spring Boot와 Next.js를 활용하여 개발한 기술 블로그 미니 프로젝트입니다.
-- 상황에 따라 Next.js의 다양한 렌더링 기법(**SSR, CSR, SSG, ISR**)을 적절히 활용하여 개발을 진행하였습니다.
-
-    <img width="100%" alt="Service" src="https://github.com/user-attachments/assets/34572a47-d028-42d3-b789-71bafbf0bd5c"/>
-
-- **해당 프로젝트는 내부 사용자를 위한 서비스로**, 블로그 내의 모든 기능을 자유롭게 사용할 수 있도록 구성되어 있습니다.
-    
-    <img width="100%" alt="Service" src="https://github.com/user-attachments/assets/3cc00bc4-dd96-4a04-a997-c10dc4eabe6f"/>
-    
-- 외부 사용자용 프로젝트 정보는 [기술 블로그 (외부 사용자)](https://github.com/Oh-byeongju/TechBlog_External)를 참고해주세요.
-### **2. 개발 기간**
-- 2024.08.01 ~ 2024.12.31
+- 핵심 기능: 2023.09.04 ~ 2023.10.27
+- 기능 보완: 2025.10.10 ~ 2025.10.17
 
 ## **2. 기술 및 도구**
 
-### `Frontend`
-- Node.js 20.9
-- Next.js 14.2.5 (App Router)
-- TypeScript
-- Axios
-- Recoil
-- React Query
-### `Backend`
+### `Environment`
 - Java 11
 - Spring Boot 2.7.3
-- Spring Data JPA
+- JSP Template
+- Mybatis
 - Spring Security
 - PostgreSQL
-- JWT
+- Session-based Authentication
 ### `Library / API`
-- OpenAI
-- Milkdown Editor
-- Unsplash
+- CKEditor
+- Kakao Maps API
 ### `Design Tools`
 - Figma
-- Confluence
 - ERDCloud
-  
+
+---
+---
+---
 ## **3. ERD 설계**
 
 <img width="100%" alt="ERD" src="https://github.com/user-attachments/assets/1b6b2a81-91b5-479c-a7cd-f8b98c1b0650"/>
