@@ -25,13 +25,13 @@
 - Figma
 - ERDCloud
 
----
----
----
 ## **3. ERD 설계**
 
-<img width="100%" alt="ERD" src="https://github.com/user-attachments/assets/1b6b2a81-91b5-479c-a7cd-f8b98c1b0650"/>
+<img width="100%" alt="ERD" src="https://github.com/user-attachments/assets/ec5aa1af-03b3-4aec-867e-6a375f726afc"/>
 
+---
+---
+---
 ## **4. 시스템 아키텍처**
 
 <img width="80%" alt="System" src="https://github.com/user-attachments/assets/19bd741a-e8a1-4788-96d5-a36a5dc29991"/>
