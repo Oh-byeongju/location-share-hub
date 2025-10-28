@@ -29,9 +29,11 @@
 <img width="100%" alt="ERD" src="https://github.com/user-attachments/assets/ec5aa1af-03b3-4aec-867e-6a375f726afc"/>
 
 ## **4. 시스템 아키텍처**
-<div align="center" style="margin-bottom: 15px;">
+<div align="center">
     <img width="95%" alt="System" src="https://github.com/user-attachments/assets/e9fe3b75-5c45-4ff0-8679-1dd67c5b4f52"/>
 </div>
+
+<br>
 
 1. 사용자가 Web 환경(`Chrome`, `Edge` 등)에서 URL에 접속하면, 브라우저는 `Tomcat` 서버로 요청을 보냅니다.
 2. 서버는 `Spring Boot` 기반으로 동작하며, JSP 화면을 렌더링하거나 `MyBatis`를 통해 `PostgreSQL` 데이터베이스와 연동하여 필요한 데이터를 조회합니다.
