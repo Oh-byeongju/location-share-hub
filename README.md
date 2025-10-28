@@ -28,23 +28,20 @@
 
 <img width="100%" alt="ERD" src="https://github.com/user-attachments/assets/ec5aa1af-03b3-4aec-867e-6a375f726afc"/>
 
----
----
----
 ## **4. 시스템 아키텍처**
 <div align="center">
-    <img width="90%" alt="System" src="https://github.com/user-attachments/assets/e9fe3b75-5c45-4ff0-8679-1dd67c5b4f52"/>
+    <img width="95%" alt="System" src="https://github.com/user-attachments/assets/e9fe3b75-5c45-4ff0-8679-1dd67c5b4f52"/>
 </div>
 
-&nbsp;&nbsp;
+1. 사용자가 Web 환경(`Chrome`, `Edge` 등)에서 URL에 접속하면, 브라우저는 `Tomcat` 서버로 요청을 보냅니다.
+2. 서버는 `Spring Boot` 기반으로 동작하며, JSP 화면을 렌더링하거나 `MyBatis`를 통해 `PostgreSQL` 데이터베이스와 연동하여 필요한 데이터를 조회합니다.
+3. 렌더링된 화면에서는 `KaKao Map API`를 통해 지도와 좌표 기반 UI를 실시간으로 표시하고, 그룹 정보 및 마커 정보를 조회할 수 있습니다.
+4. 사용자는 `CKEditor 5`를 활용하여 마커에 대한 설명을 조회하거나 작성할 수 있으며, 입력된 데이터는 다시 `Tomcat` 서버로 전송되어 DB에 반영됩니다.
+5. 이렇게, 서버와 클라이언트는 라이브러리를 활용해 지도, 데이터, 텍스트가 자연스럽게 연결되는 Web 환경에서 시스템이 동작합니다.
 
-1. 사용자가 Web 환경(`Chrome`, `Edge` 등)에서 접속합니다.
-   
-2. 프론트엔드 서버는 `Node.js` 런타임 위에서 작동하며, `TypeScript`와 `React` 기반의 `Next.js (App Router)`를 통해  HTML을 생성합니다. 이 과정에서 필요한 데이터는 Axios를 통해 백엔드 API로 요청됩니다.
-3. 백엔드는 `Spring Boot` 서버로 구성되어 있으며, `Apache Tomcat`을 통해 HTTP 요청을 수신합니다. 프론트엔드에서 전달된 API 요청은 Spring MVC, Spring Security를 거쳐 처리됩니다.
-4. 필요한 데이터는 `Spring Data JPA`를 통해 `PostgreSQL` 데이터베이스에서 조회되며, 비즈니스 로직에 따라 가공된 결과가 다시 프론트엔드로 전달됩니다.
-5. 사용자의 요청 중 일부는 `OpenAI API`와 통신해야 할 수도 있습니다. 예를 들어, **GPT 기반의 텍스트 요약 또는 자동 생성 기능** 등이 이에 해당하며, 백엔드는 외부 `OpenAI` 서버에 HTTP 요청을 보내 응답을 받은 뒤 이를 프론트엔드에 반환합니다.
-
+---
+---
+---
 ## 5. 렌더링 구조 및 핵심 기능
 
 ### 1. 렌더링 구조
