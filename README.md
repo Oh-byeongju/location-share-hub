@@ -29,7 +29,7 @@
 <img width="100%" alt="ERD" src="https://github.com/user-attachments/assets/ec5aa1af-03b3-4aec-867e-6a375f726afc"/>
 
 ## **4. 시스템 아키텍처**
-<div align="center">
+<div align="center" style="margin-bottom: 15px;">
     <img width="95%" alt="System" src="https://github.com/user-attachments/assets/e9fe3b75-5c45-4ff0-8679-1dd67c5b4f52"/>
 </div>
 
