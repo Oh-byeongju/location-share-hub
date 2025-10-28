@@ -32,8 +32,9 @@
 ---
 ---
 ## **4. 시스템 아키텍처**
-
-<img width="80%" alt="System" src="https://github.com/user-attachments/assets/e9fe3b75-5c45-4ff0-8679-1dd67c5b4f52"/>
+<div align="center">
+    <img width="90%" alt="System" src="https://github.com/user-attachments/assets/e9fe3b75-5c45-4ff0-8679-1dd67c5b4f52"/>
+</div>
 
 &nbsp;&nbsp;
 
