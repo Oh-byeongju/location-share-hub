@@ -15,7 +15,6 @@
 - Spring Boot 2.7.3
 - JSP Template
 - Mybatis
-- Spring Security
 - PostgreSQL
 - Session-based Authentication
 ### `Library / API`
@@ -34,11 +33,12 @@
 ---
 ## **4. 시스템 아키텍처**
 
-<img width="80%" alt="System" src="https://github.com/user-attachments/assets/19bd741a-e8a1-4788-96d5-a36a5dc29991"/>
+<img width="80%" alt="System" src="https://github.com/user-attachments/assets/e9fe3b75-5c45-4ff0-8679-1dd67c5b4f52"/>
 
 &nbsp;&nbsp;
 
-1. 사용자가 Web 또는 Mobile Web 환경(`Chrome`, `Edge` 등)에서 URL에 접속하면, 브라우저는 `Next.js` 기반 프론트엔드 서버로 요청을 보냅니다.
+1. 사용자가 Web 환경(`Chrome`, `Edge` 등)에서 접속합니다.
+   
 2. 프론트엔드 서버는 `Node.js` 런타임 위에서 작동하며, `TypeScript`와 `React` 기반의 `Next.js (App Router)`를 통해  HTML을 생성합니다. 이 과정에서 필요한 데이터는 Axios를 통해 백엔드 API로 요청됩니다.
 3. 백엔드는 `Spring Boot` 서버로 구성되어 있으며, `Apache Tomcat`을 통해 HTTP 요청을 수신합니다. 프론트엔드에서 전달된 API 요청은 Spring MVC, Spring Security를 거쳐 처리됩니다.
 4. 필요한 데이터는 `Spring Data JPA`를 통해 `PostgreSQL` 데이터베이스에서 조회되며, 비즈니스 로직에 따라 가공된 결과가 다시 프론트엔드로 전달됩니다.
