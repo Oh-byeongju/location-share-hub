@@ -41,101 +41,75 @@
 4. 사용자는 `CKEditor 5`를 활용하여 마커에 대한 설명을 조회하거나 작성할 수 있으며, 입력된 데이터는 다시 `Tomcat` 서버로 전송되어 DB에 반영됩니다.
 5. 이렇게, 서버와 클라이언트는 라이브러리를 활용해 지도, 데이터, 텍스트가 자연스럽게 연결되는 Web 환경에서 시스템이 동작합니다.
 
----
----
----
-## 5. 렌더링 구조 및 핵심 기능
-
-### 1. 렌더링 구조
-
-- 대부분의 페이지는 **CSR (Client Side Rendering)** 방식으로 구현되었습니다.
-- 외부에 공개되지 않고 내부에서만 사용하는 시스템이기 때문에, SEO를 고려할 필요가 없어 **개발 및 사용자 경험이 좋은 CSR** 방식으로 대부분의 페이지를 구현하였습니다.
-- 반면, 기능이 단순하거나 초기 로딩만 필요한 일부 페이지는 **SSR** 방식으로 처리하여 렌더링 효율을 높였습니다.
-
-```tsx
-Route (app)                              Size     First Load JS
-┌ ○ /                                    3.83 kB         160 kB
-├ ○ /_not-found                          883 B          90.3 kB
-├ ƒ /api/allPost                         0 B                0 B
-├ ƒ /api/createPost                      0 B                0 B
-├ ƒ /api/deletePost                      0 B                0 B
-├ ƒ /api/getPostBySlug                   0 B                0 B
-├ ƒ /api/popPost                         0 B                0 B
-├ ƒ /api/search                          0 B                0 B
-├ ƒ /api/signEdit                        0 B                0 B
-├ ƒ /api/signIn                          0 B                0 B
-├ ƒ /api/signUp                          0 B                0 B
-├ ƒ /api/updateImage                     0 B                0 B
-├ ƒ /board/[slug]                        7.72 kB         300 kB
-├ ƒ /board/[slug]/edit                   1.05 kB         293 kB
-├ ○ /board/new                           3.07 kB         261 kB
-└ ƒ /board/search/[keyword]              3.11 kB         159 kB
-
-- First Load JS shared by all 89.5 kB
-├ chunks/2117-1e97556394822c23.js 31.7 kB
-├ chunks/fd9d1056-cd655eb3e6ad1550.js 53.7 kB
-└ other shared chunks (total) 4.06 kB
-
-ƒ Middleware                             27 kB
-○  (Static)   prerendered as static content
-ƒ  (Dynamic)  server-rendered on demand
-```
-
-### 2. 핵심 기능
-
-- 반응형 웹과 다크 모드를 포함하여, 사용자 경험(UX)을 향상시킬 수 있는 기능을 제공합니다.
-- 게시물 작성 시, OpenAI API를 활용하여 내용을 자동 요약하고 관련 해시태그를 생성한 뒤, 이를 메타데이터와 함께 저장합니다.
-- 게시물은 `.md` 형식으로 저장되며, 상단에 메타 정보를 포함해 검색, 조회, 렌더링 등 다양한 용도로 효율적으로 활용됩니다.
-
-## 6. 사용자 요청 흐름
+## **5. 사용자 요청 흐름**
 
 <div align="center">
-  <img width="85%" alt="Flow" src="https://github.com/user-attachments/assets/7ce83aa4-32cd-45a6-87f0-85342663c919" />
+  <img width="85%" alt="Flow" src="https://github.com/user-attachments/assets/982e9546-ac5e-4941-a063-b8a3d1d94547" />
 </div>
 
-1. 사용자의 모든 요청은 `Next.js` 미들웨어를 거칩니다.
-2. 미들웨어에서는 쿠키에 저장된 JWT 토큰(`AccessToken`)을 읽어, `Authorization` 헤더에 추가합니다.
-3. 이후, 백엔드(Spring Boot) API 서버로 **요청을 리다이렉트**하면서, 필요한 헤더 정보들을 함께 전달합니다.
+1. 사용자의 모든 요청은 `DispatcherServlet`을 거쳐 `Interceptor`를 통과한 뒤 `Controller`로 전달됩니다.
+2. 로그인한 사용자만 접근할 수 있는 영역을 명확히 구분하였으며, 접근 허용 URL은 `properties` 설정값을 통해 유지보수성과 확장성을 높였습니다.
+3. JSP Template 기반 구조이므로, 정적 화면이든 동적 데이터 요청이든 반드시 WAS를 경유합니다. 이로 인해 매 요청마다 세션 상태를 확인할 수 있어, Interceptor 기반의 인증 구조를 적용하기에 적합하였습니다.
+4. Spring Security를 사용해도 동일한 기능을 구현할 수 있으나, 프로젝트 규모가 크지 않고 인증 로직이 단순하여 Spring Interceptor 필터 기반으로 구현하는 방식을 선택했습니다.
 
-```tsx
-import {type NextRequest, NextResponse} from "next/server";
+```java
+package com.lsh.framework;
 
-import {EJWT} from "@/types/enums/common-enum";
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
-// 프록시 조건
-export const config = {
-  matcher: "/APICALL/:path*", // Match all requests under /APICALL
-};
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-export function middleware(request: NextRequest) {
-  const authToken = request.cookies.get(EJWT.AccessToken)?.value || '';
+/**
+ * Spring MVC Interceptor
+ */
+@Slf4j
+public class FrameHandlerInterceptor implements HandlerInterceptor {
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        HttpSession session = request.getSession();
 
-  const originalPathname = request.nextUrl.pathname;
-  const newPathname = originalPathname.startsWith('/APICALL')
-      ? originalPathname.substring('/APICALL'.length)
-      : originalPathname;
+        // 로그인 정보 있으면 /main, 로그인 정보 없으면 /login
+        if (request.getRequestURI().equals("/")) {
+            if (session != null) {
+                Object obj = session.getAttribute(FrameConstants.LOGIN_USER_ATTR);
+                if (obj != null) {
+                    response.sendRedirect(request.getContextPath() + "/main");
+                }
+                else {
+                    response.sendRedirect(request.getContextPath() + "/login");
+                }
+            }
+            else {
+                response.sendRedirect(request.getContextPath() + "/login");
+            }
+            return true;
+        }
 
-  // 새로운 요청 헤더 설정
-  const requestHeaders = new Headers(request.headers);
+        // 로그인 정보를 확인하고 존재하면 Controller로 전달
+        if (session != null) {
+            Object obj = session.getAttribute(FrameConstants.LOGIN_USER_ATTR);
+            if (obj != null) {
+                return true;
+            }
+        }
 
-  // Authorization 헤더 추가
-  if (authToken) {
-      requestHeaders.set('Authorization', `Bearer ${authToken}`);
-  }
+        // 로그인 정보가 없으면 리다이렉션
+        response.sendRedirect(request.getContextPath() + "/login");
+        return true;
+    }
 
-  // API 주소로 프록시하면서 새로운 요청 헤더 설정
-  return NextResponse.rewrite(
-      new URL(`${process.env.NEXT_PUBLIC_REAL_SVR_BASE_URL}${newPathname}${request.nextUrl.search}`, request.url),
-      {
-          request: {
-              headers: requestHeaders,
-          },
-      }
-  );
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+
+    }
 }
 ```
 
-## **7. 기능 소개 Wiki**
+## **6. 기능 소개 Wiki**
 
 **1️⃣ 메인화면 - [상세보기](https://github.com/Oh-byeongju/TechBlog_Internal/wiki/1.-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4)**
 
