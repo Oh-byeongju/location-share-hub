@@ -111,42 +111,44 @@ public class FrameHandlerInterceptor implements HandlerInterceptor {
 
 ## **6. 기능 소개 Wiki**
 
-**1️⃣ 메인화면 - [상세보기](https://github.com/Oh-byeongju/TechBlog_Internal/wiki/1.-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4)**
-
-```
-- 인기 게시물 조회
-- 전체 게시물 조회
-- 다크모드 지원
-- 반응형 웹 지원
-- 게시물 검색
-```
-
-**2️⃣ 회원 - [상세보기](https://github.com/Oh-byeongju/TechBlog_Internal/wiki/2.-%ED%9A%8C%EC%9B%90)**
+**1️⃣ 회원 - [상세보기](https://github.com/Oh-byeongju/TechBlog_Internal/wiki/1.-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4)**
 
 ```
 - 회원가입
-- 로그인 (JWT 기반)
+- 로그인 (세션 기반)
 - 회원정보 수정
-- 내가 쓴 게시물 조회
 ```
 
-**3️⃣ 게시물 - [상세보기](https://github.com/Oh-byeongju/TechBlog_Internal/wiki/3.-%EA%B2%8C%EC%8B%9C%EB%AC%BC)**
+**2️⃣ 그룹 - [상세보기](https://github.com/Oh-byeongju/TechBlog_Internal/wiki/2.-%ED%9A%8C%EC%9B%90)**
 
 ```
-- 게시물 상세조회
-- 개시물 공감
-- 게시물 작성, 수정, 삭제
-- 댓글 작성, 삭제
+- 가입된 그룹 조회
+- 전체 그룹 조회
+- 그룹 가입, 탈퇴
+- 그룹 생성, 수정, 삭제
+- 그룹원 관리
 ```
 
-**4️⃣ AI - [상세보기](https://github.com/Oh-byeongju/TechBlog_Internal/wiki/4.-AI)**
+**3️⃣ 메인화면 - [상세보기](https://github.com/Oh-byeongju/TechBlog_Internal/wiki/3.-%EA%B2%8C%EC%8B%9C%EB%AC%BC)**
 
 ```
-- 사용자가 작성한 게시물 요약
-- 게시물 내용을 기반으로 한 해시태그 추출
+- 그룹 지도 조회
+- 그룹 정보 조회
+- 마커 목록 조회
+- 마커 상세정보 조회
+- 마커 생성, 수정, 삭제
+- 마커 즐겨찾기
 ```
 
-## **8. 개선사항 및 향후 개발 계획**
+**4️⃣ 리뷰 - [상세보기](https://github.com/Oh-byeongju/TechBlog_Internal/wiki/4.-AI)**
+
+```
+- 리뷰 목록 조회
+- 리뷰 작성, 삭제
+- 리뷰 공감
+```
+
+## **7. 개선사항 및 향후 개발 계획**
 
 ### 1. 에디터 기능 강화
 - 이미지 첨부 시 드래그 앤 드롭 및 복사-붙여넣기 지원
@@ -166,7 +168,7 @@ public class FrameHandlerInterceptor implements HandlerInterceptor {
 ### 4. AI 기능 비동기화
 - 게시물 작성 시 ChatGPT 요약 및 태그 생성을 비동기 처리로 전환하여 사용자 경험 개선
 
-## **9. 개발 후기**
+## **8. 개발 후기**
 
 **✏️ 프로젝트에 대한 후기 및 느낀점입니다.**
 
