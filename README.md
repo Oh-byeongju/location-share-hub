@@ -44,13 +44,13 @@
 ## **5. 사용자 요청 흐름**
 
 <div align="center">
-  <img width="85%" alt="Flow" src="https://github.com/user-attachments/assets/982e9546-ac5e-4941-a063-b8a3d1d94547" />
+  <img width="90%" alt="Flow" src="https://github.com/user-attachments/assets/982e9546-ac5e-4941-a063-b8a3d1d94547" />
 </div>
 
 1. 사용자의 모든 요청은 `DispatcherServlet`을 거쳐 `Interceptor`를 통과한 뒤 `Controller`로 전달됩니다.
-2. 로그인한 사용자만 접근할 수 있는 영역을 명확히 구분하였으며, 접근 허용 URL은 `properties` 설정값을 통해 유지보수성과 확장성을 높였습니다.
-3. JSP Template 기반 구조이므로, 정적 화면이든 동적 데이터 요청이든 반드시 WAS를 경유합니다. 이로 인해 매 요청마다 세션 상태를 확인할 수 있어, Interceptor 기반의 인증 구조를 적용하기에 적합하였습니다.
-4. Spring Security를 사용해도 동일한 기능을 구현할 수 있으나, 프로젝트 규모가 크지 않고 인증 로직이 단순하여 Spring Interceptor 필터 기반으로 구현하는 방식을 선택했습니다.
+2. 로그인한 사용자만 접근할 수 있는 영역을 명확히 구분하였으며, 접근 허용 URL은 `properties`설정값을 통해 유지보수성과 확장성을 높였습니다.
+3. `JSP Template`기반 구조이므로, 정적 화면이든 동적 데이터 요청이든 반드시 WAS를 경유합니다. 이로 인해 매 요청마다 세션 상태를 확인할 수 있어, `Interceptor`기반의 인증 구조를 적용하기에 적합하였습니다.
+4. `Spring Security`를 사용해도 동일한 기능을 구현할 수 있으나, 프로젝트 규모가 크지 않고 인증 로직이 단순하여 `Spring Interceptor`필터 기반으로 구현하는 방식을 선택했습니다.
 
 ```java
 package com.lsh.framework;
