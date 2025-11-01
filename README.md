@@ -111,7 +111,7 @@ public class FrameHandlerInterceptor implements HandlerInterceptor {
 
 ## **6. 기능 소개 Wiki**
 
-**1️⃣ 회원 - [상세보기](https://github.com/Oh-byeongju/TechBlog_Internal/wiki/1.-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4)**
+**1️⃣ 회원 - [상세보기](https://github.com/Oh-byeongju/location-share-hub/wiki/1.-%ED%9A%8C%EC%9B%90)**
 
 ```
 - 회원가입
@@ -119,28 +119,27 @@ public class FrameHandlerInterceptor implements HandlerInterceptor {
 - 회원정보 수정
 ```
 
-**2️⃣ 그룹 - [상세보기](https://github.com/Oh-byeongju/TechBlog_Internal/wiki/2.-%ED%9A%8C%EC%9B%90)**
+**2️⃣ 그룹 - [상세보기](https://github.com/Oh-byeongju/location-share-hub/wiki/2.-%EA%B7%B8%EB%A3%B9)**
 
 ```
-- 가입된 그룹 조회
 - 전체 그룹 조회
+- 가입된 그룹 조회
 - 그룹 가입, 탈퇴
 - 그룹 생성, 수정, 삭제
 - 그룹원 관리
 ```
 
-**3️⃣ 메인화면 - [상세보기](https://github.com/Oh-byeongju/TechBlog_Internal/wiki/3.-%EA%B2%8C%EC%8B%9C%EB%AC%BC)**
+**3️⃣ 메인화면 - [상세보기](https://github.com/Oh-byeongju/location-share-hub/wiki/3.-%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4)**
 
 ```
 - 그룹 지도 조회
 - 그룹 정보 조회
-- 마커 목록 조회
 - 마커 상세정보 조회
 - 마커 생성, 수정, 삭제
 - 마커 즐겨찾기
 ```
 
-**4️⃣ 리뷰 - [상세보기](https://github.com/Oh-byeongju/TechBlog_Internal/wiki/4.-AI)**
+**4️⃣ 리뷰 - [상세보기](https://github.com/Oh-byeongju/location-share-hub/wiki/4.-%EB%A6%AC%EB%B7%B0)**
 
 ```
 - 리뷰 목록 조회
